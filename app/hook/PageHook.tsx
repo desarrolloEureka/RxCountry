@@ -1,12 +1,10 @@
 'use client';
-import React, { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import useAuth from '@/firebase/auth';
 
 const PageHook = () => {
   const router = useRouter();
-  const getUser = false;
-  // const [user, setUser] = useState(false);
   const { user, isLoading } = useAuth();
 
   useLayoutEffect(() => {
