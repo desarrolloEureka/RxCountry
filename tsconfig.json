@@ -24,7 +24,10 @@
       "@/firebase/*": ["app/firebase/*"],
       "@/data/*": ["app/data/*"],
       "@/hook/*": ["app/hook/*"],
-      "@/queries/*": ["app/queries/*"]
+      "@/queries/*": ["app/queries/*"],
+      "@/config/*": ["app/config/*"],
+      "@/assets/*": ["./public/assets/*"],
+      "@/globals/*": ["app/globals/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

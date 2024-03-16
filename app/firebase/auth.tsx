@@ -40,9 +40,11 @@ const useAuth = () => {
       unsubscribe();
     };
   }, []);
+
   //   useEffect(() => {
   //     getRole();
   //   }, [getRole]);
+
   useEffect(() => {
     if (user !== undefined) {
       setIsLoading(false);

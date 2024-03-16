@@ -4,13 +4,13 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 const firebaseConfig = {
-  apiKey: 'AIzaSyDpxXqyKoVHPqxGgyYegOuuJzmWgQwudA0',
-  authDomain: 'tenplus-36eb2.firebaseapp.com',
-  projectId: 'tenplus-36eb2',
-  storageBucket: 'tenplus-36eb2.appspot.com',
-  messagingSenderId: '52802872653',
-  appId: '1:52802872653:web:f0ffcbca64b9cdc4e5c304',
-  measurementId: 'G-MN7GX9SFWX',
+  apiKey: 'AIzaSyC2yJFccHS8v9EFAuhJNS3XT5kFY2znL38',
+  authDomain: 'rxcountry-backoffice.firebaseapp.com',
+  projectId: 'rxcountry-backoffice',
+  storageBucket: 'rxcountry-backoffice.appspot.com',
+  messagingSenderId: '150291031577',
+  appId: '1:150291031577:web:0b17b2757cecf3f6a6ac88',
+  measurementId: 'G-NVG2EXRMDV',
 };
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 

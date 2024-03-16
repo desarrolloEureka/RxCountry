@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Spinner = ({ visual, grow }: { visual?: boolean; grow?: boolean }) => {
   const type = grow ? 'spinner-grow' : 'spinner-border';
   return (

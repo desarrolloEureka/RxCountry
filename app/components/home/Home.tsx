@@ -1,32 +1,22 @@
 'use client';
-import useAuth from '@/firebase/auth';
-import { signOut } from 'firebase/auth';
-import { useEffect } from 'react';
-import { auth } from 'shared/firebase/firebase';
-import { useRouter } from 'next/navigation';
-import Spinner from '../spinner/Spinner';
+import HomeHook from '@/components/home/hook/HomeHook';
+import Spinner from '@/components/spinner/Spinner';
+import { Container } from 'react-bootstrap';
+import DataTableComponent from '../dataTable/DataTableComponent';
+import BannerMenu from '../bannerMenu/BannerMenu';
+import Header from '../header/Header';
 
 const Home = () => {
-  const router = useRouter();
-  const { user, isLoading } = useAuth();
-  const logOut = () => {
-    signOut(auth);
-  };
-
-  useEffect(() => {
-    if (!isLoading && !user) {
-      router.replace('/components/signup');
-    }
-  }, [isLoading, router, user]);
+  const { isLoading } = HomeHook();
 
   return isLoading ? (
     <Spinner />
   ) : (
-    <div>
-      <a href='#' onClick={logOut}>
-        Salir
-      </a>
-    </div>
+    <Container fluid className='tw-px-10 tw-mt-14'>
+      <Container fluid className='tw-px-20'>
+        <Header />
+      </Container>
+    </Container>
   );
 };
 

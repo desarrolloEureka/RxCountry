@@ -10,7 +10,7 @@ const PageHook = () => {
   useLayoutEffect(() => {
     user && !isLoading
       ? router.replace('/components/home')
-      : router.replace('/components/signup');
+      : router.replace('/components/signIn');
   }, [isLoading, router, user]);
 
   return { user };
