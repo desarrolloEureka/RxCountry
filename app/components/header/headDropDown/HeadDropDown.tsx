@@ -1,4 +1,4 @@
-import { Badge, Dropdown, Form, InputGroup, Nav } from 'react-bootstrap';
+import { Dropdown, Form, InputGroup, Nav } from 'react-bootstrap';
 import {
   image_flag1,
   image_flag2,
@@ -6,87 +6,47 @@ import {
   image_flag4,
   image_flag5,
 } from '@/globals/images';
-import SelectOptions from '../data/headerData';
+import SelectOptions, { HeaderDropDownProps, Notify } from '@/data/header';
 import { useState } from 'react';
 import SimpleBar from 'simplebar-react';
 import Link from 'next/link';
-
-let Notify = [
-  {
-    id: 1,
-    online: 'avatar avatar-md online br-5',
-    image: `/assets/images/faces/5.jpg`,
-    text1: 'Congratulate',
-    text2: 'Olivia James',
-    text3: 'for New template start',
-    date: 'Oct 15 12:32pm',
-    status: '',
-    bg: '',
-    proid: '',
-  },
-  {
-    id: 2,
-    online: 'avatar avatar-md offline br-5',
-    image: `/assets/images/faces/2.jpg`,
-    text2: 'Joshua Gray ',
-    text3: 'New Message Received',
-    date: 'Oct 13 02:56am',
-    status: '',
-    bg: '',
-    proid: '',
-  },
-  {
-    id: 3,
-    online: 'avatar avatar-md online br-5',
-    image: `/assets/images/faces/3.jpg`,
-    text2: 'Elizabeth Lewis ',
-    text3: 'added new schedule realease',
-    date: 'Oct 12 10:40pm',
-    status: '',
-    bg: '',
-    proid: '',
-  },
-  {
-    id: 4,
-    online: 'avatar avatar-md online br-5',
-    image: `/assets/images/faces/5.jpg`,
-    text1: 'Delivered Successful to ',
-    text2: 'Micky',
-    status: 'Order ',
-    bg: 'text-warning',
-    proid: 'ID: #005428',
-    date: ' had been placed ',
-  },
-  {
-    id: 5,
-    online: 'avatar avatar-md offline br-5',
-    image: `/assets/images/faces/1.jpg`,
-    text1: 'You got 22 requests form Facebook',
-    text2: ' ',
-    text3: '',
-    status: ' ',
-    bg: '',
-    proid: '',
-    date: 'Today at 08:08pm',
-  },
-];
-export interface HeaderDropDownProps {
-  fulScreen?: boolean;
-  dark?: boolean;
-  multiLingual?: boolean;
-  notifications?: boolean;
-  logOut: () => void;
-}
+import { LocalVariable } from '@/types/global';
 
 const HeadDropDown = (params: HeaderDropDownProps) => {
   const [notifications, setNotifications] = useState([...Notify]);
+  // console.log('localVariable>>>', localVariable);
+  const handleToggleDark = () => {
+    const localVariable = localStorage.getItem('@theme');
+    console.log('localVariable', localVariable);
+
+    // console.log('localVariableClone', localVariableClone);
+    if (localVariable) {
+      const localVariableClone = {
+        ...JSON.parse(localVariable),
+      } as LocalVariable;
+
+      if (localVariableClone.dataThemeMode === 'light') {
+        localVariableClone.dataThemeMode = 'dark';
+      } else {
+        localVariableClone.dataThemeMode = 'light';
+      }
+      document.documentElement.setAttribute(
+        'data-theme-mode',
+        localVariableClone.dataThemeMode
+      );
+
+      console.log('localVariableClone', localVariableClone);
+      localStorage.setItem('@theme', JSON.stringify(localVariableClone));
+    }
+  };
+
   return (
     <>
       {params.dark && (
         <Dropdown className='header-element header-theme-mode'>
           <Nav.Link
             className='header-link layout-setting'
-            // onClick={() => ToggleDark()}
+            onClick={handleToggleDark}
           >
             <span className='dark-layout'>
               <i className='fe fe-sun header-link-icon'></i>
@@ -97,7 +57,7 @@ const HeadDropDown = (params: HeaderDropDownProps) => {
           </Nav.Link>
         </Dropdown>
       )}
-      {params.multiLingual && (
+      {!params.multiLingual && (
         <Dropdown className='header-element country-selector'>
           <Dropdown.Toggle
             className='nav-link icon country-Flag p-0'
@@ -189,7 +149,6 @@ const HeadDropDown = (params: HeaderDropDownProps) => {
           </InputGroup>
         </Dropdown.Menu>
       </Dropdown>
-
       {params.notifications && (
         <Dropdown className='header-element notifications-dropdown'>
           <Dropdown.Toggle
@@ -300,8 +259,7 @@ const HeadDropDown = (params: HeaderDropDownProps) => {
           </Dropdown.Menu>
         </Dropdown>
       )}
-
-      <Dropdown className='header-element country-selector'>
+      <Dropdown className='header-element logout-selector'>
         <Dropdown.Toggle
           className='nav-link icon country-Flag p-0'
           variant=''

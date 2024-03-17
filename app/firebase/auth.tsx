@@ -1,7 +1,6 @@
-import { db, auth } from 'shared/firebase/firebase';
 import { User, onAuthStateChanged } from 'firebase/auth';
-import { DocumentReference, doc, getDoc } from 'firebase/firestore';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { auth } from 'shared/firebase/firebase';
 interface Role {
   id: string;
   name: string;
@@ -46,6 +45,8 @@ const useAuth = () => {
   //   }, [getRole]);
 
   useEffect(() => {
+    console.log('user', user);
+
     if (user !== undefined) {
       setIsLoading(false);
     }

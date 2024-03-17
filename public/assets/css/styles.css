@@ -1804,6 +1804,12 @@ Width
   svg:hover {
   background-color: #f0f1ff;
 }
+[data-header-styles='light']
+  .main-header-container
+  .logout-selector
+  svg:hover {
+  background-color: #f0f1ff;
+}
 
 [data-header-styles='dark'] {
   --header-bg: var(--custom-white);
@@ -1860,6 +1866,9 @@ Width
   background-color: rgba(255, 255, 255, 0.1);
 }
 [data-header-styles='dark'] .main-header-container .country-selector svg:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+[data-header-styles='dark'] .main-header-container .logout-selector svg:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 [data-header-styles='dark'][data-theme-mode='light'] {
@@ -1926,6 +1935,12 @@ Width
   svg:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
+[data-header-styles='color']
+  .main-header-container
+  .logout-selector
+  svg:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
 
 [data-header-styles='gradient'] {
   --header-bg: linear-gradient(to right, var(--primary-color) 0%, #3487d2 100%);
@@ -1984,6 +1999,12 @@ Width
 [data-header-styles='gradient']
   .main-header-container
   .country-selector
+  svg:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+[data-header-styles='gradient']
+  .main-header-container
+  .logout-selector
   svg:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
@@ -30225,6 +30246,9 @@ pre .tag {
 .main-header-container .country-selector svg:hover {
   background-color: rgb(var(--light-rgb));
 }
+.main-header-container .logout-selector svg:hover {
+  background-color: rgb(var(--light-rgb));
+}
 .main-header-container .dropdown-toggle {
   text-decoration: none;
 }
@@ -30391,8 +30415,19 @@ pre .tag {
   width: 1rem;
   height: 1rem;
 }
-
 /* End::header-country-selector */
+
+/* Start::header-logout-selector */
+.logout-selector .header-link img {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.logout-selector .dropdown-menu img {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* End::header-logout-selector */
 /* Start:header dropdowns scroll */
 #header-shortcut-scroll,
 #header-notification-scroll,
@@ -52688,5 +52723,7 @@ pre.card-body.collapse {
 [dir='rtl'] .slide.has-sub.open > .side-menu__item .side-menu__angle {
   transform: rotate(270deg);
 }
+
+
 
 /*# sourceMappingURL=styles.css.map */

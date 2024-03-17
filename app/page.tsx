@@ -4,6 +4,7 @@ import Spinner from './components/spinner/Spinner';
 
 const page = () => {
   PageHook();
+
   return <Spinner grow />;
 };
 

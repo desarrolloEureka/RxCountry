@@ -16,7 +16,7 @@ import SignInHook from './hook/SignInHook';
 import Spinner from '../spinner/Spinner';
 import { globalConfig } from '@/config/globalConfig';
 import { FontAwesome } from 'react-web-vector-icons';
-import { logo_light, user_logo, main_logo } from '@/globals/images';
+import { logo_light, user_logo, main_logo_dark } from '@/globals/images';
 
 const SingIn = () => {
   const {
@@ -47,7 +47,7 @@ const SingIn = () => {
               >
                 <div className='mt-5 pt-4 p-2 position-absolute'>
                   <img
-                    src={main_logo.src}
+                    src={main_logo_dark.src}
                     className='header-brand-img mb-4'
                     alt='logo-light'
                   />
@@ -66,7 +66,7 @@ const SingIn = () => {
                   <Row className='row-sm'>
                     <Card.Body className='mt-2 mb-2'>
                       <img
-                        src={main_logo.src}
+                        src={main_logo_dark.src}
                         className=' d-lg-none header-brand-img text-start float-start mb-4 auth-light-logo'
                         alt='logo'
                       />

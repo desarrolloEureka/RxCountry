@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 // import './globals.css';
+import { globalConfig } from '@/config/globalConfig';
+import '../public/assets/css/icons.css';
 import '../styles/globals.scss';
 import './input.css';
-import '../public/assets/css/icons.css';
-import { globalConfig } from '@/config/globalConfig';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: globalConfig.name,
   description: globalConfig.description,
   icons: {
-    icon: './favicon.ico', // /public path
+    icon: globalConfig.icon, // /public path
   },
 };
 

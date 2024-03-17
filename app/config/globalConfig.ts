@@ -1,6 +1,7 @@
 export const globalConfig = {
   primary: '0,0,0',
   name: 'Ten',
+  icon: './favicon.ico',
   description: 'Descripcipon global de la aplicación',
   login: {
     banner: {

@@ -1,6 +1,4 @@
-import React from 'react';
 import PageHeader from '../page-header';
-import Seo from 'shared/layout-components/seo/seo';
 
 export interface BannerMenuParams {
   seoTitle: string;
@@ -12,7 +10,6 @@ export interface BannerMenuParams {
 const BannerMenu = (params: BannerMenuParams) => {
   return (
     <>
-      <Seo title={params.seoTitle} />
       <PageHeader
         title={params.title}
         item={params.item}
