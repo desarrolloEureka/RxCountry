@@ -5,7 +5,12 @@ import { ModalParamsPdf } from '@/types/modals';
 import dynamic from 'next/dynamic';
 const Select = dynamic(() => import('react-select'), { ssr: false });
 
-const FormModal = ({ handleShowPdf, setHandleShowPdf }: ModalParamsPdf) => {
+const FormModal = ({
+  handleShowPdf,
+  setHandleShowPdf,
+  title,
+  reference,
+}: ModalParamsPdf) => {
   const {
     currentDate,
     show,
@@ -20,13 +25,13 @@ const FormModal = ({ handleShowPdf, setHandleShowPdf }: ModalParamsPdf) => {
     setErrorForm,
     suppliers,
     selectChangeHandler,
-  } = FormModalHook({ handleShowPdf, setHandleShowPdf });
+  } = FormModalHook({ handleShowPdf, setHandleShowPdf, title, reference });
 
   return (
     suppliers && (
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title as='h6'>Crear cupones masivos desde PDF</Modal.Title>
+          <Modal.Title as='h6'>{`Crear ${title} masivos desde PDF`}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>

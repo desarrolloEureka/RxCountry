@@ -1,17 +1,23 @@
-import { CouponsById, DataObject, ErrorData } from '@/types/coupons';
+import { DocumentsById, DataObject, ErrorData } from '@/types/documents';
 import {
-  getAllCouponsFb,
-  getCouponsByIdFb,
-  saveCouponsFb,
-  updateCouponsByIdFb,
-} from '@/firebase/coupons';
+  getAllDocumentsFb,
+  getDocumentsByIdFb,
+  saveDocumentsFb,
+  updateDocumentsByIdFb,
+} from '@/firebase/Documents';
 import { uploadFiles } from '@/firebase/files';
-import { saveFilesCouponsQueryProps } from '@/types/files';
+import { saveFilesDocumentsQueryProps } from '@/types/files';
 
-export const saveCouponsQuery = async ({ data }: { data: DataObject[] }) => {
+export const saveDocumentsQuery = async ({
+  data,
+  reference,
+}: {
+  data: DataObject[];
+  reference: string;
+}) => {
   let dataError: ErrorData[] = [];
   for (const record of data) {
-    const queryResult = await saveCouponsFb(record);
+    const queryResult = await saveDocumentsFb(record, reference);
     if (queryResult) {
       dataError.push({ success: true, code: record.code });
     } else {
@@ -21,11 +27,11 @@ export const saveCouponsQuery = async ({ data }: { data: DataObject[] }) => {
   return dataError;
 };
 
-export const saveFilesCouponsQuery = async ({
+export const saveFilesDocumentsQuery = async ({
   code,
   record,
   data,
-}: saveFilesCouponsQueryProps) => {
+}: saveFilesDocumentsQueryProps) => {
   let dataError: ErrorData[] = [];
   const queryResult = await uploadFiles({
     folder: data.supplier.toLowerCase(),
@@ -40,44 +46,51 @@ export const saveFilesCouponsQuery = async ({
   return dataError;
 };
 
-export const getAllCouponsQuery = async () => {
-  const coupons: DataObject[] = [];
-  const querySnapshot = await getAllCouponsFb();
+export const getAllDocumentsQuery = async () => {
+  const documents: DataObject[] = [];
+  const querySnapshot = await getAllDocumentsFb();
   if (!querySnapshot.empty) {
     querySnapshot.forEach((doc: any) => {
       const dataResult = doc.data() as DataObject;
-      coupons.push(dataResult);
+      documents.push(dataResult);
     });
   }
-  return coupons;
+  return documents;
 };
 
-export const getCouponsByIdQuery = async (
+export const getDocumentsByIdQuery = async (
   id: string,
   date: number,
-  saleLimit: number | undefined
+  saleLimit: number | undefined,
+  reference: string
 ) => {
-  // const coupons: DataObject[] = [];
   const dataResultArray: { id: string; coupon: DataObject }[] = [];
-  const querySnapshot = await getCouponsByIdFb(id, date, saleLimit);
+  const querySnapshot = await getDocumentsByIdFb(
+    id,
+    date,
+    saleLimit,
+    reference
+  );
   if (querySnapshot) {
     querySnapshot.forEach((doc: any) => {
       const dataResult = doc.data() as DataObject;
-      dataResultArray.push({ id: doc.id, coupon: dataResult } as CouponsById);
+      dataResultArray.push({ id: doc.id, coupon: dataResult } as DocumentsById);
     });
   }
   return dataResultArray;
 };
 
-export const saveSoldCouponsQuery = async ({
+export const saveSoldDocumentsQuery = async ({
   data,
   id,
+  reference,
 }: {
   id: string;
   data: DataObject;
+  reference: string;
 }) => {
   let dataError: ErrorData[] = [];
-  const queryResult = await updateCouponsByIdFb(id, data);
+  const queryResult = await updateDocumentsByIdFb(id, data, reference);
   console.log('queryResult', queryResult);
 
   // if (queryResult) {

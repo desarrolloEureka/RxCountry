@@ -18,7 +18,7 @@ export type DataObject = {
 };
 
 export type ErrorData = { success: boolean; code: string };
-export interface CouponsById {
+export interface DocumentsById {
   id: string;
   coupon: DataObject;
 }

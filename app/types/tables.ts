@@ -1,4 +1,4 @@
-import { DataObject } from './coupons';
+import { DataObject } from './documents';
 
 export interface UploadDataModalProps {
   onUploadDataModalPdf?: () => void;
@@ -47,7 +47,8 @@ export interface TableDataItem {
 export interface DataTableComponentProps {
   componentTitle?: string;
   componentDescription?: string;
-  tableTitle?: string;
+  tableTitle: string;
+  reference: string;
 }
 
 export interface CSVRow {

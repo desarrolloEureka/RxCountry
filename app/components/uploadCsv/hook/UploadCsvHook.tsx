@@ -1,16 +1,17 @@
 'use client';
+import { dataObject } from '@/data/documentsData';
+import { saveDocumentsQuery } from '@/queries/documentsQueries';
+import { DataObject, ErrorData } from '@/types/documents';
+import { ModalParamsCsv } from '@/types/modals';
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useCSVReader } from 'react-papaparse';
 import { DEFAULT_REMOVE_HOVER_COLOR } from '../styles/stylesUploadCsv';
-import { saveCouponsQuery } from '@/queries/couponsQueries';
-import { dataObject } from '@/data/couponsData';
-import { DataObject, ErrorData } from '@/types/coupons';
-import { ModalParamsCsv } from '@/types/modals';
-import moment from 'moment';
 
 const UploadDocumentHook = ({
   handleShowCsv,
   setHandleShowCsv,
+  reference,
 }: ModalParamsCsv) => {
   const { CSVReader } = useCSVReader();
   const [zoneHover, setZoneHover] = useState(false);
@@ -44,7 +45,7 @@ const UploadDocumentHook = ({
       data.push(currentDataObject);
     });
 
-    saveCouponsQuery({ data })
+    saveDocumentsQuery({ data, reference })
       .then((result: ErrorData[]) => {
         setErrorDataUpload(result);
         const errorFound = result.find((value) => !value.success);

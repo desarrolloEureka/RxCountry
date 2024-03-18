@@ -1,13 +1,12 @@
 'use client';
 import { dataSalesObject } from '@/data/salesData';
 import {
-  getAllCouponsQuery,
-  getCouponsByIdQuery,
-  saveSoldCouponsQuery,
-} from '@/queries/couponsQueries';
+  getDocumentsByIdQuery,
+  saveSoldDocumentsQuery,
+} from '@/queries/documentsQueries';
 import { getAllCustomersQuery } from '@/queries/customersQueries';
 import { getAllSupplierQuery } from '@/queries/suppliersQueries';
-import { CouponsById, DataObject } from '@/types/coupons';
+import { DocumentsById } from '@/types/documents';
 import { CustomersSelector } from '@/types/customers';
 import { ModalParamsSales } from '@/types/modals';
 import { SuppliersSelector } from '@/types/suppliers';
@@ -18,6 +17,7 @@ let count = 1;
 const SalesHook = ({
   handleShowSales,
   setHandleShowSales,
+  reference,
 }: ModalParamsSales) => {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +29,8 @@ const SalesHook = ({
   const [rangeDays, setRangeDays] = useState(100);
   const [stepsDays, setStepsDays] = useState(10);
   const [saleLimit, setSaleLimit] = useState<number | undefined>();
-  const [dataCouponsToSel, setDataCouponsToSel] = useState<CouponsById[]>();
+  const [dataDocumentsToSel, setDataDocumentsToSel] =
+    useState<DocumentsById[]>();
   const [errorValid, setErrorValid] = useState('');
   // const currentDate = moment().format('DD-MM-YYYY');
   const currentDate = moment().valueOf();
@@ -42,20 +43,21 @@ const SalesHook = ({
     if (dateRange && nextDate && data.supplier) {
       const nextDateFormat = moment(nextDate).format('YYYY-MM-DD');
       const nextDateIso = moment(nextDateFormat).valueOf();
-      const coupons = await getCouponsByIdQuery(
+      const documents = await getDocumentsByIdQuery(
         data.supplier_code,
         nextDateIso,
-        saleLimit
+        saleLimit,
+        reference
       );
 
-      coupons.map((val) => {
+      documents.map((val) => {
         val.coupon.sold = data.sold;
         val.coupon.date_sold = currentDate;
         val.coupon.sold_value = data.sold_value;
         val.coupon.customer = data.customer;
       });
       setErrorValid('');
-      setDataCouponsToSel(coupons);
+      setDataDocumentsToSel(documents);
     } else {
       !dateRange && setErrorValid('El rango es obligatorio');
       data.supplier == '' && setErrorValid('El proveedor es obligatorio');
@@ -75,15 +77,19 @@ const SalesHook = ({
       const urlSplit = window.location.href.split('/');
       const urlFirs = `${urlSplit[0]}//${urlSplit[2]}`;
       console.log(urlFirs);
-      dataCouponsToSel?.forEach(async (val) => {
+      dataDocumentsToSel?.forEach(async (val) => {
         val.coupon.sold = data.sold;
         val.coupon.date_sold = currentDate;
         val.coupon.sold_value = data.sold_value;
         val.coupon.customer = data.customer;
         val.coupon.url = `${urlFirs}/components/couponView/?id=${val.id}`;
 
-        await saveSoldCouponsQuery({ id: val.id, data: val.coupon });
-        if (count === dataCouponsToSel?.length) {
+        await saveSoldDocumentsQuery({
+          id: val.id,
+          data: val.coupon,
+          reference,
+        });
+        if (count === dataDocumentsToSel?.length) {
           handleClose();
         }
         count++;
@@ -111,7 +117,7 @@ const SalesHook = ({
     setShow(false);
     setHandleShowSales(false);
     setErrorValid('');
-    setDataCouponsToSel(undefined);
+    setDataDocumentsToSel(undefined);
     setNextDate(undefined);
     setData(dataSalesObject);
     setDateRange(undefined);
@@ -199,7 +205,7 @@ const SalesHook = ({
     nextDate,
     rangeDays,
     stepsDays,
-    dataCouponsToSel,
+    dataDocumentsToSel,
     errorValid,
   };
 };

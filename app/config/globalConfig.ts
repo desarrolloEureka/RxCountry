@@ -7,19 +7,19 @@ export const globalConfig = {
     banner: {
       title: 'Ingresa a tu cuenta',
       description:
-        'Ingresa a tu cuenta y administra tus cupones de manera optima y eficiente.',
+        'Ingresa a tu cuenta y administra tu sistema de manera optima y eficiente.',
     },
     form: {
       title: 'Inicia sesión en tu cuenta',
       description:
-        'Inicia sesión y administra tus cupones de manera optima y eficiente.',
+        'Inicia sesión y administra tu sistema de manera optima y eficiente.',
     },
   },
   register: {
     banner: {
       title: 'Crear cuenta',
       description:
-        'Crea tu cuenta y administra tus cupones de manera optima y eficiente.',
+        'Crea tu cuenta y administra tu sistema de manera optima y eficiente.',
     },
     form: {
       title: 'Registrate ahora',

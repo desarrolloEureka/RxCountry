@@ -11,6 +11,8 @@ import { ModalParamsCsv } from '@/types/modals';
 export default function CSVReader({
   handleShowCsv,
   setHandleShowCsv,
+  reference,
+  title,
 }: ModalParamsCsv) {
   const {
     CSVReader,
@@ -22,13 +24,13 @@ export default function CSVReader({
     errorDataUpload,
     show,
     handleClose,
-  } = UploadDocumentHook({ handleShowCsv, setHandleShowCsv });
+  } = UploadDocumentHook({ handleShowCsv, setHandleShowCsv, reference, title });
 
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title as='h6'>
-          Crear cupones masivos desde archivo Csv
+          {`Crear ${title} masivos desde archivo Csv`}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

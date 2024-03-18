@@ -1,18 +1,22 @@
 'use client';
-import { dataObject } from '@/data/couponsData';
+import { dataObject } from '@/data/documentsData';
 import { FormPdfMultipleData } from '@/data/formPdfMultiple';
 import {
-  saveCouponsQuery,
-  saveFilesCouponsQuery,
-} from '@/queries/couponsQueries';
+  saveDocumentsQuery,
+  saveFilesDocumentsQuery,
+} from '@/queries/documentsQueries';
 import { getAllSupplierQuery } from '@/queries/suppliersQueries';
-import { DataObject, ErrorData } from '@/types/coupons';
+import { DataObject, ErrorData } from '@/types/documents';
 import { ModalParamsPdf } from '@/types/modals';
 import { SuppliersSelector } from '@/types/suppliers';
 import moment from 'moment';
 import { SetStateAction, useCallback, useEffect, useState } from 'react';
 
-const FormModalHook = ({ handleShowPdf, setHandleShowPdf }: ModalParamsPdf) => {
+const FormModalHook = ({
+  handleShowPdf,
+  setHandleShowPdf,
+  reference,
+}: ModalParamsPdf) => {
   const [show, setShow] = useState(false);
   const [data, setData] = useState(FormPdfMultipleData);
   const [files, setFiles] = useState<SetStateAction<any>[]>([]);
@@ -50,7 +54,7 @@ const FormModalHook = ({ handleShowPdf, setHandleShowPdf }: ModalParamsPdf) => {
     const error: ErrorData[] = [];
     for (const record of files) {
       const code = record.name.split('.')[0];
-      await saveFilesCouponsQuery({ code, record, data })
+      await saveFilesDocumentsQuery({ code, record, data })
         .then((result) => {
           const dateEnd = moment(data.date_end).valueOf();
 
@@ -70,7 +74,7 @@ const FormModalHook = ({ handleShowPdf, setHandleShowPdf }: ModalParamsPdf) => {
           error.push({ success: false, code });
         });
     }
-    const res = await saveCouponsQuery({ data: dataUpload });
+    const res = await saveDocumentsQuery({ data: dataUpload, reference });
     return [...res, ...error];
   };
 

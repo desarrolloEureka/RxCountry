@@ -13,7 +13,7 @@ import {
 import Seo from 'shared/layout-components/seo/seo';
 import ForgotPasswordHook from './hook/ForgotPasswordHook';
 import { globalConfig } from '@/config/globalConfig';
-import { main_logo, user_logo } from '@/globals/images';
+import { main_logo_light, user_logo } from '@/globals/images';
 
 const ForgotPassword = () => {
   const { remove, changeHandler, handleRemember, email, message } =
@@ -39,7 +39,7 @@ const ForgotPassword = () => {
                     <div className='mt-3 pt-3 p-2 position-absolute'>
                       <Link href='/components/dashboard/dashboard'>
                         <img
-                          src={main_logo.src}
+                          src={main_logo_light.src}
                           className='header-brand-img mb-4'
                           alt='logo'
                         />

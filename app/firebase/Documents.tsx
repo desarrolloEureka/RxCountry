@@ -6,7 +6,6 @@ import {
   getDocs,
   limit,
   query,
-  setDoc,
   updateDoc,
   where,
 } from 'firebase/firestore';
@@ -16,18 +15,20 @@ const allRef = ({ ref }: AllRefPropsFirebase) => collection(db, ref);
 const docRef = ({ ref, collection }: RefPropsFirebase) =>
   doc(db, ref, collection);
 
-export const getAllCouponsFb = async () =>
+export const getAllDocumentsFb = async () =>
   await getDocs(allRef({ ref: 'coupons' }));
 
-export const getCouponsByIdFb = async (
+export const getDocumentsByIdFb = async (
+  //only by coupons
   id: string,
   date: number,
-  saleLimit: number | undefined
+  saleLimit: number | undefined,
+  reference: string
 ) => {
   if (saleLimit) {
     return getDocs(
       query(
-        collection(db, 'coupons'),
+        collection(db, reference),
         where('supplier_code', '==', id),
         where('date_end', '<=', date),
         where('is_active', '==', true),
@@ -39,7 +40,7 @@ export const getCouponsByIdFb = async (
   } else {
     return getDocs(
       query(
-        collection(db, 'coupons'),
+        collection(db, reference),
         where('supplier_code', '==', id),
         where('date_end', '<=', date),
         where('is_active', '==', true),
@@ -49,19 +50,26 @@ export const getCouponsByIdFb = async (
     );
   }
 };
-// await getDocs(allRef({ ref: 'coupons' }));
 
-export const saveCouponsFb = async (data: any) => {
-  const docRef = await addDoc(allRef({ ref: 'coupons' }), data);
-  return docRef;
+export const saveDocumentsFb = async (data: any, reference: string) => {
+  const documentRef = await addDoc(allRef({ ref: reference }), data);
+  return documentRef;
 };
 
-export const updateCouponsByCsvByIdFb = async (id: string, newData: any) => {
-  const userDocRef = doc(db, 'coupons', id);
+export const updateDocumentsByCsvByIdFb = async (
+  id: string,
+  newData: any,
+  reference: string
+) => {
+  const userDocRef = doc(db, reference, id);
   return await updateDoc(userDocRef, newData);
 };
 
-export const updateCouponsByIdFb = async (id: string, newData: any) => {
-  const document = docRef({ ref: 'coupons', collection: id });
+export const updateDocumentsByIdFb = async (
+  id: string,
+  newData: any,
+  reference: string
+) => {
+  const document = docRef({ ref: reference, collection: id });
   return await updateDoc(document, newData);
 };

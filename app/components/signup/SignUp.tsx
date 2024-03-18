@@ -16,7 +16,7 @@ import SignUpHook from './hook/SignUpHook';
 import { globalConfig } from '@/config/globalConfig';
 import { FontAwesome } from 'react-web-vector-icons';
 import user from '@/assets/images/svgs/user.svg';
-import { main_logo, user_logo } from '@/globals/images';
+import { main_logo_light, user_logo } from '@/globals/images';
 
 const SignUp = () => {
   const {
@@ -52,7 +52,7 @@ const SignUp = () => {
                   <div className='mt-5 pt-5 p-2 position-absolute'>
                     <Link href='/components/dashboard/dashboard'>
                       <img
-                        src={main_logo.src}
+                        src={main_logo_light.src}
                         className='header-brand-img mb-4'
                         alt='logo'
                       />

@@ -24,15 +24,16 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
           eventKey='second'
         >
           <BannerMenu
-            seoTitle='Home'
-            title='Home'
+            seoTitle='Usuarios'
+            title='Usiarios'
             item='Dashboard'
-            activeItem='Usuario'
+            activeItem='Registro de usuarios'
           />
           <DataTableComponent
-            componentTitle='Tabla del Listado de cupones.'
-            componentDescription='En esta tabla se encuentran listados todos los cupones para su administración.'
-            tableTitle='Cupones registrados'
+            componentTitle='Tabla del Listado de usuarios.'
+            componentDescription='En esta tabla se encuentran listados todos los usuarios para su administración.'
+            tableTitle='Usuarios registrados'
+            reference='users'
           />
         </Tab.Pane>
         <Tab.Pane
@@ -41,11 +42,18 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
           role='tabpanel'
           eventKey='third'
         >
-          There are many variations of passages of <b>Lorem Ipsum available</b>,
-          but the majority have suffered alteration in some form, by injected
-          humour, or randomised words which {"don't"} look even slightly
-          believable. If you are going to use a passage of Lorem Ipsum, you need
-          to be sure there {"isn't"} anything.
+          <BannerMenu
+            seoTitle='Clientes'
+            title='Clientes'
+            item='Dashboard'
+            activeItem='Registro clientes'
+          />
+          <DataTableComponent
+            componentTitle='Tabla del Listado de clientes.'
+            componentDescription='En esta tabla se encuentran listados todos los clientes para su administración.'
+            tableTitle='Clientes registrados'
+            reference='clients'
+          />
         </Tab.Pane>
         <Tab.Pane
           className='tab-pane text-muted'
@@ -53,14 +61,18 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
           role='tabpanel'
           eventKey='fourth'
         >
-          It is a long established fact that a reader will be distracted by the
-          <b>
-            <i>Readable content</i>
-          </b>{' '}
-          of a page when looking at its layout. The point of using Lorem Ipsum
-          is that it has a more-or-less normal distribution of letters, as
-          opposed to using {'Content here, content here'}, making it look like
-          readable English.
+          <BannerMenu
+            seoTitle='Medicos'
+            title='Medicos'
+            item='Dashboard'
+            activeItem='Registro medicos'
+          />
+          <DataTableComponent
+            componentTitle='Tabla del Listado de medicos.'
+            componentDescription='En esta tabla se encuentran listados todos los medicos para su administración.'
+            tableTitle='Medicos registrados'
+            reference='doctors'
+          />
         </Tab.Pane>
       </Tab.Content>
     </Tab.Container>

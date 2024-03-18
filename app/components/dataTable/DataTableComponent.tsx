@@ -11,6 +11,7 @@ const DataTableComponent = ({
   componentTitle,
   componentDescription,
   tableTitle,
+  reference,
 }: DataTableComponentProps) => {
   const {
     columns,
@@ -42,9 +43,9 @@ const DataTableComponent = ({
 
               <div className='table-responsive'>
                 <ExportCSV
-                  onUploadDataModalPdf={onUploadDataModalPdf}
+                  // onUploadDataModalPdf={onUploadDataModalPdf}
                   onUploadDataModalCsv={onUploadDataModalCsv}
-                  onSalesModal={onSalesModal}
+                  // onSalesModal={onSalesModal}
                   data={data}
                   tableData={dataTable}
                   columns={columns}
@@ -57,14 +58,20 @@ const DataTableComponent = ({
         <FormModal
           handleShowPdf={handleShowPdf}
           setHandleShowPdf={setHandleShowPdf}
+          title={tableTitle}
+          reference={reference}
         />
         <CSVReader
           handleShowCsv={handleShowCsv}
           setHandleShowCsv={setHandleShowCsv}
+          title={tableTitle}
+          reference={reference}
         />
         <SalesModal
           handleShowSales={handleShowSales}
           setHandleShowSales={setHandleShowSales}
+          title={tableTitle}
+          reference={reference}
         />
       </Row>
     )

@@ -1,4 +1,4 @@
-import { DataObject } from '@/types/coupons';
+import { DataObject } from '@/types/documents';
 
 export const dataObject = {
   supplier_code: '',

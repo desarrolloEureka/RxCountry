@@ -1,4 +1,4 @@
-import { DataObject } from './coupons';
+import { DataObject } from './documents';
 
 export interface UploadFileProps {
   folder: string;
@@ -6,7 +6,7 @@ export interface UploadFileProps {
   file: any;
 }
 
-export interface saveFilesCouponsQueryProps {
+export interface saveFilesDocumentsQueryProps {
   code: string;
   record: any;
   data: DataObject;

@@ -96,8 +96,10 @@ export const ExportCSV = ({
     return (
       <>
         <UploadDataCsvModal onUploadDataModalCsv={onUploadDataModalCsv} />
-        <UploadDataPdfModal onUploadDataModalPdf={onUploadDataModalPdf} />
-        <SalesModal onSalesModal={onSalesModal} />
+        {onUploadDataModalPdf && (
+          <UploadDataPdfModal onUploadDataModalPdf={onUploadDataModalPdf} />
+        )}
+        {onSalesModal && <SalesModal onSalesModal={onSalesModal} />}
         <Export onExport={() => downloadCSV(data)} />
       </>
     );

@@ -1,7 +1,7 @@
 'use client';
-import { exportTableData } from '@/data/tables';
-import { getAllCouponsQuery } from '@/queries/couponsQueries';
-import { DataObject } from '@/types/coupons';
+import { exportTableData, basicTableData } from '@/data/tables';
+import { getAllDocumentsQuery } from '@/queries/documentsQueries';
+import { DataObject } from '@/types/documents';
 import { setDataTable } from '@/types/tables';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -9,21 +9,24 @@ const DataTablesHook = () => {
   const [handleShowCsv, setHandleShowCsv] = useState(false);
   const [handleShowPdf, setHandleShowPdf] = useState(false);
   const [handleShowSales, setHandleShowSales] = useState(false);
-  const [getCoupons, setGetCoupons] = useState<DataObject[]>();
-  const [dataTable, setDataTable] = useState<setDataTable>();
-  const { columns } = exportTableData;
+  const [getDocuments, setGetDocuments] = useState<DataObject[] | any[]>();
+  const [dataTable, setDataTable] = useState<setDataTable | any>();
+  // const { columns } = exportTableData;
+  const { columns, data } = basicTableData;
 
-  const getAllCoupons = useCallback(async () => {
+  const getAllDocuments = useCallback(async () => {
     if (handleShowCsv || columns || handleShowPdf || handleShowSales) {
-      const coupons = await getAllCouponsQuery();
+      const documents = await getAllDocumentsQuery();
+      console.log('documents', documents.length);
+
       const currentData = {
         columns: columns,
-        data: coupons,
+        data: documents.length > 0 ? documents : data,
       };
       setDataTable(currentData);
-      coupons && setGetCoupons(coupons);
+      documents && setGetDocuments(currentData.data);
     }
-  }, [columns, handleShowCsv, handleShowPdf, handleShowSales]);
+  }, [columns, data, handleShowCsv, handleShowPdf, handleShowSales]);
 
   const onUploadDataModalCsv = () => setHandleShowCsv(true);
 
@@ -32,12 +35,12 @@ const DataTablesHook = () => {
   const onSalesModal = () => setHandleShowSales(true);
 
   useEffect(() => {
-    getAllCoupons();
-  }, [getAllCoupons]);
+    getAllDocuments();
+  }, [getAllDocuments]);
 
   return {
     columns,
-    data: getCoupons,
+    data: getDocuments,
     handleShowCsv,
     handleShowPdf,
     handleShowSales,

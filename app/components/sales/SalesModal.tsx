@@ -9,6 +9,8 @@ const Select = dynamic(() => import('react-select'), { ssr: false });
 const SalesModal = ({
   handleShowSales,
   setHandleShowSales,
+  title,
+  reference,
 }: ModalParamsSales) => {
   const {
     changeHandler,
@@ -26,13 +28,15 @@ const SalesModal = ({
     customers,
     suppliers,
     nextDate,
-    dataCouponsToSel,
+    dataDocumentsToSel,
     errorValid,
     // rangeDays,
     // stepsDays,
   } = SalesHook({
     handleShowSales,
     setHandleShowSales,
+    title,
+    reference,
   });
 
   return (
@@ -40,7 +44,7 @@ const SalesModal = ({
     suppliers && (
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title as='h6'>Distribuye cupones a tus clientes</Modal.Title>
+          <Modal.Title as='h6'>{`Distribuye ${title} a tus clientes`}</Modal.Title>
         </Modal.Header>
         <Modal.Body className='tw-px-8'>
           {/* <div className='tw-mb-7 tw-mt-2'>
@@ -217,12 +221,12 @@ const SalesModal = ({
             </div>
           )}
 
-          {dataCouponsToSel && (
+          {dataDocumentsToSel && (
             <div>
               <div className='tw-font-semibold tw-mb-2'>
                 Cupones encontrados:{' '}
                 <span className='tw-text-green-500 tw-font-bold'>
-                  {dataCouponsToSel.length}
+                  {dataDocumentsToSel.length}
                 </span>
               </div>
               <div className='tw-h-16 tw-overflow-y-scroll'>
@@ -237,7 +241,7 @@ const SalesModal = ({
                     Vencimiento
                   </div>
                 </div>
-                {dataCouponsToSel.map((val, index) => {
+                {dataDocumentsToSel.map((val, index) => {
                   return (
                     <div key={index}>
                       <div className='tw-flex tw-flex-row tw-full tw-justify-between'>
@@ -269,7 +273,7 @@ const SalesModal = ({
             variant='purple'
             className={`btn  ${isLoading && 'btn-loader'}`}
             onClick={handleSendForm}
-            disabled={dataCouponsToSel ? false : true}
+            disabled={dataDocumentsToSel ? false : true}
           >
             <span className='me-2'>Enviar</span>
             {isLoading && (
