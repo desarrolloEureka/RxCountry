@@ -100,7 +100,7 @@ const UploadDataCsvModal = ({
 );
 
 const SalesModal = ({ onSalesModal }: UploadDataButtonModalProps) => (
-    <Button onClick={onSalesModal}>Vender</Button>
+    <Button onClick={onSalesModal}>Ingresar</Button>
 );
 
 const UploadDataPdfModal = ({

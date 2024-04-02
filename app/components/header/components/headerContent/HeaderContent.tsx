@@ -52,18 +52,26 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link href="#about1" eventKey="second">
+                                <Nav.Link href="#users" eventKey="second">
                                     Usuarios
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link href="#service1" eventKey="third">
+                                <Nav.Link href="#patients" eventKey="third">
                                     Pacientes
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link href="#license1" eventKey="fourth">
+                                <Nav.Link
+                                    href="#professionals"
+                                    eventKey="fourth"
+                                >
                                     Profesionales
+                                </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link href="#headquarters" eventKey="fifth">
+                                    Sedes
                                 </Nav.Link>
                             </Nav.Item>
                         </Nav>

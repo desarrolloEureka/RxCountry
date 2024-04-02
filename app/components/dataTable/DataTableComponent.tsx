@@ -44,8 +44,8 @@ const DataTableComponent = ({
               <div className='table-responsive'>
                 <ExportCSV
                   // onUploadDataModalPdf={onUploadDataModalPdf}
-                  onUploadDataModalCsv={onUploadDataModalCsv}
-                  // onSalesModal={onSalesModal}
+                  // onUploadDataModalCsv={onUploadDataModalCsv}
+                  onSalesModal={onSalesModal}
                   data={data}
                   tableData={dataTable}
                   columns={columns}

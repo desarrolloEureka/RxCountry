@@ -17,7 +17,7 @@ const DataTablesHook = () => {
   const getAllDocuments = useCallback(async () => {
     if (handleShowCsv || columns || handleShowPdf || handleShowSales) {
       const documents = await getAllDocumentsQuery();
-      console.log('documents', documents.length);
+      // console.log('documents', documents.length);
 
       const currentData = {
         columns: columns,
