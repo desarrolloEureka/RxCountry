@@ -1,14 +1,15 @@
 import { DataObject } from './documents';
 
 export interface UploadDataModalProps {
-  onUploadDataModalPdf?: () => void;
-  onUploadDataModalCsv?: () => void;
-  onSalesModal?: () => void;
-  data: any;
-  tableData: setDataTable;
-  columns: any;
-  noHeader?: boolean;
-  tableTitle?: string;
+    onUploadDataModalPdf?: () => void;
+    onUploadDataModalCsv?: () => void;
+    onSalesModal?: () => void;
+    data: any;
+    tableData: setDataTable;
+    columns: any;
+    noHeader?: boolean;
+    tableTitle?: string;
+    reference?: string;
 }
 export interface UploadDataButtonModalProps {
   onUploadDataModalPdf?: () => void;

@@ -404,6 +404,7 @@ export const DataTables = () => {
       sortable: true,
     },
   ];
+
   const contextActions = React.useMemo(() => {
     const handleDelete = () => {
       if (
@@ -424,10 +425,12 @@ export const DataTables = () => {
       </Button>
     );
   }, [data, selectedRows, toggleCleared]);
+  
   const tableDatas = {
     columns,
     data,
   };
+  
   return (
     <DataTableExtensions {...tableDatas}>
       <DataTable

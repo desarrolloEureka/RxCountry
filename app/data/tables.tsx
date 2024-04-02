@@ -151,7 +151,7 @@ const dataTables = {
       {
         name: 'S.NO',
         selector: (row: TableDataItemOld) => [row.SNO],
-        sortable: false,
+        sortable: true,
       },
       {
         name: 'NAME',

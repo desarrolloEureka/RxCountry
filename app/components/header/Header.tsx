@@ -32,7 +32,7 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
                     <DataTableComponent
                         componentTitle="Tabla del Listado de usuarios."
                         componentDescription="En esta tabla se encuentran listados todos los usuarios para su administración."
-                        tableTitle="Usuarios registrados"
+                        tableTitle="Usuarios"
                         reference="users"
                     />
                 </Tab.Pane>

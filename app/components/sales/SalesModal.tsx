@@ -44,7 +44,7 @@ const SalesModal = ({
         suppliers && (
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title as="h6">{`Ingresa un nuevo ${title}`}</Modal.Title>
+                    <Modal.Title as="h6">{`Nuevo Registro en la tabla de ${title}`}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="tw-px-8">
                     {/* <div className='tw-mb-7 tw-mt-2'>
@@ -348,7 +348,7 @@ const SalesModal = ({
                                 controlId={`email_${reference}`}
                             >
                                 <Form.Label>
-                                    Teléfono:{" "}
+                                    Email:{" "}
                                     <span className="tw-text-red-500">*</span>
                                 </Form.Label>
                                 <Form.Control
@@ -442,7 +442,7 @@ const SalesModal = ({
                                 controlId={`email_${reference}`}
                             >
                                 <Form.Label>
-                                    Teléfono:{" "}
+                                    Email:{" "}
                                     <span className="tw-text-red-500">*</span>
                                 </Form.Label>
                                 <Form.Control
@@ -518,15 +518,15 @@ const SalesModal = ({
                             </Form.Group>
                         </div>
                     )}
-                    {errorValid != "" && (
+                    {/* {errorValid != "" && (
                         <div className="tw-mb-2 -tw-mt-2">
                             <span className="tw-text-red-500">
                                 {errorValid} *
                             </span>
                         </div>
-                    )}
+                    )} */}
 
-                    {dataDocumentsToSel && (
+                    {/* {dataDocumentsToSel && (
                         <div>
                             <div className="tw-font-semibold tw-mb-2">
                                 Cupones encontrados:{" "}
@@ -567,7 +567,7 @@ const SalesModal = ({
                                 })}
                             </div>
                         </div>
-                    )}
+                    )} */}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="light" onClick={handleClose}>
