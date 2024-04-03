@@ -70,7 +70,7 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link href="#headquarters" eventKey="fifth">
+                                <Nav.Link href="#campus" eventKey="fifth">
                                     Sedes
                                 </Nav.Link>
                             </Nav.Item>

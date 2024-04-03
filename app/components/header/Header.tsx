@@ -76,7 +76,7 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
                 </Tab.Pane>
                 <Tab.Pane
                     className="tab-pane text-muted"
-                    id="headquarters"
+                    id="campus"
                     role="tabpanel"
                     eventKey="fifth"
                 >
@@ -90,7 +90,7 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
                         componentTitle="Tabla del Listado de Sedes."
                         componentDescription="En esta tabla se encuentran las sedes disponibles."
                         tableTitle="Sedes"
-                        reference="headquarters"
+                        reference="campus"
                     />
                 </Tab.Pane>
             </Tab.Content>

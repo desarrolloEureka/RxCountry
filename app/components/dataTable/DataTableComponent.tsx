@@ -52,7 +52,7 @@ const DataTableComponent = ({
                                     tableData={dataTable}
                                     columns={columns}
                                     tableTitle={tableTitle}
-                                    reference={reference}
+                                    // reference={reference}
                                 />
                             </div>
                         </Card.Body>

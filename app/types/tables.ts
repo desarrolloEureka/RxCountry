@@ -5,7 +5,7 @@ export interface UploadDataModalProps {
     onUploadDataModalCsv?: () => void;
     onSalesModal?: () => void;
     data: any;
-    tableData: setDataTable;
+    tableData?: setDataTable;
     columns: any;
     noHeader?: boolean;
     tableTitle?: string;

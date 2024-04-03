@@ -130,11 +130,10 @@ export const ExportCSV = ({
     onUploadDataModalPdf,
     onSalesModal,
     data,
-    tableData,
+    // tableData,
     columns,
     // noHeader = false,
     tableTitle,
-    reference,
 }: UploadDataModalProps) => {
     const [selectedRows, setSelectedRows] = React.useState([]);
     const [toggleCleared, setToggleCleared] = React.useState(false);
@@ -153,27 +152,23 @@ export const ExportCSV = ({
                         onUploadDataModalPdf={onUploadDataModalPdf}
                     />
                 )}
-                {onSalesModal && reference !== "patients" && (
-                    <SalesModal onSalesModal={onSalesModal} />
-                )}
+                {onSalesModal && <SalesModal onSalesModal={onSalesModal} />}
                 {dataTable.length !== 0 && (
                     <Export onExport={() => downloadCSV(dataTable)} />
                 )}
             </>
         );
-    }, [
-        dataTable,
-        onSalesModal,
-        onUploadDataModalCsv,
-        onUploadDataModalPdf,
-        reference,
-    ]);
+    }, [dataTable, onSalesModal, onUploadDataModalCsv, onUploadDataModalPdf]);
 
     const handleRowSelected = React.useCallback((state: any) => {
         setSelectedRows(state.selectedRows);
     }, []);
 
-    const contextActions = React.useMemo(() => {
+    const handleRowEdit = (row: any, event: any) => {
+        console.log(row.id);
+    };
+
+    const contextActionsMemo = React.useMemo(() => {
         const handleDelete = () => {
             Swal.fire({
                 title: `Are you sure you want to delete:\r ${selectedRows.map(
@@ -217,14 +212,20 @@ export const ExportCSV = ({
     };
 
     return (
-        <DataTableExtensions {...tableDatas} filterPlaceholder="Buscar">
+        <DataTableExtensions
+            export={false}
+            print={false}
+            {...tableDatas}
+            filterPlaceholder="Buscar"
+        >
             <DataTable
-                // noHeader={noHeader}
                 onSelectedRowsChange={handleRowSelected}
                 selectableRows
-                contextActions={contextActions}
+                contextActions={contextActionsMemo}
                 clearSelectedRows={toggleCleared}
                 noDataComponent={<NoDataCard />}
+                onRowClicked={handleRowEdit}
+                pointerOnHover
                 defaultSortFieldId={2}
                 columns={columns}
                 data={dataTable}
