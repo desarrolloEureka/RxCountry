@@ -2,8 +2,8 @@
 import { dataSalesObject } from "@/data/salesData";
 import { getAllCustomersQuery } from "@/queries/customersQueries";
 import {
-  getDocumentsByIdQuery,
-  saveSoldDocumentsQuery,
+    getDocumentsByIdQuery,
+    saveSoldDocumentsQuery,
 } from "@/queries/documentsQueries";
 import { getAllSupplierQuery } from "@/queries/suppliersQueries";
 import { CustomersSelector } from "@/types/customers";
@@ -34,6 +34,29 @@ const SalesHook = ({
     const [errorValid, setErrorValid] = useState("");
     // const currentDate = moment().format('DD-MM-YYYY');
     const currentDate = moment().valueOf();
+
+    // const selectInputRef = useRef<any>();
+
+    // console.log(selectInputRef);
+
+    //* -------- Estados para el formulario
+    const [showPassword, setShowPassword] = useState(false);
+    const [files, setFiles] = useState<any>([]);
+
+    const [selectedIdType, setSelectedIdType] = useState<any>(null);
+    const [selectedState, setSelectedState] = useState<any>(null);
+    const [selectedCountry, setSelectedCountry] = useState<any>(null);
+    const [selectedCity, setSelectedCity] = useState<any>(null);
+
+    const [selectedSpecialty, setSelectedSpecialty] = useState<any>(null);
+    const [selectedContract, setSelectedContract] = useState<any>(null);
+    const [selectedStatus, setSelectedStatus] = useState<any>(null);
+    const [selectedRol, setSelectedRol] = useState<any>(null);
+    const [selectedCampus, setSelectedCampus] = useState<any>(null);
+    const [selectedArea, setSelectedArea] = useState<any>(null);
+    const [selectedAge, setSelectedAge] = useState<string>();
+
+    //*---------
 
     const handleValidForm = async () => {
         // console.log('dateRange', dateRange);
@@ -132,8 +155,43 @@ const SalesHook = ({
         setSaleLimit(e.target.value);
     };
 
+    const clearSelectFields = () => {
+        setSelectedIdType(null);
+        setSelectedState(null);
+        setSelectedCountry(null);
+        setSelectedCity(null);
+        setSelectedSpecialty(null);
+        setSelectedContract(null);
+        setSelectedStatus(null);
+        setSelectedRol(null);
+        setSelectedCampus(null);
+        setSelectedArea(null);
+    };
+
     const handleReset = (e: any) => {
         e.target.reset();
+    };
+
+    const handleGetBirthDate = (e: any) => {
+        setSelectedAge(e.target.value);
+    };
+
+    const calculateAge = (birthDate: Date | string): number => {
+        const today = new Date();
+        const birthDay = new Date(birthDate);
+        let age = today.getFullYear() - birthDay.getFullYear();
+        const monthsDiff = today.getMonth() - birthDay.getMonth();
+        const daysDiff: number = today.getDate() - birthDay.getDate();
+
+        if (monthsDiff < 0 || (monthsDiff === 0 && daysDiff <= 0)) {
+            age--;
+        }
+
+        if (age < 0) {
+            age = 0;
+        }
+
+        return age;
     };
 
     const selectSupplierChangeHandler = (e: any) => {
@@ -217,6 +275,34 @@ const SalesHook = ({
         stepsDays,
         dataDocumentsToSel,
         errorValid,
+        showPassword,
+        setShowPassword,
+        files,
+        setFiles,
+        selectedIdType,
+        setSelectedIdType,
+        selectedState,
+        setSelectedState,
+        selectedCountry,
+        setSelectedCountry,
+        selectedCity,
+        setSelectedCity,
+        selectedSpecialty,
+        setSelectedSpecialty,
+        selectedContract,
+        setSelectedContract,
+        selectedStatus,
+        setSelectedStatus,
+        selectedRol,
+        setSelectedRol,
+        selectedCampus,
+        setSelectedCampus,
+        selectedArea,
+        setSelectedArea,
+        clearSelectFields,
+        calculateAge,
+        selectedAge,
+        handleGetBirthDate,
     };
 };
 

@@ -165,7 +165,7 @@ export const ExportCSV = ({
     }, []);
 
     const handleRowEdit = (row: any, event: any) => {
-        console.log(row.id);
+        console.log(row);
     };
 
     const contextActionsMemo = React.useMemo(() => {

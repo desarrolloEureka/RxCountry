@@ -1,11 +1,31 @@
+import {
+    areas,
+    campus,
+    ColombianStates,
+    contracts,
+    countries,
+    getCities,
+    idTypes,
+    roles,
+    specialties,
+    status,
+} from "@/data/formConstant";
+import { ModalParamsSales } from "@/types/modals";
 import "filepond/dist/filepond.min.css";
+import _ from "lodash";
 import dynamic from "next/dynamic";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
-import FormHook, { FormComponentProps } from "./hook/FormHook";
-const Select = dynamic(() => import("react-select"), { ssr: false });
 import { FilePond } from "react-filepond";
+import SalesHook from "../sales/hook/SalesHook";
+import { useRef } from "react";
+const Select = dynamic(() => import("react-select"), { ssr: false });
 
-const FormComponent = ({ reference }: FormComponentProps) => {
+const FormComponent = ({
+    handleShowSales,
+    setHandleShowSales,
+    title,
+    reference,
+}: ModalParamsSales) => {
     const {
         showPassword,
         setShowPassword,
@@ -13,9 +33,34 @@ const FormComponent = ({ reference }: FormComponentProps) => {
         setFiles,
         selectedIdType,
         setSelectedIdType,
-        roles,
-        idTypes,
-    } = FormHook({ reference });
+        selectedState,
+        setSelectedState,
+        selectedCountry,
+        setSelectedCountry,
+        selectedCity,
+        setSelectedCity,
+        selectedSpecialty,
+        setSelectedSpecialty,
+        selectedContract,
+        setSelectedContract,
+        selectedStatus,
+        setSelectedStatus,
+        selectedRol,
+        setSelectedRol,
+        selectedCampus,
+        setSelectedCampus,
+        selectedArea,
+        setSelectedArea,
+        clearSelectFields,
+        calculateAge,
+        selectedAge,
+        handleGetBirthDate,
+    } = SalesHook({
+        handleShowSales,
+        setHandleShowSales,
+        title,
+        reference,
+    });
 
     const ShowPasswordButton = () => (
         <Button
@@ -33,7 +78,6 @@ const FormComponent = ({ reference }: FormComponentProps) => {
 
     return (
         <>
-            {/* <h3 className="mb-3">Datos</h3> */}
             <Row>
                 {reference === "campus" && (
                     <Col md={6} className="mb-3">
@@ -54,27 +98,26 @@ const FormComponent = ({ reference }: FormComponentProps) => {
                                     Tipo Documento
                                 </Form.Label>
                                 <Select
-                                    value={selectedIdType}
                                     noOptionsMessage={({ inputValue }) =>
                                         `No hay resultados para "${inputValue}"`
                                     }
+                                    value={selectedIdType}
+                                    defaultValue={selectedIdType}
                                     placeholder="Seleccione"
                                     isClearable
                                     name="idType"
-                                    defaultValue={selectedIdType}
-                                    onChange={setSelectedIdType}
                                     options={idTypes}
-                                    className=""
                                     id="idType"
+                                    className="basic-multi-select"
                                     classNamePrefix="Select2"
-                                    // onChange={selectChangeHandler}
+                                    onChange={setSelectedIdType}
                                 />
                             </Form.Group>
                         </Col>
                         <Col md={6} lg={4} className="mb-3">
                             <Form.Label className="">Documento</Form.Label>
                             <Form.Control
-                                type="Number"
+                                type="text"
                                 className="form-control"
                                 placeholder="Número"
                                 aria-label="Last name"
@@ -111,11 +154,14 @@ const FormComponent = ({ reference }: FormComponentProps) => {
                                 type="date"
                                 className=""
                                 aria-label="dateOfBirth"
+                                onChange={handleGetBirthDate}
                             />
                         </Col>
                         <Col md={6} lg={4} className="mb-3">
                             <Form.Label className="">Edad</Form.Label>
                             <Form.Control
+                                value={selectedAge && calculateAge(selectedAge)}
+                                disabled
                                 type="number"
                                 className=""
                                 placeholder="Edad"
@@ -148,17 +194,7 @@ const FormComponent = ({ reference }: FormComponentProps) => {
                                 aria-label="Phone number"
                             />
                         </Col>
-                        <Col
-                            md={6}
-                            lg={
-                                reference !== "professionals"
-                                    ? reference !== "campus"
-                                        ? 4
-                                        : 6
-                                    : 3
-                            }
-                            className="mb-3"
-                        >
+                        <Col md={6} className="mb-3">
                             <Form.Label className="">Dirección</Form.Label>
                             <Form.Control
                                 type="text"
@@ -180,14 +216,23 @@ const FormComponent = ({ reference }: FormComponentProps) => {
                         >
                             <Form.Label className="">País</Form.Label>
                             <Select
+                                noOptionsMessage={({ inputValue }: any) =>
+                                    `No hay resultados para "${inputValue}"`
+                                }
+                                value={selectedCountry}
+                                defaultValue={selectedCountry}
                                 placeholder="País"
                                 isClearable
                                 name="inputCountry"
-                                // options={idTypes}
-                                className=""
+                                options={countries}
                                 id="inputCountry"
+                                className="basic-multi-select"
                                 classNamePrefix="Select2"
-                                // onChange={selectChangeHandler}
+                                onChange={(value) => {
+                                    setSelectedCountry(value);
+                                    setSelectedState(null);
+                                    setSelectedCity(null);
+                                }}
                             />
                         </Col>
                         <Col
@@ -205,14 +250,23 @@ const FormComponent = ({ reference }: FormComponentProps) => {
                                 Departamento/Estado
                             </Form.Label>
                             <Select
+                                isDisabled={_.isEmpty(selectedCountry)}
+                                noOptionsMessage={({ inputValue }: any) =>
+                                    `No hay resultados para "${inputValue}"`
+                                }
+                                value={selectedState}
+                                defaultValue={selectedState}
                                 placeholder="Departamento"
                                 isClearable
                                 name="inputState1"
-                                // options={idTypes}
-                                className=""
+                                options={ColombianStates}
                                 id="inputState1"
+                                className="basic-multi-select"
                                 classNamePrefix="Select2"
-                                // onChange={selectChangeHandler}
+                                onChange={(value) => {
+                                    setSelectedState(value);
+                                    setSelectedCity(null);
+                                }}
                             />
                         </Col>
                         <Col
@@ -228,14 +282,27 @@ const FormComponent = ({ reference }: FormComponentProps) => {
                         >
                             <Form.Label className="">Ciudad</Form.Label>
                             <Select
+                                isDisabled={
+                                    _.isEmpty(selectedState) ||
+                                    _.isEmpty(selectedCountry)
+                                }
+                                noOptionsMessage={({ inputValue }: any) =>
+                                    `No hay resultados para "${inputValue}"`
+                                }
+                                value={selectedCity}
+                                defaultValue={selectedCity}
                                 placeholder="Ciudad"
                                 isClearable
                                 name="city"
-                                // options={idTypes}
-                                className=""
+                                options={
+                                    selectedState
+                                        ? getCities(selectedState?.value)
+                                        : []
+                                }
                                 id="city"
+                                className="basic-multi-select"
                                 classNamePrefix="Select2"
-                                // onChange={selectChangeHandler}
+                                onChange={setSelectedCity}
                             />
                         </Col>
                     </>
@@ -306,58 +373,59 @@ const FormComponent = ({ reference }: FormComponentProps) => {
                         <Col md={6} lg={4} className="mb-3">
                             <Form.Label className="">Especialidad</Form.Label>
                             <Select
+                                noOptionsMessage={({ inputValue }) =>
+                                    `No hay resultados para "${inputValue}"`
+                                }
+                                value={selectedSpecialty}
+                                defaultValue={selectedSpecialty}
                                 placeholder="Seleccionar..."
                                 isClearable
                                 name="specialty"
-                                // options={idTypes}
-                                className=""
+                                options={specialties}
                                 id="specialty"
+                                className="basic-multi-select"
                                 classNamePrefix="Select2"
-                                // onChange={selectChangeHandler}
+                                onChange={setSelectedSpecialty}
                             />
                         </Col>
                         <Col md={6} lg={4} className="mb-3">
                             <Form.Label className="">Convenio</Form.Label>
                             <Select
+                                noOptionsMessage={({ inputValue }) =>
+                                    `No hay resultados para "${inputValue}"`
+                                }
+                                value={selectedContract}
+                                defaultValue={selectedContract}
                                 placeholder="Seleccionar..."
                                 isClearable
                                 name="contract"
-                                // options={idTypes}
-                                className=""
+                                options={contracts}
                                 id="contract"
+                                className="basic-multi-select"
                                 classNamePrefix="Select2"
-                                // onChange={selectChangeHandler}
+                                onChange={setSelectedContract}
                             />
                         </Col>
                     </>
                 )}
-
                 {reference !== "campus" && (
                     <>
                         <Col md={6} lg={4} className="mb-3">
                             <Form.Label className="">Estado</Form.Label>
                             <Select
+                                noOptionsMessage={({ inputValue }) =>
+                                    `No hay resultados para "${inputValue}"`
+                                }
+                                value={selectedStatus}
+                                defaultValue={selectedStatus}
                                 placeholder="Estado"
                                 isClearable
-                                name="City"
-                                // options={idTypes}
-                                className=""
-                                id="City"
+                                name="status"
+                                options={status}
+                                id="status"
+                                className="basic-multi-select"
                                 classNamePrefix="Select2"
-                                // onChange={selectChangeHandler}
-                            />
-                        </Col>
-                        <Col md={6} lg={4} className="mb-3">
-                            <Form.Label className="">Rol</Form.Label>
-                            <Select
-                                placeholder="Rol"
-                                isClearable
-                                name="rol"
-                                options={roles}
-                                className=""
-                                id="rol"
-                                classNamePrefix="Select2"
-                                // onChange={selectChangeHandler}
+                                onChange={setSelectedStatus}
                             />
                         </Col>
                     </>
@@ -365,6 +433,24 @@ const FormComponent = ({ reference }: FormComponentProps) => {
                 {reference === "users" && (
                     <>
                         <Col md={6} lg={4} className="mb-3">
+                            <Form.Label className="">Rol</Form.Label>
+                            <Select
+                                noOptionsMessage={({ inputValue }) =>
+                                    `No hay resultados para "${inputValue}"`
+                                }
+                                value={selectedRol}
+                                defaultValue={selectedRol}
+                                placeholder="Rol"
+                                isClearable
+                                name="rol"
+                                options={roles}
+                                id="rol"
+                                className="basic-multi-select"
+                                classNamePrefix="Select2"
+                                onChange={setSelectedRol}
+                            />
+                        </Col>
+                        {/* <Col md={6} lg={4} className="mb-3">
                             <Form.Label className="">Fecha Registro</Form.Label>
                             <Form.Control
                                 // disabled
@@ -372,49 +458,70 @@ const FormComponent = ({ reference }: FormComponentProps) => {
                                 className=""
                                 aria-label="dateRegister"
                             />
-                        </Col>
+                        </Col> */}
                         <Col md={6} lg={4} className="mb-3">
                             <Form.Label className="">Sede</Form.Label>
                             <Select
+                                noOptionsMessage={({ inputValue }) =>
+                                    `No hay resultados para "${inputValue}"`
+                                }
+                                value={selectedCampus}
+                                defaultValue={selectedCampus}
                                 placeholder="Sede"
                                 isClearable
                                 name="campus"
-                                // options={idTypes}
-                                className=""
+                                options={campus}
                                 id="campus"
+                                className="basic-multi-select"
                                 classNamePrefix="Select2"
-                                // onChange={selectChangeHandler}
+                                onChange={setSelectedCampus}
                             />
                         </Col>
                         <Col md={6} lg={4} className="mb-3">
                             <Form.Label className="">Área</Form.Label>
                             <Select
+                                noOptionsMessage={({ inputValue }) =>
+                                    `No hay resultados para "${inputValue}"`
+                                }
+                                value={selectedArea}
+                                defaultValue={selectedArea}
                                 placeholder="Área"
                                 isClearable
                                 name="area"
-                                // options={idTypes}
-                                className=""
+                                options={areas}
                                 id="area"
+                                className="basic-multi-select"
                                 classNamePrefix="Select2"
-                                // onChange={selectChangeHandler}
+                                onChange={setSelectedArea}
                             />
                         </Col>
                     </>
                 )}
                 {reference !== "campus" && (
-                    <Col>
-                        <FilePond
-                            className="multiple-filepond single-fileupload"
-                            files={files}
-                            onupdatefiles={setFiles}
-                            allowMultiple={false}
-                            maxFiles={1}
-                            server="/api"
-                            name="files" // sets the file input name, it's filepond by default //
-                            labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-                        />
-                    </Col>
+                    <>
+                        <Col className="mb-3">
+                            <FilePond
+                                className="multiple-filepond single-fileupload"
+                                files={files}
+                                onupdatefiles={setFiles}
+                                allowMultiple={false}
+                                maxFiles={1}
+                                server="/api"
+                                name="files" // sets the file input name, it's filepond by default //
+                                labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+                            />
+                        </Col>
+                    </>
                 )}
+                <Col md={12} className="tw-text-end">
+                    <Button
+                        type="reset"
+                        variant="primary"
+                        onClick={clearSelectFields}
+                    >
+                        Limpiar
+                    </Button>
+                </Col>
             </Row>
         </>
     );
