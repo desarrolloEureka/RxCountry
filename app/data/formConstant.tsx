@@ -25,18 +25,33 @@ export const idTypes = [
 export const countries = [{ value: "CO", label: "Colombia" }];
 
 export const ColombianStates = colombianCitiesData.map((state) => ({
-    value: state.id,
+    value: state.id + 1,
     label: state.departamento,
 }));
 
 export const getCities = (id: number) =>
-    colombianCitiesData[id]?.ciudades?.map((city) => ({
+    colombianCitiesData[id - 1].ciudades.map((city) => ({
         value: city,
         label: city,
     }));
 
 export const specialties = [{ value: "Example", label: "Example" }];
 export const contracts = [{ value: "Example", label: "Example" }];
-export const status = [{ value: "Example", label: "Example" }];
-export const campus = [{ value: "Example", label: "Example" }];
-export const areas = [{ value: "Example", label: "Example" }];
+export const isActive = [
+    { value: true, label: "Disponible" },
+    { value: false, label: "Inactivo" },
+];
+export const campus = [
+    { value: "marly", label: "Marly" },
+    { value: "santaBarbara", label: "Santa Barbara" },
+    { value: "country", label: "Country" },
+];
+export const areas = [
+    { value: "admin", label: "Administrativo" },
+    { value: "despacho", label: "Despachos" },
+    { value: "diagnosticos", label: "Diagnósticos" },
+    { value: "escanerModelos", label: "Escáner Modelos" },
+    { value: "modelos", label: "Modelos" },
+    { value: "radiología", label: "Radiología" },
+    { value: "recepcionCaja", label: "Recepción/Caja" },
+];

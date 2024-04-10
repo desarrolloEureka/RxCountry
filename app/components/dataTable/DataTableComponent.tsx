@@ -4,7 +4,7 @@ import FormModal from "../modal/formModal/FormModal";
 import CSVReader from "../uploadCsv/UploadCsv";
 import { ExportCSV } from "./dataTables/dataTables";
 import DataTablesHook from "./hook/DataTablesHook";
-import SalesModal from "../sales/SalesModal";
+import MainFormModal from "../mainForm/mainFormModal";
 import { DataTableComponentProps } from "@/types/tables";
 
 const DataTableComponent = ({
@@ -26,7 +26,7 @@ const DataTableComponent = ({
         dataTable,
         setHandleShowSales,
         handleShowSales,
-    } = DataTablesHook();
+    } = DataTablesHook(reference);
 
     return (
         dataTable && (
@@ -70,7 +70,7 @@ const DataTableComponent = ({
                     title={tableTitle}
                     reference={reference}
                 />
-                <SalesModal
+                <MainFormModal
                     handleShowSales={handleShowSales}
                     setHandleShowSales={setHandleShowSales}
                     title={tableTitle}

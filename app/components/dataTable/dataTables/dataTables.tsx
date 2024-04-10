@@ -114,14 +114,9 @@ const UploadDataPdfModal = ({
 );
 
 const NoDataCard = () => (
-    <div className="">
-        <Card className="custom-card tw-mt-4">
-            <Card.Body>
-                <div className="card-text">
-                    <p className="mb-0">No hay Datos por mostrar</p>
-                </div>
-            </Card.Body>
-        </Card>
+    <div className="tw-flex-1 tw-bg-[#0e0e23] tw-p-10 tw-text-white tw-text-center tw-text-2xl">
+        <p className="">No hay Datos Para Mostrar</p>
+        <i className="ti ti-folder-off tw-text-2xl"></i>
     </div>
 );
 

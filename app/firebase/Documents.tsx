@@ -1,75 +1,106 @@
-import { AllRefPropsFirebase, RefPropsFirebase } from '@/types/userFirebase';
+import { AllRefPropsFirebase, RefPropsFirebase } from "@/types/userFirebase";
 import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  limit,
-  query,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
-import { db } from 'shared/firebase/firebase';
+    setDoc,
+    addDoc,
+    collection,
+    doc,
+    getDocs,
+    limit,
+    query,
+    updateDoc,
+    where,
+} from "firebase/firestore";
+import { db } from "shared/firebase/firebase";
 
 const allRef = ({ ref }: AllRefPropsFirebase) => collection(db, ref);
-const docRef = ({ ref, collection }: RefPropsFirebase) =>
-  doc(db, ref, collection);
 
-export const getAllDocumentsFb = async () =>
-  await getDocs(allRef({ ref: 'coupons' }));
+const docRef = ({ ref, collection }: RefPropsFirebase) =>
+    doc(db, ref, collection);
+
+export const getAllDocumentsFb = async (ref: string) =>
+    await getDocs(allRef({ ref }));
 
 export const getDocumentsByIdFb = async (
-  //only by coupons
-  id: string,
-  date: number,
-  saleLimit: number | undefined,
-  reference: string
+    //only by coupons
+    id: string,
+    date: number,
+    saleLimit: number | undefined,
+    reference: string,
 ) => {
-  if (saleLimit) {
-    return getDocs(
-      query(
-        collection(db, reference),
-        where('supplier_code', '==', id),
-        where('date_end', '<=', date),
-        where('is_active', '==', true),
-        where('redeemed', '==', false),
-        where('sold', '==', false),
-        limit(saleLimit)
-      )
-    );
-  } else {
-    return getDocs(
-      query(
-        collection(db, reference),
-        where('supplier_code', '==', id),
-        where('date_end', '<=', date),
-        where('is_active', '==', true),
-        where('redeemed', '==', false),
-        where('sold', '==', false)
-      )
-    );
-  }
+    if (saleLimit) {
+        return getDocs(
+            query(
+                collection(db, reference),
+                where("supplier_code", "==", id),
+                where("date_end", "<=", date),
+                where("is_active", "==", true),
+                where("redeemed", "==", false),
+                where("sold", "==", false),
+                limit(saleLimit),
+            ),
+        );
+    } else {
+        return getDocs(
+            query(
+                collection(db, reference),
+                where("supplier_code", "==", id),
+                where("date_end", "<=", date),
+                where("is_active", "==", true),
+                where("redeemed", "==", false),
+                where("sold", "==", false),
+            ),
+        );
+    }
 };
 
 export const saveDocumentsFb = async (data: any, reference: string) => {
-  const documentRef = await addDoc(allRef({ ref: reference }), data);
-  return documentRef;
+    const documentRef = await addDoc(allRef({ ref: reference }), data);
+    return documentRef;
+};
+
+export const saveOneDocumentFb = async (data: any, reference: string) => {
+    const documentRef = doc(allRef({ ref: reference }));
+    await setDoc(documentRef, { ...data, iud: documentRef.id });
+    console.log({ ...data, iud: documentRef.id });
+    return documentRef;
+};
+
+export const saveDocumentByIdFb = async (
+    id: string,
+    data: any,
+    reference: string,
+) => {
+    //await setDoc(doc(db, "cities", "new-city-id"), data);
+    // const documentRef = await addDoc(allRef({ ref: reference }), data);
+    const document = docRef({
+        ref: reference,
+        collection: id,
+    });
+
+    console.log("document", document);
+
+    await setDoc(
+        document,
+        // doc(db, "cities", "0irK7kDetSMJJTLgAxww"),
+        data,
+    );
+    return document;
 };
 
 export const updateDocumentsByCsvByIdFb = async (
-  id: string,
-  newData: any,
-  reference: string
+    id: string,
+    newData: any,
+    reference: string,
 ) => {
-  const userDocRef = doc(db, reference, id);
-  return await updateDoc(userDocRef, newData);
+    const userDocRef = doc(db, reference, id);
+    return await updateDoc(userDocRef, newData);
 };
 
 export const updateDocumentsByIdFb = async (
-  id: string,
-  newData: any,
-  reference: string
+    id: string,
+    newData: any,
+    reference: string,
 ) => {
-  const document = docRef({ ref: reference, collection: id });
-  return await updateDoc(document, newData);
+    const document = docRef({ ref: reference, collection: id });
+    return await updateDoc(document, newData);
 };

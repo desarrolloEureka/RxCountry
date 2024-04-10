@@ -24,16 +24,16 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
                     eventKey="second"
                 >
                     <BannerMenu
-                        seoTitle="Usuarios"
-                        title="Usuarios"
+                        seoTitle="Funcionarios"
+                        title="Funcionarios"
                         item="Dashboard"
-                        activeItem="Registro de usuarios"
+                        activeItem="Registro de Funcionarios"
                     />
                     <DataTableComponent
-                        componentTitle="Tabla del Listado de usuarios."
+                        componentTitle="Tabla del Listado de Funcionarios."
                         componentDescription="En esta tabla se encuentran listados todos los usuarios para su administración."
-                        tableTitle="Usuarios"
-                        reference="users"
+                        tableTitle="Funcionarios"
+                        reference="functionary"
                     />
                 </Tab.Pane>
                 <Tab.Pane

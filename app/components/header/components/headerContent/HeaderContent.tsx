@@ -52,8 +52,8 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link href="#users" eventKey="second">
-                                    Usuarios
+                                <Nav.Link href="#functionary" eventKey="second">
+                                    Funcionarios
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
