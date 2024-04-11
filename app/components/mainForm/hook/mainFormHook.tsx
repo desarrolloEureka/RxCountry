@@ -353,7 +353,7 @@ const MainFormHook = ({
     const passValidation = data.confirmPassword === data.password;
 
     const handleSendForm = async (e?: any) => {
-        // console.log("data", data);
+        console.log("data", data);
 
         if (
             campusVal ||
