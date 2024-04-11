@@ -104,7 +104,12 @@ const MainFormModal = ({
 
     return (
         <Modal size="xl" centered show={show} onHide={handleClose}>
-            <Form onReset={handleReset}>
+            <Form
+                // noValidate
+                // validated={errorForm}
+                onReset={handleReset}
+                onSubmit={handleSendForm}
+            >
                 <Modal.Header closeButton>
                     <Modal.Title as="h6">{`Nuevo Registro en la tabla de ${title}`}</Modal.Title>
                 </Modal.Header>
@@ -574,7 +579,7 @@ const MainFormModal = ({
                                             value={data.cardNumber}
                                             type="number"
                                             min={0}
-                                            max={25}
+                                            max={9999999999999999999}
                                             name="cardNumber"
                                             className=""
                                             placeholder="Número"
@@ -1099,6 +1104,14 @@ const MainFormModal = ({
                                             </p>
                                         </div>
                                     </Col>
+                                    <Col md={6} lg={4} className="">
+                                        <div className="tw-flex-1 tw-text-star tw-text-base">
+                                            <h6 className="fw-bold">Rol</h6>
+                                            <p className="border-bottom fw-light">
+                                                {data.rol}
+                                            </p>
+                                        </div>
+                                    </Col>
                                 </>
                             )}
                             {reference === "professionals" && (
@@ -1159,14 +1172,6 @@ const MainFormModal = ({
                             </Col>
                             <Col md={6} lg={4} className="">
                                 <div className="tw-flex-1 tw-text-star tw-text-base">
-                                    <h6 className="fw-bold">Rol</h6>
-                                    <p className="border-bottom fw-light">
-                                        {data.rol}
-                                    </p>
-                                </div>
-                            </Col>
-                            <Col md={6} lg={4} className="">
-                                <div className="tw-flex-1 tw-text-star tw-text-base">
                                     <h6 className="fw-bold">Fecha Registro</h6>
                                     <p className="border-bottom fw-light">
                                         {data.timestamp}
@@ -1222,7 +1227,7 @@ const MainFormModal = ({
                         <Button
                             variant="primary"
                             className={`btn  ${isLoading && "btn-loader"}`}
-                            onClick={handleSendForm}
+                            // onClick={handleSendForm}
                             type="submit"
                             // disabled={dataDocumentsToSel ? false : true}
                         >

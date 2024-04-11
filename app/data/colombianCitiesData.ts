@@ -179,6 +179,11 @@ export const colombianCitiesData = [
     },
     {
         id: 4,
+        departamento: "Bogot\u00e1, D. C.",
+        ciudades: ["Bogot\u00e1"],
+    },
+    {
+        id: 5,
         departamento: "Bol\u00edvar",
         ciudades: [
             "Ach\u00ed",
@@ -231,7 +236,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 5,
+        id: 6,
         departamento: "Boyac\u00e1",
         ciudades: [
             "Almeida",
@@ -360,7 +365,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 6,
+        id: 7,
         departamento: "Caldas",
         ciudades: [
             "Aguadas",
@@ -393,7 +398,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 7,
+        id: 8,
         departamento: "Caquet\u00e1",
         ciudades: [
             "Albania",
@@ -415,7 +420,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 8,
+        id: 9,
         departamento: "Casanare",
         ciudades: [
             "Aguazul",
@@ -440,7 +445,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 9,
+        id: 10,
         departamento: "Cauca",
         ciudades: [
             "Almaguer",
@@ -488,7 +493,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 10,
+        id: 11,
         departamento: "Cesar",
         ciudades: [
             "Aguachica",
@@ -519,7 +524,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 11,
+        id: 12,
         departamento: "Choc\u00f3",
         ciudades: [
             "Acand\u00ed",
@@ -555,7 +560,43 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 12,
+        id: 13,
+        departamento: "C\u00f3rdoba",
+        ciudades: [
+            "Ayapel",
+            "Buenavista",
+            "Canalete",
+            "Ceret\u00e9",
+            "Chim\u00e1",
+            "Chin\u00fa",
+            "Ci\u00e9naga de Oro",
+            "Cotorra",
+            "La Apartada",
+            "Lorica",
+            "Los C\u00f3rdobas",
+            "Momil",
+            "Montel\u00edbano",
+            "Monter\u00eda",
+            "Mo\u00f1itos",
+            "Planeta Rica",
+            "Pueblo Nuevo",
+            "Puerto Escondido",
+            "Puerto Libertador",
+            "Pur\u00edsima",
+            "Sahag\u00fan",
+            "San Andr\u00e9s de Sotavento",
+            "San Antero",
+            "San Bernardo del Viento",
+            "San Carlos",
+            "San Jos\u00e9 de Ur\u00e9",
+            "San Pelayo",
+            "Tierralta",
+            "Tuch\u00edn",
+            "Valencia",
+        ],
+    },
+    {
+        id: 14,
         departamento: "Cundinamarca",
         ciudades: [
             "Agua de Dios",
@@ -566,7 +607,7 @@ export const colombianCitiesData = [
             "Arbel\u00e1ez",
             "Beltr\u00e1n",
             "Bituima",
-            "Bogot\u00e1",
+            // "Bogot\u00e1",
             "Bojac\u00e1",
             "Cabrera",
             "Cachipay",
@@ -678,48 +719,12 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 13,
-        departamento: "C\u00f3rdoba",
-        ciudades: [
-            "Ayapel",
-            "Buenavista",
-            "Canalete",
-            "Ceret\u00e9",
-            "Chim\u00e1",
-            "Chin\u00fa",
-            "Ci\u00e9naga de Oro",
-            "Cotorra",
-            "La Apartada",
-            "Lorica",
-            "Los C\u00f3rdobas",
-            "Momil",
-            "Montel\u00edbano",
-            "Monter\u00eda",
-            "Mo\u00f1itos",
-            "Planeta Rica",
-            "Pueblo Nuevo",
-            "Puerto Escondido",
-            "Puerto Libertador",
-            "Pur\u00edsima",
-            "Sahag\u00fan",
-            "San Andr\u00e9s de Sotavento",
-            "San Antero",
-            "San Bernardo del Viento",
-            "San Carlos",
-            "San Jos\u00e9 de Ur\u00e9",
-            "San Pelayo",
-            "Tierralta",
-            "Tuch\u00edn",
-            "Valencia",
-        ],
-    },
-    {
-        id: 14,
+        id: 15,
         departamento: "Guain\u00eda",
         ciudades: ["In\u00edrida"],
     },
     {
-        id: 15,
+        id: 16,
         departamento: "Guaviare",
         ciudades: [
             "Calamar",
@@ -729,7 +734,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 16,
+        id: 17,
         departamento: "Huila",
         ciudades: [
             "Acevedo",
@@ -772,7 +777,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 17,
+        id: 18,
         departamento: "La Guajira",
         ciudades: [
             "Albania",
@@ -793,7 +798,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 18,
+        id: 19,
         departamento: "Magdalena",
         ciudades: [
             "Algarrobo",
@@ -830,7 +835,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 19,
+        id: 20,
         departamento: "Meta",
         ciudades: [
             "Acac\u00edas",
@@ -865,7 +870,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 20,
+        id: 21,
         departamento: "Nari\u00f1o",
         ciudades: [
             "Aldana",
@@ -935,7 +940,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 21,
+        id: 22,
         departamento: "Norte de Santander",
         ciudades: [
             "\u00c1brego",
@@ -981,7 +986,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 22,
+        id: 23,
         departamento: "Putumayo",
         ciudades: [
             "Col\u00f3n",
@@ -1000,7 +1005,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 23,
+        id: 24,
         departamento: "Quind\u00edo",
         ciudades: [
             "Armenia",
@@ -1018,7 +1023,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 24,
+        id: 25,
         departamento: "Risaralda",
         ciudades: [
             "Ap\u00eda",
@@ -1038,12 +1043,12 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 25,
+        id: 26,
         departamento: "San Andr\u00e9s y Providencia",
         ciudades: ["Providencia y Santa Catalina Islas", "San Andr\u00e9s"],
     },
     {
-        id: 26,
+        id: 27,
         departamento: "Santander",
         ciudades: [
             "Aguada",
@@ -1136,7 +1141,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 27,
+        id: 28,
         departamento: "Sucre",
         ciudades: [
             "Buenavista",
@@ -1168,7 +1173,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 28,
+        id: 29,
         departamento: "Tolima",
         ciudades: [
             "Alpujarra",
@@ -1221,7 +1226,7 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 29,
+        id: 30,
         departamento: "Valle del Cauca",
         ciudades: [
             "Alcal\u00e1",
@@ -1269,12 +1274,12 @@ export const colombianCitiesData = [
         ],
     },
     {
-        id: 30,
+        id: 31,
         departamento: "Vaup\u00e9s",
         ciudades: ["Carur\u00fa", "Mit\u00fa", "Taraira"],
     },
     {
-        id: 31,
+        id: 32,
         departamento: "Vichada",
         ciudades: [
             "Cumaribo",

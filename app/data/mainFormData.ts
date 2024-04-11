@@ -111,7 +111,7 @@ export const dataCampusObject = {
     iud: "",
     campusName: "",
     description: "",
-    phone: "",
+    // phone: "",
     phone2: "",
     address: "",
     country: "",

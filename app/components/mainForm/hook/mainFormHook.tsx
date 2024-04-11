@@ -169,7 +169,7 @@ const MainFormHook = ({
             // }
             newData = { ...currentDataObject };
         }
-        if (reference === "patient") {
+        if (reference === "patients") {
             // const dataUpload: DataFunctionaryObject[] = [];
             // for (const record of files) {
             // const urlName = record.name.split(".")[0];
@@ -193,8 +193,8 @@ const MainFormHook = ({
             currentDataObject.email = data.email;
             currentDataObject.password = data.password;
             currentDataObject.confirmPassword = data.confirmPassword;
-            // currentDataObject.rol = data.rol;
             currentDataObject.isActive = data.isActive;
+            // currentDataObject.rol = data.rol;
             // currentDataObject.urlPhoto = urlName;
             // error.push(...result);
             // dataUpload.push(currentDataObject);
@@ -231,8 +231,8 @@ const MainFormHook = ({
             currentDataObject.medicalRecord = data.medicalRecord;
             currentDataObject.specialty = data.specialty;
             currentDataObject.contract = data.contract;
-            // currentDataObject.rol = data.rol;
             currentDataObject.isActive = data.isActive;
+            // currentDataObject.rol = data.rol;
             // currentDataObject.urlPhoto = urlName;
             // error.push(...result);
             // dataUpload.push(currentDataObject);
@@ -271,7 +271,8 @@ const MainFormHook = ({
             newData = { ...currentDataObject };
         }
 
-        console.log(newData);
+        // console.log("newData", newData);
+        // console.log("reference", reference);
 
         handleShowMainFormEdit
             ? await saveEditDataDocumentsQuery({
@@ -310,7 +311,7 @@ const MainFormHook = ({
     const professionalsVal =
         data.idType &&
         data.id &&
-        data.campusName &&
+        data.name &&
         data.lastName &&
         data.phone &&
         data.phone2 &&
@@ -324,7 +325,8 @@ const MainFormHook = ({
         data.cardNumber &&
         data.medicalRecord &&
         data.specialty &&
-        data.contract;
+        data.contract &&
+        data.isActive;
     // data.rol &&
     // files.length > 0;
 
@@ -343,19 +345,16 @@ const MainFormHook = ({
         data.city &&
         data.email &&
         data.password &&
-        data.confirmPassword;
+        data.confirmPassword &&
+        data.isActive;
     // data.rol &&
     // files.length > 0;
 
     const passValidation = data.confirmPassword === data.password;
 
-    console.log(
-        campusVal ||
-            ((functionaryVal || professionalsVal || patientVal) &&
-                passValidation),
-    );
-
     const handleSendForm = async (e?: any) => {
+        // console.log("data", data);
+
         if (
             campusVal ||
             ((functionaryVal || professionalsVal || patientVal) &&
@@ -373,7 +372,7 @@ const MainFormHook = ({
         } else {
             e.preventDefault();
             e.stopPropagation();
-            setErrorForm(true);
+            // setErrorForm(true);
             !passValidation && setErrorPass(true);
             console.log("Falló");
         }
