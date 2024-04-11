@@ -10,16 +10,16 @@ const Home = () => {
   const { isLoading } = HomeHook();
 
   return isLoading ? (
-    <Spinner />
+      <Spinner />
   ) : (
-    <Fragment>
-      <Seo title={'Home'} />
-      <Container fluid className='tw-px-10 tw-mt-14'>
-        <Container fluid className='tw-px-20'>
-          <Header />
-        </Container>
-      </Container>
-    </Fragment>
+      <Fragment>
+          <Seo title={"Home"} />
+          <Container fluid className="tw-px-10 tw-mt-14">
+              <Container fluid className="tw-px-20">
+                  <Header />
+              </Container>
+          </Container>
+      </Fragment>
   );
 };
 
