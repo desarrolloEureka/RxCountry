@@ -1,18 +1,21 @@
 import { AllRefPropsFirebase, RefPropsFirebase } from "@/types/userFirebase";
 import {
-    setDoc,
     addDoc,
     collection,
     doc,
     getDocs,
     limit,
     query,
+    setDoc,
     updateDoc,
-    where,
+    where
 } from "firebase/firestore";
 import { db } from "shared/firebase/firebase";
+import moment from "moment";
 
 const allRef = ({ ref }: AllRefPropsFirebase) => collection(db, ref);
+
+const currentDate = moment().format();
 
 const docRef = ({ ref, collection }: RefPropsFirebase) =>
     doc(db, ref, collection);
@@ -60,8 +63,14 @@ export const saveDocumentsFb = async (data: any, reference: string) => {
 
 export const saveOneDocumentFb = async (data: any, reference: string) => {
     const documentRef = doc(allRef({ ref: reference }));
-    await setDoc(documentRef, { ...data, iud: documentRef.id });
-    console.log({ ...data, iud: documentRef.id });
+    await setDoc(documentRef, {
+        ...data,
+        iud: documentRef.id,
+        timestamp: currentDate,
+    });
+
+    console.log({ ...data, iud: documentRef.id, timestamp: new Date() });
+    console.log(currentDate);
     return documentRef;
 };
 
@@ -102,5 +111,8 @@ export const updateDocumentsByIdFb = async (
     reference: string,
 ) => {
     const document = docRef({ ref: reference, collection: id });
-    return await updateDoc(document, newData);
+    return await updateDoc(document, {
+        ...newData,
+        timestamp: currentDate,
+    });
 };

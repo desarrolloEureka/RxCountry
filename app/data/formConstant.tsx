@@ -1,11 +1,11 @@
 import { colombianCitiesData } from "@/data/colombianCitiesData";
 
 export const roles = [
-    { value: "superAdmin", label: "Super Administrador" },
-    { value: "admin", label: "Administrador" },
-    { value: "functionary", label: "Funcionario" },
-    { value: "professional", label: "Profesional" },
-    { value: "patient", label: "Paciente" },
+    { value: "Super Administrador", label: "Super Administrador" },
+    { value: "Administrador", label: "Administrador" },
+    { value: "Funcionario", label: "Funcionario" },
+    { value: "Profesional", label: "Profesional" },
+    { value: "Paciente", label: "Paciente" },
 ];
 
 export const idTypes = [
@@ -36,22 +36,24 @@ export const getCities = (id: number) =>
     }));
 
 export const specialties = [{ value: "Example", label: "Example" }];
+
 export const contracts = [{ value: "Example", label: "Example" }];
-export const isActive = [
-    { value: true, label: "Disponible" },
-    { value: false, label: "Inactivo" },
+
+export const isActiveData = [
+    { value: "Disponible", label: "Disponible" },
+    { value: "Inactivo", label: "Inactivo" },
 ];
 export const campus = [
-    { value: "marly", label: "Marly" },
-    { value: "santaBarbara", label: "Santa Barbara" },
-    { value: "country", label: "Country" },
+    { value: "Marly", label: "Marly" },
+    { value: "Santa Barbara", label: "Santa Barbara" },
+    { value: "Country", label: "Country" },
 ];
 export const areas = [
-    { value: "admin", label: "Administrativo" },
-    { value: "despacho", label: "Despachos" },
-    { value: "diagnosticos", label: "Diagnósticos" },
-    { value: "escanerModelos", label: "Escáner Modelos" },
-    { value: "modelos", label: "Modelos" },
-    { value: "radiología", label: "Radiología" },
-    { value: "recepcionCaja", label: "Recepción/Caja" },
+    { value: "Administrativo", label: "Administrativo" },
+    { value: "Despachos", label: "Despachos" },
+    { value: "Diagnósticos", label: "Diagnósticos" },
+    { value: "Escáner Modelos", label: "Escáner Modelos" },
+    { value: "Modelos", label: "Modelos" },
+    { value: "Radiología", label: "Radiología" },
+    { value: "Recepción/Caja", label: "Recepción/Caja" },
 ];

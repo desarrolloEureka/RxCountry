@@ -2,14 +2,15 @@ import {
     getAllDocumentsFb,
     getDocumentsByIdFb,
     saveDocumentsFb,
-    saveOneDocumentFb
+    saveOneDocumentFb,
+    updateDocumentsByIdFb,
 } from "@/firebase/Documents";
 import { uploadFiles } from "@/firebase/files";
 import {
     DataObject,
     DocumentsById,
     ErrorData,
-    ErrorDataForm
+    ErrorDataForm,
 } from "@/types/documents";
 import {
     saveFilesDocumentsProps,
@@ -115,17 +116,29 @@ export const getDocumentsByIdQuery = async (
 };
 
 export const saveDataDocumentsQuery = async ({
+    data,
+    reference,
+}: {
+    data: any;
+    reference: string;
+}) => {
+    const queryResult = await saveOneDocumentFb(data, reference);
+    console.log("Nuevo");
+    // return queryResult;
+    return;
+};
+
+export const saveEditDataDocumentsQuery = async ({
     id,
     data,
     reference,
 }: {
-    id?: string;
+    id: string;
     data: any;
     reference: string;
 }) => {
-    // const queryResult = await updateDocumentsByIdFb(id, data, reference);
-    // const queryResult = await saveDocumentByIdFb(id, data, reference);
-    const queryResult = await saveOneDocumentFb(data, reference);
-
-    return queryResult;
+    const queryResult = await updateDocumentsByIdFb(id, data, reference);
+    console.log("Editado");
+    // return queryResult;
+    return;
 };

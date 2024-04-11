@@ -103,8 +103,8 @@ const UploadDataCsvModal = ({
     <Button onClick={onUploadDataModalCsv}>Subir Csv</Button>
 );
 
-const SalesModal = ({ onSalesModal }: UploadDataButtonModalProps) => (
-    <Button onClick={onSalesModal}>Nuevo</Button>
+const MainFormModal = ({ onMainFormModal }: UploadDataButtonModalProps) => (
+    <Button onClick={onMainFormModal}>Nuevo</Button>
 );
 
 const UploadDataPdfModal = ({
@@ -114,18 +114,21 @@ const UploadDataPdfModal = ({
 );
 
 const NoDataCard = () => (
-    <div className="tw-flex-1 tw-bg-[#0e0e23] tw-p-10 tw-text-white tw-text-center tw-text-2xl">
-        <p className="">No hay Datos Para Mostrar</p>
-        <i className="ti ti-folder-off tw-text-2xl"></i>
+    <div className="tw-flex-1 tw-p-10 tw-text-center tw-text-2xl bg-white">
+        <div className="">
+            <p className="">No hay Datos Para Mostrar</p>
+            <i className="ti ti-folder-off tw-text-2xl"></i>
+        </div>
     </div>
 );
 
 export const ExportCSV = ({
     onUploadDataModalCsv,
     onUploadDataModalPdf,
-    onSalesModal,
+    onMainFormModal,
+    onMainFormModalEdit,
     data,
-    // tableData,
+    tableData,
     columns,
     // noHeader = false,
     tableTitle,
@@ -147,21 +150,37 @@ export const ExportCSV = ({
                         onUploadDataModalPdf={onUploadDataModalPdf}
                     />
                 )}
-                {onSalesModal && <SalesModal onSalesModal={onSalesModal} />}
+                {onMainFormModal && (
+                    <MainFormModal onMainFormModal={onMainFormModal} />
+                )}
                 {dataTable.length !== 0 && (
                     <Export onExport={() => downloadCSV(dataTable)} />
                 )}
             </>
         );
-    }, [dataTable, onSalesModal, onUploadDataModalCsv, onUploadDataModalPdf]);
+    }, [
+        dataTable,
+        onMainFormModal,
+        onUploadDataModalCsv,
+        onUploadDataModalPdf,
+    ]);
 
     const handleRowSelected = React.useCallback((state: any) => {
         setSelectedRows(state.selectedRows);
     }, []);
 
     const handleRowEdit = (row: any, event: any) => {
-        console.log(row);
+        // console.log(row);
     };
+
+    const conditionalRowStyles = [
+        {
+            when: (row: any) => row.isDeleted === true,
+            style: {
+                display: "none",
+            },
+        },
+    ];
 
     const contextActionsMemo = React.useMemo(() => {
         const handleDelete = () => {
@@ -197,29 +216,26 @@ export const ExportCSV = ({
         );
     }, [dataTable, selectedRows, toggleCleared]);
 
-    // return (
-    //   <DataTable columns={columns} data={data} actions={actionsMemo} pagination />
-    // );
-
-    const tableDatas = {
-        columns,
-        data: dataTable,
-    };
-
     return (
         <DataTableExtensions
             export={false}
             print={false}
-            {...tableDatas}
+            {...tableData}
             filterPlaceholder="Buscar"
         >
             <DataTable
-                onSelectedRowsChange={handleRowSelected}
-                selectableRows
-                contextActions={contextActionsMemo}
-                clearSelectedRows={toggleCleared}
+                // selectableRows
+                // contextActions={contextActionsMemo}
+                // clearSelectedRows={toggleCleared}
+                // onRowClicked={handleRowEdit}
+                // onSelectedRowsChange={handleRowSelected}
+                // conditionalRowStyles={conditionalRowStyles}
                 noDataComponent={<NoDataCard />}
-                onRowClicked={handleRowEdit}
+                onRowClicked={(row: any, event) => {
+                    !row.isDeleted && onMainFormModalEdit(row);
+                }}
+
+                // onRowClicked={onMainFormModalEdit}
                 pointerOnHover
                 defaultSortFieldId={2}
                 columns={columns}

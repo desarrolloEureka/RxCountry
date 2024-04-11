@@ -1,7 +1,7 @@
 import HeaderHook from "@/components/header/hook/HeaderHook";
 import { main_logo_dark } from "@/globals/images";
 import dynamic from "next/dynamic";
-import { Container, Nav } from "react-bootstrap";
+import { Container, Nav, NavDropdown, Dropdown } from "react-bootstrap";
 
 const HeadDropDown = dynamic(
     () => import("@/components/header/headDropDown/HeadDropDown"),
@@ -51,24 +51,30 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                     Home
                                 </Nav.Link>
                             </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link href="#functionary" eventKey="second">
+                            <NavDropdown
+                                title="Gestión de Usuarios"
+                                id="nav-dropdown"
+                                className="nav-item dropdown"
+                            >
+                                <NavDropdown.Item
+                                    href="#functionary"
+                                    eventKey="second"
+                                >
                                     Funcionarios
-                                </Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link href="#patients" eventKey="third">
+                                </NavDropdown.Item>
+                                <NavDropdown.Item
+                                    href="#patients"
+                                    eventKey="third"
+                                >
                                     Pacientes
-                                </Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link
+                                </NavDropdown.Item>
+                                <NavDropdown.Item
                                     href="#professionals"
                                     eventKey="fourth"
                                 >
                                     Profesionales
-                                </Nav.Link>
-                            </Nav.Item>
+                                </NavDropdown.Item>
+                            </NavDropdown>
                             <Nav.Item>
                                 <Nav.Link href="#campus" eventKey="fifth">
                                     Sedes

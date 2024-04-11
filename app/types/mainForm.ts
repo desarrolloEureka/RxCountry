@@ -8,11 +8,11 @@ export interface DataMainFormObject {
     lastName: string;
     birthDate: string;
     age: string;
-    phone: number;
-    phone2: number;
+    phone: any;
+    phone2: any;
     address: string;
     country: string;
-    state: number;
+    state: any;
     city: string;
     email: string;
     password: string;
@@ -25,8 +25,9 @@ export interface DataMainFormObject {
     campus: string;
     area: string;
     urlPhoto: string;
-    timestamp: number;
-    isActive: boolean;
+    timestamp: any;
+    isActive: any;
+    isDeleted: boolean;
 }
 
 export type DataFunctionaryObject = {
@@ -35,7 +36,7 @@ export type DataFunctionaryObject = {
     id: string;
     name: string;
     lastName: string;
-    phone: number;
+    phone: any;
     email: string;
     password: string;
     confirmPassword: string;
@@ -43,8 +44,8 @@ export type DataFunctionaryObject = {
     campus: string;
     area: string;
     urlPhoto: string;
-    timestamp: number;
-    isActive: boolean;
+    timestamp: any;
+    isActive: any;
 };
 
 export type DataPatientObject = {
@@ -55,19 +56,19 @@ export type DataPatientObject = {
     lastName: string;
     birthDate: string;
     age: string;
-    phone: number;
-    phone2: number;
+    phone: any;
+    phone2: any;
     address: string;
     country: string;
-    state: number;
+    state: any;
     city: string;
     email: string;
     password: string;
     confirmPassword: string;
     rol: string;
     urlPhoto: string;
-    timestamp: number;
-    isActive: boolean;
+    timestamp: any;
+    isActive: any;
 };
 
 export type DataProfessionalObject = {
@@ -76,11 +77,11 @@ export type DataProfessionalObject = {
     id: string;
     name: string;
     lastName: string;
-    phone: number;
-    phone2: number;
+    phone: any;
+    phone2: any;
     address: string;
     country: string;
-    state: number;
+    state: any;
     city: string;
     email: string;
     password: string;
@@ -91,19 +92,20 @@ export type DataProfessionalObject = {
     contract: string;
     rol: string;
     urlPhoto: string;
-    timestamp: number;
-    isActive: boolean;
+    timestamp: any;
+    isActive: any;
 };
 
 export type DataCampusObject = {
+    iud: string;
     campusName: string;
     description: string;
-    phone: number;
-    phone2: number;
+    phone: any;
+    phone2: any;
     address: string;
     country: string;
-    state: number;
+    state: any;
     city: string;
-    timestamp: number;
-    isActive: boolean;
+    timestamp: any;
+    isActive: any;
 };

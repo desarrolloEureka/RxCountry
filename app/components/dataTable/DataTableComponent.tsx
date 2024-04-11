@@ -22,10 +22,14 @@ const DataTableComponent = ({
         setHandleShowPdf,
         onUploadDataModalCsv,
         onUploadDataModalPdf,
-        onSalesModal,
+        onMainFormModal,
+        onMainFormModalEdit,
         dataTable,
-        setHandleShowSales,
-        handleShowSales,
+        setHandleShowMainForm,
+        setHandleShowMainFormEdit,
+        handleShowMainForm,
+        handleShowMainFormEdit,
+        editData,
     } = DataTablesHook(reference);
 
     return (
@@ -47,7 +51,8 @@ const DataTableComponent = ({
                                 <ExportCSV
                                     // onUploadDataModalPdf={onUploadDataModalPdf}
                                     // onUploadDataModalCsv={onUploadDataModalCsv}
-                                    onSalesModal={onSalesModal}
+                                    onMainFormModal={onMainFormModal}
+                                    onMainFormModalEdit={onMainFormModalEdit}
                                     data={data}
                                     tableData={dataTable}
                                     columns={columns}
@@ -71,8 +76,11 @@ const DataTableComponent = ({
                     reference={reference}
                 />
                 <MainFormModal
-                    handleShowSales={handleShowSales}
-                    setHandleShowSales={setHandleShowSales}
+                    handleShowMainForm={handleShowMainForm}
+                    setHandleShowMainForm={setHandleShowMainForm}
+                    handleShowMainFormEdit={handleShowMainFormEdit}
+                    setHandleShowMainFormEdit={setHandleShowMainFormEdit}
+                    editData={editData}
                     title={tableTitle}
                     reference={reference}
                 />

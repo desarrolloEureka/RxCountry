@@ -8,14 +8,17 @@ import { useCallback, useEffect, useState } from "react";
 const DataTablesHook = (reference: string) => {
     const [handleShowCsv, setHandleShowCsv] = useState(false);
     const [handleShowPdf, setHandleShowPdf] = useState(false);
-    const [handleShowSales, setHandleShowSales] = useState(false);
+    const [handleShowMainForm, setHandleShowMainForm] = useState(false);
+    const [handleShowMainFormEdit, setHandleShowMainFormEdit] = useState(false);
     const [getDocuments, setGetDocuments] = useState<DataObject[] | any[]>();
     const [dataTable, setDataTable] = useState<setDataTable>();
     const [columns, setColumns] = useState<any[]>();
+    const [editData, setEditData] = useState<any>();
 
     const getAllDocuments = useCallback(async () => {
         const documents = await getAllDocumentsQuery(reference);
-        //   console.log(documents);
+        // console.log("documents", documents);
+
         if (documents.length > 0) {
             const cols: any[] = [];
             const entries = Object.entries(documents[0]);
@@ -33,7 +36,7 @@ const DataTablesHook = (reference: string) => {
 
             entries.forEach((val, key) => {
                 const columnsData = {
-                    name: val[0],
+                    name: val[0].toUpperCase(),
                     selector: (row: any) => [row[val[0]]],
                     sortable: true,
                 };
@@ -44,7 +47,8 @@ const DataTablesHook = (reference: string) => {
                 columns: cols,
                 data: documents,
             };
-            console.log("cols", cols);
+            // console.log("cols", cols);
+            // console.log("currentData", currentData);
 
             setColumns(cols);
             setDataTable(currentData); //obtain dataTable
@@ -65,25 +69,46 @@ const DataTablesHook = (reference: string) => {
 
     const onUploadDataModalPdf = () => setHandleShowPdf(true);
 
-    const onSalesModal = () => setHandleShowSales(true);
+    const onMainFormModal = () => setHandleShowMainForm(true);
+
+    const onMainFormModalEdit = (row: any) => {
+        setHandleShowMainFormEdit(true);
+        setEditData(row);
+    };
 
     useEffect(() => {
         getAllDocuments();
     }, [getAllDocuments]);
+
+    useEffect(() => {
+        if (!handleShowMainForm) {
+            getAllDocuments();
+        }
+    }, [getAllDocuments, handleShowMainForm]);
+
+    useEffect(() => {
+        if (!handleShowMainFormEdit) {
+            getAllDocuments();
+        }
+    }, [getAllDocuments, handleShowMainFormEdit]);
 
     return {
         columns,
         data: getDocuments,
         handleShowCsv,
         handleShowPdf,
-        handleShowSales,
+        handleShowMainForm,
         setHandleShowCsv,
         setHandleShowPdf,
-        setHandleShowSales,
+        setHandleShowMainForm,
+        setHandleShowMainFormEdit,
         onUploadDataModalCsv,
         onUploadDataModalPdf,
-        onSalesModal,
+        onMainFormModal,
+        onMainFormModalEdit,
         dataTable,
+        handleShowMainFormEdit,
+        editData,
     };
 };
 

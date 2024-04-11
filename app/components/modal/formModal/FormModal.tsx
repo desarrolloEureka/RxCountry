@@ -43,7 +43,9 @@ const FormModal = ({
                             <Select
                                 isClearable
                                 name="supplier"
-                                options={suppliers}
+                                options={[
+                                    { value: "Example", label: "Example" },
+                                ]}
                                 className="default basic-multi-select"
                                 id="supplier"
                                 menuPlacement="auto"

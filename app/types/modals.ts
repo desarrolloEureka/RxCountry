@@ -6,10 +6,13 @@ export interface ModalParamsCsv {
 }
 
 export interface ModalParamsMainForm {
-    handleShowSales: boolean;
-    setHandleShowSales: (e: boolean) => void;
+    handleShowMainForm: boolean;
+    handleShowMainFormEdit: boolean;
+    setHandleShowMainForm: (e: boolean) => void;
+    setHandleShowMainFormEdit: (e: boolean) => void;
     reference: string;
     title: string;
+    editData: any;
 }
 
 export interface ModalParamsPdf {
