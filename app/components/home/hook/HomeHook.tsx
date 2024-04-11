@@ -9,7 +9,7 @@ const HomeHook = () => {
   useLayoutEffect(() => {
     const theme = localStorage.getItem('@theme');
     if (theme) {
-      console.log('aaaaaa');
+      // console.log('aaaaaa');
 
       const themeParsed = JSON.parse(theme) as LocalVariable;
       document.documentElement.setAttribute(

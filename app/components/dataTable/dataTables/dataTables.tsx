@@ -1,5 +1,17 @@
+import {
+    ExportProps,
+    TableDataItemOld,
+    UploadDataButtonModalProps,
+    UploadDataModalProps,
+} from "@/types/tables";
+import differenceBy from "lodash/differenceBy";
+import dynamic from "next/dynamic";
 import React, { MouseEvent } from "react";
+import { Button, Card } from "react-bootstrap";
 import DataTable, { createTheme } from "react-data-table-component";
+import "react-data-table-component-extensions/dist/index.css";
+import Swal from "sweetalert2";
+
 // import DataTableExtensions from 'react-data-table-component-extensions';
 
 createTheme(
@@ -10,20 +22,20 @@ createTheme(
             secondary: "#2aa198",
         },
         background: {
-            default: "#002b36",
+            default: "#f0f8ff",
         },
         context: {
-            background: "#cb4b16",
-            text: "#FFFFFF",
+            background: "#BBDEFB",
+            text: "#000000",
         },
         divider: {
-            default: "#073642",
+            default: "#778899",
         },
-        action: {
-            button: "rgba(0,0,0,.54)",
-            hover: "rgba(0,0,0,.08)",
-            disabled: "rgba(0,0,0,.12)",
-        },
+        // action: {
+        //     button: "rgba(0,0,0,.54)",
+        //     hover: "#rgba(0,0,0,.08)",
+        //     disabled: "rgba(0,0,0,.12)",
+        // },
     },
     "dark",
 );
@@ -32,14 +44,6 @@ const DataTableExtensions: any = dynamic(
     () => import("react-data-table-component-extensions"),
     { ssr: false },
 );
-import { Button } from "react-bootstrap";
-import "react-data-table-component-extensions/dist/index.css";
-import dynamic from "next/dynamic";
-import {
-    ExportProps,
-    UploadDataButtonModalProps,
-    UploadDataModalProps,
-} from "@/types/tables";
 
 function convertArrayOfObjectsToCSV(array: object[]): string {
     let result: string;
@@ -99,8 +103,8 @@ const UploadDataCsvModal = ({
     <Button onClick={onUploadDataModalCsv}>Subir Csv</Button>
 );
 
-const SalesModal = ({ onSalesModal }: UploadDataButtonModalProps) => (
-    <Button onClick={onSalesModal}>Vender</Button>
+const MainFormModal = ({ onMainFormModal }: UploadDataButtonModalProps) => (
+    <Button onClick={onMainFormModal}>Nuevo</Button>
 );
 
 const UploadDataPdfModal = ({
@@ -109,49 +113,138 @@ const UploadDataPdfModal = ({
     <Button onClick={onUploadDataModalPdf}>Subir multiples Pdf</Button>
 );
 
+const NoDataCard = () => (
+    <div className="tw-flex-1 tw-p-10 tw-text-center tw-text-2xl bg-white">
+        <div className="">
+            <p className="">No hay Datos Para Mostrar</p>
+            <i className="ti ti-folder-off tw-text-2xl"></i>
+        </div>
+    </div>
+);
+
 export const ExportCSV = ({
     onUploadDataModalCsv,
     onUploadDataModalPdf,
-    onSalesModal,
+    onMainFormModal,
+    onMainFormModalEdit,
     data,
     tableData,
     columns,
-    noHeader = false,
+    // noHeader = false,
     tableTitle,
 }: UploadDataModalProps) => {
+    const [selectedRows, setSelectedRows] = React.useState([]);
+    const [toggleCleared, setToggleCleared] = React.useState(false);
+    const [dataTable, setDataTable] = React.useState(data);
+
     const actionsMemo = React.useMemo(() => {
         return (
             <>
-                <UploadDataCsvModal
-                    onUploadDataModalCsv={onUploadDataModalCsv}
-                />
+                {onUploadDataModalCsv && (
+                    <UploadDataCsvModal
+                        onUploadDataModalCsv={onUploadDataModalCsv}
+                    />
+                )}
                 {onUploadDataModalPdf && (
                     <UploadDataPdfModal
                         onUploadDataModalPdf={onUploadDataModalPdf}
                     />
                 )}
-                {onSalesModal && <SalesModal onSalesModal={onSalesModal} />}
-                <Export onExport={() => downloadCSV(data)} />
+                {onMainFormModal && (
+                    <MainFormModal onMainFormModal={onMainFormModal} />
+                )}
+                {dataTable.length !== 0 && (
+                    <Export onExport={() => downloadCSV(dataTable)} />
+                )}
             </>
         );
-    }, [data, onSalesModal, onUploadDataModalCsv, onUploadDataModalPdf]);
+    }, [
+        dataTable,
+        onMainFormModal,
+        onUploadDataModalCsv,
+        onUploadDataModalPdf,
+    ]);
 
-    // return (
-    //   <DataTable columns={columns} data={data} actions={actionsMemo} pagination />
-    // );
+    const handleRowSelected = React.useCallback((state: any) => {
+        setSelectedRows(state.selectedRows);
+    }, []);
+
+    const handleRowEdit = (row: any, event: any) => {
+        // console.log(row);
+    };
+
+    const conditionalRowStyles = [
+        {
+            when: (row: any) => row.isDeleted === true,
+            style: {
+                display: "none",
+            },
+        },
+    ];
+
+    const contextActionsMemo = React.useMemo(() => {
+        const handleDelete = () => {
+            Swal.fire({
+                title: `Are you sure you want to delete:\r ${selectedRows.map(
+                    (r: TableDataItemOld) => r.SNO,
+                )}?`,
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                // confirmButtonColor: "#3085d6",
+                // cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        "Deleted!",
+                        "Your file has been deleted.",
+                        "success",
+                    );
+                    setToggleCleared(!toggleCleared);
+                    setDataTable(differenceBy(dataTable, selectedRows, "SNO"));
+                } else {
+                    setToggleCleared(!toggleCleared);
+                }
+            });
+        };
+
+        return (
+            <Button key="delete" onClick={handleDelete}>
+                Delete
+            </Button>
+        );
+    }, [dataTable, selectedRows, toggleCleared]);
 
     return (
-        <DataTableExtensions {...tableData} filterPlaceholder="Buscar">
+        <DataTableExtensions
+            export={false}
+            print={false}
+            {...tableData}
+            filterPlaceholder="Buscar"
+        >
             <DataTable
-                // noHeader={noHeader}
+                // selectableRows
+                // contextActions={contextActionsMemo}
+                // clearSelectedRows={toggleCleared}
+                // onRowClicked={handleRowEdit}
+                // onSelectedRowsChange={handleRowSelected}
+                // conditionalRowStyles={conditionalRowStyles}
+                noDataComponent={<NoDataCard />}
+                onRowClicked={(row: any, event) => {
+                    !row.isDeleted && onMainFormModalEdit(row);
+                }}
+
+                // onRowClicked={onMainFormModalEdit}
+                pointerOnHover
                 defaultSortFieldId={2}
                 columns={columns}
-                data={data}
+                data={dataTable}
                 actions={actionsMemo}
                 pagination
                 highlightOnHover
                 title={tableTitle}
-                progressPending={data ? false : true}
+                progressPending={dataTable ? false : true}
                 theme="solarized"
             />
         </DataTableExtensions>

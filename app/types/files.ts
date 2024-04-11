@@ -9,5 +9,10 @@ export interface UploadFileProps {
 export interface saveFilesDocumentsQueryProps {
   code: string;
   record: any;
-  data: DataObject;
+  data: any;
+}
+export interface saveFilesDocumentsProps {
+    urlName: string;
+    record: any;
+    data: any;
 }

@@ -19,26 +19,26 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
                 </Tab.Pane>
                 <Tab.Pane
                     className="tab-pane text-muted"
-                    id="about1"
+                    id="users"
                     role="tabpanel"
                     eventKey="second"
                 >
                     <BannerMenu
-                        seoTitle="Usuarios"
-                        title="Usuarios"
+                        seoTitle="Funcionarios"
+                        title="Funcionarios"
                         item="Dashboard"
-                        activeItem="Registro de usuarios"
+                        activeItem="Registro de Funcionarios"
                     />
                     <DataTableComponent
-                        componentTitle="Tabla del Listado de usuarios."
+                        componentTitle="Tabla del Listado de Funcionarios."
                         componentDescription="En esta tabla se encuentran listados todos los usuarios para su administración."
-                        tableTitle="Usuarios registrados"
-                        reference="users"
+                        tableTitle="Funcionarios"
+                        reference="functionary"
                     />
                 </Tab.Pane>
                 <Tab.Pane
                     className="tab-pane text-muted"
-                    id="service1"
+                    id="patients"
                     role="tabpanel"
                     eventKey="third"
                 >
@@ -51,13 +51,13 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
                     <DataTableComponent
                         componentTitle="Tabla del Listado de Pacientes."
                         componentDescription="En esta tabla se encuentran listados todos los clientes para su administración."
-                        tableTitle=""
-                        reference="clients"
+                        tableTitle="Pacientes"
+                        reference="patients"
                     />
                 </Tab.Pane>
                 <Tab.Pane
                     className="tab-pane text-muted"
-                    id="license1"
+                    id="professionals"
                     role="tabpanel"
                     eventKey="fourth"
                 >
@@ -65,13 +65,32 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
                         seoTitle="Medicos"
                         title="Medicos"
                         item="Dashboard"
-                        activeItem="Registro medicos"
+                        activeItem="Registro profesionales"
                     />
                     <DataTableComponent
-                        componentTitle="Tabla del Listado de medicos."
+                        componentTitle="Tabla del Listado de Profesionales."
                         componentDescription="En esta tabla se encuentran listados todos los medicos para su administración."
-                        tableTitle="Medicos registrados"
-                        reference="doctors"
+                        tableTitle="Profesionales"
+                        reference="professionals"
+                    />
+                </Tab.Pane>
+                <Tab.Pane
+                    className="tab-pane text-muted"
+                    id="campus"
+                    role="tabpanel"
+                    eventKey="fifth"
+                >
+                    <BannerMenu
+                        seoTitle="Sedes"
+                        title="Sedes"
+                        item="Dashboard"
+                        activeItem="Sedes"
+                    />
+                    <DataTableComponent
+                        componentTitle="Tabla del Listado de Sedes."
+                        componentDescription="En esta tabla se encuentran las sedes disponibles."
+                        tableTitle="Sedes"
+                        reference="campus"
                     />
                 </Tab.Pane>
             </Tab.Content>
