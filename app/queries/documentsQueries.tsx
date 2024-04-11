@@ -33,8 +33,8 @@ export const saveDocumentsQuery = async ({
             dataError.push({ success: false, code: record.code });
         }
     }
-    console.log("Data", data);
-    console.log("Reference", reference);
+    // console.log("Data", data);
+    // console.log("Reference", reference);
     return dataError;
 };
 
@@ -124,8 +124,8 @@ export const saveDataDocumentsQuery = async ({
 }) => {
     const queryResult = await saveOneDocumentFb(data, reference);
     console.log("Nuevo");
-    // return queryResult;
-    return;
+    return queryResult;
+    // return;
 };
 
 export const saveEditDataDocumentsQuery = async ({
@@ -139,6 +139,6 @@ export const saveEditDataDocumentsQuery = async ({
 }) => {
     const queryResult = await updateDocumentsByIdFb(id, data, reference);
     console.log("Editado");
-    // return queryResult;
-    return;
+    return queryResult;
+    // return;
 };

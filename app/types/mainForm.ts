@@ -100,7 +100,7 @@ export type DataCampusObject = {
     iud: string;
     campusName: string;
     description: string;
-    phone: any;
+    // phone: any;
     phone2: any;
     address: string;
     country: string;

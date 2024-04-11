@@ -69,8 +69,8 @@ export const saveOneDocumentFb = async (data: any, reference: string) => {
         timestamp: currentDate,
     });
 
-    console.log({ ...data, iud: documentRef.id, timestamp: new Date() });
-    console.log(currentDate);
+    // console.log({ ...data, iud: documentRef.id, timestamp: new Date() });
+    // console.log(currentDate);
     return documentRef;
 };
 
@@ -86,7 +86,7 @@ export const saveDocumentByIdFb = async (
         collection: id,
     });
 
-    console.log("document", document);
+    // console.log("document", document);
 
     await setDoc(
         document,
