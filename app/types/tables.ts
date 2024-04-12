@@ -9,7 +9,7 @@ export interface UploadDataModalProps {
     tableData?: setDataTable;
     columns: any;
     noHeader?: boolean;
-    tableTitle?: string;
+    tableTitle: string;
     reference?: string;
 }
 export interface UploadDataButtonModalProps {
