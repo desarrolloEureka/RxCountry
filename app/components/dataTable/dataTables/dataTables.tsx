@@ -243,7 +243,7 @@ export const ExportCSV = ({
                 actions={actionsMemo}
                 pagination
                 highlightOnHover
-                title={tableTitle}
+                // title={tableTitle}
                 progressPending={dataTable ? false : true}
                 theme="solarized"
             />

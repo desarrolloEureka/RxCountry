@@ -38,14 +38,14 @@ const DataTableComponent = ({
                 <Col lg={12}>
                     <Card className="custom-card">
                         <Card.Body>
-                            <div>
+                            {/* <div>
                                 <h6 className="main-content-label mb-1">
                                     {componentTitle}
                                 </h6>
                                 <p className="text-muted card-sub-title">
                                     {componentDescription}
                                 </p>
-                            </div>
+                            </div> */}
 
                             <div className="table-responsive">
                                 <ExportCSV

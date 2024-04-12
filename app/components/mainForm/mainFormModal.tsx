@@ -142,7 +142,7 @@ const MainFormModal = ({
                 onSubmit={handleSendForm}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title as="h6">{`Nuevo Registro en la tabla de ${title}`}</Modal.Title>
+                    <Modal.Title as="h6">{`Nuevo Registro ${title}`}</Modal.Title>
                 </Modal.Header>
                 {isEdit ? (
                     <Modal.Body className="tw-px-8">
