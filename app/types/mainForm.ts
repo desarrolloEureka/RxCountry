@@ -109,3 +109,8 @@ export type DataCampusObject = {
     timestamp: any;
     isActive: any;
 };
+
+export interface showPasswordParams {
+    showPassword: boolean;
+    setShowPassword: (e: boolean) => void;
+}

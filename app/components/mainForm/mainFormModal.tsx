@@ -7,7 +7,7 @@ import {
     getCities,
     idTypes,
     isActiveData,
-    specialties,
+    // specialties,
 } from "@/data/formConstant";
 import { ModalParamsMainForm } from "@/types/modals";
 import "filepond/dist/filepond.min.css";
@@ -25,6 +25,51 @@ import {
 import { FilePond } from "react-filepond";
 import MainFormHook from "./hook/mainFormHook";
 const Select = dynamic(() => import("react-select"), { ssr: false });
+import { components } from "react-select";
+import { showPasswordParams } from "@/types/mainForm";
+
+const { Option } = components;
+
+const IconOption = (props: any) => (
+    <Option {...props}>
+        <div>
+            <span className={`status bg-${props.data.statusInfo}`}></span>
+            {props.data.label}
+        </div>
+    </Option>
+);
+
+const dot = (color = "transparent") => ({
+    alignItems: "center",
+    display: "flex",
+
+    ":before": {
+        backgroundColor: color,
+        borderRadius: 10,
+        content: '" "',
+        display: "block",
+        marginRight: 8,
+        height: 7,
+        width: 7,
+    },
+});
+
+const ShowPasswordButton = ({
+    showPassword,
+    setShowPassword,
+}: showPasswordParams) => (
+    <Button
+        variant="outline-primary"
+        className="btn btn-icon btn-wave"
+        onClick={() => setShowPassword(!showPassword)}
+    >
+        {showPassword ? (
+            <i className="fe fe-eye-off"></i>
+        ) : (
+            <i className="fe fe-eye"></i>
+        )}
+    </Button>
+);
 
 const MainFormModal = ({
     handleShowMainForm,
@@ -87,20 +132,6 @@ const MainFormModal = ({
         title,
         reference,
     });
-
-    const ShowPasswordButton = () => (
-        <Button
-            variant="outline-primary"
-            className="btn btn-icon btn-wave"
-            onClick={() => setShowPassword(!showPassword)}
-        >
-            {showPassword ? (
-                <i className="fe fe-eye-off"></i>
-            ) : (
-                <i className="fe fe-eye"></i>
-            )}
-        </Button>
-    );
 
     return (
         <Modal size="xl" centered show={show} onHide={handleClose}>
@@ -250,7 +281,7 @@ const MainFormModal = ({
                                 <>
                                     <Col md={6} lg={4} className="mb-3">
                                         <Form.Label className="">
-                                            Fecha nacimiento *
+                                            Fecha Nacimiento *
                                         </Form.Label>
                                         <Form.Control
                                             required
@@ -298,14 +329,15 @@ const MainFormModal = ({
                                     <Form.Control
                                         required
                                         value={data.phone}
-                                        type="number"
-                                        min={0}
-                                        max={999999999999}
+                                        type="tel"
+                                        maxLength={25}
                                         name="phone"
                                         className=""
                                         placeholder="Número"
                                         aria-label="Phone number"
                                         onChange={changeHandler}
+                                        title="Deben ser números o caracteres telefónicos"
+                                        pattern="^(\+?)?[0-9\s]+$"
                                     />
                                 </Col>
                             )}
@@ -321,7 +353,7 @@ const MainFormModal = ({
                                         </Form.Label>
                                         <Form.Control
                                             value={data.phone2}
-                                            type="number"
+                                            type="tel"
                                             min={0}
                                             max={999999999999}
                                             name="phone2"
@@ -340,7 +372,7 @@ const MainFormModal = ({
                                             value={data.address}
                                             type="text"
                                             minLength={2}
-                                            maxLength={25}
+                                            maxLength={150}
                                             name="address"
                                             className=""
                                             placeholder="Dirección"
@@ -537,7 +569,12 @@ const MainFormModal = ({
                                                 title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres"
                                                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                             />
-                                            <ShowPasswordButton />
+                                            <ShowPasswordButton
+                                                setShowPassword={
+                                                    setShowPassword
+                                                }
+                                                showPassword={showPassword}
+                                            />
                                         </InputGroup>
                                     </Col>
                                     <Col md={6} lg={4} className="mb-3">
@@ -563,7 +600,12 @@ const MainFormModal = ({
                                                 title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres"
                                                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                             />
-                                            <ShowPasswordButton />
+                                            <ShowPasswordButton
+                                                showPassword={showPassword}
+                                                setShowPassword={
+                                                    setShowPassword
+                                                }
+                                            />
                                         </InputGroup>
                                     </Col>
                                 </>
@@ -587,7 +629,7 @@ const MainFormModal = ({
                                             onChange={changeHandler}
                                         />
                                     </Col>
-                                    <Col md={6} lg={4} className="mb-3">
+                                    {/* <Col md={6} lg={4} className="mb-3">
                                         <Form.Label className="">
                                             Registro Médico *
                                         </Form.Label>
@@ -603,8 +645,8 @@ const MainFormModal = ({
                                             aria-label="medicalRecord"
                                             onChange={changeHandler}
                                         />
-                                    </Col>
-                                    <Col md={6} lg={4} className="mb-3">
+                                    </Col> */}
+                                    {/* <Col md={6} lg={4} className="mb-3">
                                         <Form.Label className="">
                                             Especialidad *
                                         </Form.Label>
@@ -638,13 +680,13 @@ const MainFormModal = ({
                                                 selectChangeHandlerSpecialty
                                             }
                                         />
-                                    </Col>
+                                    </Col> */}
                                     <Col md={6} lg={4} className="mb-3">
                                         <Form.Label className="">
-                                            Convenio *
+                                            Convenio (Opcional)
                                         </Form.Label>
                                         <Select
-                                            required
+                                            // required
                                             noOptionsMessage={({
                                                 inputValue,
                                             }) =>
@@ -705,6 +747,16 @@ const MainFormModal = ({
                                     className="basic-multi-select"
                                     classNamePrefix="Select2"
                                     onChange={selectChangeHandlerStatus}
+                                    components={{ Option: IconOption }}
+                                    styles={{
+                                        singleValue: (
+                                            styles,
+                                            { data }: any,
+                                        ) => ({
+                                            ...styles,
+                                            ...dot(data.color),
+                                        }),
+                                    }}
                                 />
                             </Col>
                             {reference === "functionary" && (
@@ -955,7 +1007,7 @@ const MainFormModal = ({
                                     <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
                                             <h6 className="fw-bold">
-                                                Fecha nacimiento
+                                                Fecha Nacimiento
                                             </h6>
                                             <p className="border-bottom fw-light">
                                                 {data.birthDate}
@@ -1084,7 +1136,7 @@ const MainFormModal = ({
                                             </p>
                                         </div>
                                     </Col>
-                                    <Col md={6} lg={4} className="">
+                                    {/* <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
                                             <h6 className="fw-bold">
                                                 Contraseña
@@ -1103,7 +1155,7 @@ const MainFormModal = ({
                                                 **********
                                             </p>
                                         </div>
-                                    </Col>
+                                    </Col> */}
                                     <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
                                             <h6 className="fw-bold">Rol</h6>

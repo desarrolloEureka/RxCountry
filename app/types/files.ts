@@ -1,5 +1,3 @@
-import { DataObject } from './documents';
-
 export interface UploadFileProps {
   folder: string;
   fileName: string;
