@@ -7,7 +7,7 @@ import {
 } from "@/types/mainForm";
 
 export const dataMainFormObject = {
-    iud: "",
+    uid: "",
     idType: "",
     id: "",
     campusName: "",
@@ -39,7 +39,7 @@ export const dataMainFormObject = {
 } as DataMainFormObject;
 
 export const dataFunctionaryObject = {
-    iud: "",
+    uid: "",
     idType: "",
     id: "",
     name: "",
@@ -58,7 +58,7 @@ export const dataFunctionaryObject = {
 } as DataFunctionaryObject;
 
 export const dataPatientObject = {
-    iud: "",
+    uid: "",
     idType: "",
     id: "",
     name: "",
@@ -82,7 +82,7 @@ export const dataPatientObject = {
 } as DataPatientObject;
 
 export const dataProfessionalObject = {
-    iud: "",
+    uid: "",
     idType: "",
     id: "",
     name: "",
@@ -108,7 +108,7 @@ export const dataProfessionalObject = {
 } as DataProfessionalObject;
 
 export const dataCampusObject = {
-    iud: "",
+    uid: "",
     campusName: "",
     description: "",
     // phone: "",

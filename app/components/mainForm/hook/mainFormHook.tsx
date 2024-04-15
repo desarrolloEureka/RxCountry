@@ -146,7 +146,7 @@ const MainFormHook = ({
             //     .then((result) => {
             const currentDataObject = { ...dataFunctionaryObject };
 
-            editData && (currentDataObject.iud = data.iud);
+            editData && (currentDataObject.uid = data.uid);
             currentDataObject.idType = data.idType;
             currentDataObject.id = data.id;
             currentDataObject.name = data.name;
@@ -177,7 +177,7 @@ const MainFormHook = ({
             //     .then((result) => {
             const currentDataObject = { ...dataPatientObject };
 
-            editData && (currentDataObject.iud = data.iud);
+            editData && (currentDataObject.uid = data.uid);
             currentDataObject.idType = data.idType;
             currentDataObject.id = data.id;
             currentDataObject.name = data.name;
@@ -213,7 +213,7 @@ const MainFormHook = ({
             //     .then((result) => {
             const currentDataObject = { ...dataProfessionalObject };
 
-            editData && (currentDataObject.iud = data.iud);
+            editData && (currentDataObject.uid = data.uid);
             currentDataObject.idType = data.idType;
             currentDataObject.id = data.id;
             currentDataObject.name = data.name;
@@ -251,7 +251,7 @@ const MainFormHook = ({
             //     .then((result) => {
             const currentDataObject = { ...dataCampusObject };
 
-            editData && (currentDataObject.iud = data.iud);
+            editData && (currentDataObject.uid = data.uid);
             currentDataObject.campusName = data.campusName;
             currentDataObject.description = data.description;
             currentDataObject.phone2 = data.phone2;
@@ -276,7 +276,7 @@ const MainFormHook = ({
 
         handleShowMainFormEdit
             ? await saveEditDataDocumentsQuery({
-                  id: data.iud,
+                  id: data.uid,
                   data: newData,
                   reference,
               }).then(confirmAlert)

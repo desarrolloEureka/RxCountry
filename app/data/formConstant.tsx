@@ -40,7 +40,7 @@ export const specialties = [{ value: "Example", label: "Example" }];
 export const contracts = [{ value: "Example", label: "Example" }];
 
 export const isActiveData = [
-    { value: "Disponible", label: "Disponible" },
+    { value: "Activo", label: "Activo" },
     { value: "Inactivo", label: "Inactivo" },
 ];
 export const campus = [
