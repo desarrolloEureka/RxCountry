@@ -1,7 +1,7 @@
 import HeaderHook from "@/components/header/hook/HeaderHook";
 import { main_logo_dark } from "@/globals/images";
 import dynamic from "next/dynamic";
-import { Container, Nav, NavDropdown } from "react-bootstrap";
+import { Container, Dropdown, Nav, NavDropdown } from "react-bootstrap";
 
 const HeadDropDown = dynamic(
     () => import("@/components/header/headDropDown/HeadDropDown"),
@@ -85,6 +85,54 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                     Especialidades
                                 </Nav.Link>
                             </Nav.Item>
+
+                            <Dropdown>
+                                <Dropdown.Toggle
+                                    id="mainHeaderProfile"
+                                    aria-expanded="false"
+                                    className="nav-link show"
+                                    variant=""
+                                    role="button"
+                                >
+                                    <i className="fe fe-user header-link-icon"></i>
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu
+                                    className="main-header-dropdown dropdown-menu pt-0 overflow-hidden dropdown-menu-end"
+                                    aria-labelledby="mainHeaderProfile"
+                                >
+                                    <div className="header-navheading border-bottom">
+                                        <div className="tw-pb-5">
+                                            <img
+                                                src="https://ui-avatars.com/api/?name=John+Doe"
+                                                alt="img"
+                                                width="32"
+                                                height="32"
+                                                className="rounded-circle"
+                                            />
+                                        </div>
+                                        <h6 className="main-notification-title">
+                                            John Doe
+                                        </h6>
+                                        <p className="main-notification-text mb-0">
+                                            Super Admin
+                                        </p>
+                                    </div>
+                                    <Dropdown.Item
+                                        href="#profile"
+                                        eventKey="seventh"
+                                    >
+                                        <i className="fe fe-user fs-16 align-middle me-2"></i>
+                                        Perfil
+                                    </Dropdown.Item>
+                                    <li>
+                                        <hr className="dropdown-divider" />
+                                    </li>
+                                    <Dropdown.Item onClick={logOut}>
+                                        <i className="fe fe-power fs-16 align-middle me-2"></i>
+                                        Cerrar sesión
+                                    </Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
                         </Nav>
                         <HeadDropDown logOut={logOut} notifications dark />
                     </div>
