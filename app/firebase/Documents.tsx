@@ -12,7 +12,6 @@ import {
 } from "firebase/firestore";
 import moment from "moment";
 import { db } from "shared/firebase/firebase";
-import moment from "moment";
 
 const allRef = ({ ref }: AllRefPropsFirebase) => collection(db, ref);
 

@@ -1,7 +1,7 @@
 import HeaderHook from "@/components/header/hook/HeaderHook";
 import { main_logo_dark } from "@/globals/images";
 import dynamic from "next/dynamic";
-import { Container, Nav, NavDropdown, Dropdown } from "react-bootstrap";
+import { Container, Nav, NavDropdown } from "react-bootstrap";
 
 const HeadDropDown = dynamic(
     () => import("@/components/header/headDropDown/HeadDropDown"),
@@ -41,7 +41,7 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                 <div className="header-content-right">
                     <div className="d-flex order-lg-2 align-items-center ms-auto">
                         <Nav
-                            className="nav nav-tabs mb-3 border-0"
+                            className="nav nav-tabs border-0"
                             id="myTab"
                             role="tablist"
                             defaultActiveKey="first"
@@ -78,6 +78,11 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                             <Nav.Item>
                                 <Nav.Link href="#campus" eventKey="fifth">
                                     Sedes
+                                </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link href="#specialties" eventKey="sixth">
+                                    Especialidades
                                 </Nav.Link>
                             </Nav.Item>
                         </Nav>

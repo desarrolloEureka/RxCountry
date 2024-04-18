@@ -93,6 +93,25 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
                         reference="campus"
                     />
                 </Tab.Pane>
+                <Tab.Pane
+                    className="tab-pane text-muted"
+                    id="specialty"
+                    role="tabpanel"
+                    eventKey="sixth"
+                >
+                    <BannerMenu
+                        seoTitle="Especialidades"
+                        title="Especialidades"
+                        item="Dashboard"
+                        activeItem="Especialidades"
+                    />
+                    <DataTableComponent
+                        componentTitle="Tabla del Listado de Especialidades."
+                        componentDescription="En esta tabla se encuentran las Especialidades disponibles."
+                        tableTitle="Especialidades"
+                        reference="specialties"
+                    />
+                </Tab.Pane>
             </Tab.Content>
         </Tab.Container>
     );

@@ -54,6 +54,7 @@ const FormModalHook = ({
         const error: ErrorData[] = [];
         for (const record of files) {
             const code = record.name.split(".")[0];
+
             await saveFilesDocumentsQuery({ code, record, data })
                 .then((result) => {
                     const dateEnd = moment(data.date_end).valueOf();
