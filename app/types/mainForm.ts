@@ -1,8 +1,8 @@
 export interface DataMainFormObject {
-    iud: string;
+    uid: string;
+    icon: string;
     idType: string;
     id: string;
-    campusName: string;
     name: string;
     description: string;
     lastName: string;
@@ -31,7 +31,7 @@ export interface DataMainFormObject {
 }
 
 export type DataFunctionaryObject = {
-    iud: string;
+    uid: string;
     idType: string;
     id: string;
     name: string;
@@ -49,7 +49,7 @@ export type DataFunctionaryObject = {
 };
 
 export type DataPatientObject = {
-    iud: string;
+    uid: string;
     idType: string;
     id: string;
     name: string;
@@ -72,7 +72,7 @@ export type DataPatientObject = {
 };
 
 export type DataProfessionalObject = {
-    iud: string;
+    uid: string;
     idType: string;
     id: string;
     name: string;
@@ -97,8 +97,8 @@ export type DataProfessionalObject = {
 };
 
 export type DataCampusObject = {
-    iud: string;
-    campusName: string;
+    uid: string;
+    name: string;
     description: string;
     // phone: any;
     phone2: any;
@@ -107,6 +107,13 @@ export type DataCampusObject = {
     state: any;
     city: string;
     timestamp: any;
+    isActive: any;
+};
+export type DataSpecialtyObject = {
+    uid: string;
+    icon: string;
+    name: string;
+    description: string;
     isActive: any;
 };
 

@@ -8,8 +8,9 @@ import {
     query,
     setDoc,
     updateDoc,
-    where
+    where,
 } from "firebase/firestore";
+import moment from "moment";
 import { db } from "shared/firebase/firebase";
 import moment from "moment";
 
@@ -19,6 +20,11 @@ const currentDate = moment().format();
 
 const docRef = ({ ref, collection }: RefPropsFirebase) =>
     doc(db, ref, collection);
+
+export const getReference = (reference: string) => {
+    const documentRef = doc(allRef({ ref: reference }));
+    return documentRef;
+};
 
 export const getAllDocumentsFb = async (ref: string) =>
     await getDocs(allRef({ ref }));
@@ -61,15 +67,19 @@ export const saveDocumentsFb = async (data: any, reference: string) => {
     return documentRef;
 };
 
-export const saveOneDocumentFb = async (data: any, reference: string) => {
-    const documentRef = doc(allRef({ ref: reference }));
+export const saveOneDocumentFb = async (
+    documentRef: any,
+    data: any,
+    // reference: string,
+) => {
+    // const documentRef = doc(allRef({ ref: reference }));
     await setDoc(documentRef, {
         ...data,
-        iud: documentRef.id,
+        // uid: documentRef.id,
         timestamp: currentDate,
     });
 
-    // console.log({ ...data, iud: documentRef.id, timestamp: new Date() });
+    // console.log({ ...data, uid: documentRef.id, timestamp: new Date() });
     // console.log(currentDate);
     return documentRef;
 };
