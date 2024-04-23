@@ -4,6 +4,7 @@ import {
     DataPatientObject,
     DataProfessionalObject,
     DataCampusObject,
+    DataSpecialtyObject,
 } from "@/types/mainForm";
 
 export const dataMainFormObject = {
@@ -121,3 +122,13 @@ export const dataCampusObject = {
     isActive: "",
     isDeleted: false,
 } as DataCampusObject;
+
+
+export const dataSpecialtyObject = {
+    uid: "",
+    icon: "",
+    name: "",
+    description: "",
+    isActive: "",
+    isDeleted: false,
+} as DataSpecialtyObject;

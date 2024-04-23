@@ -143,9 +143,9 @@ const SingIn = () => {
                         <div>
                           {/* {`Don't`} */}
                           No tienes una cuenta registrada?
-                          <Link href={`/components/signUp/`}>
+                          <Link href={`/components/signup/`}>
                             {' '}
-                            Registrate aquí
+                            Regístrate aquí
                           </Link>
                         </div>
                       </div>

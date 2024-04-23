@@ -3,6 +3,7 @@ import BannerMenu from "../bannerMenu/BannerMenu";
 import HomeDash from "../dashBoard/homeDash/HomeDash";
 import DataTableComponent from "../dataTable/DataTableComponent";
 import HeaderContent from "./components/headerContent/HeaderContent";
+import Profile from "../profile/page";
 
 const Header = ({ hamburger }: { hamburger?: boolean }) => {
     return (
@@ -92,6 +93,33 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
                         tableTitle="Sedes"
                         reference="campus"
                     />
+                </Tab.Pane>
+                <Tab.Pane
+                    className="tab-pane text-muted"
+                    id="specialty"
+                    role="tabpanel"
+                    eventKey="sixth"
+                >
+                    <BannerMenu
+                        seoTitle="Especialidades"
+                        title="Especialidades"
+                        item="Dashboard"
+                        activeItem="Especialidades"
+                    />
+                    <DataTableComponent
+                        componentTitle="Tabla del Listado de Especialidades."
+                        componentDescription="En esta tabla se encuentran las Especialidades disponibles."
+                        tableTitle="Especialidades"
+                        reference="specialties"
+                    />
+                </Tab.Pane>
+                <Tab.Pane
+                    className="tab-pane text-muted"
+                    id="specialty"
+                    role="tabpanel"
+                    eventKey="seventh"
+                >
+                    <Profile />
                 </Tab.Pane>
             </Tab.Content>
         </Tab.Container>
