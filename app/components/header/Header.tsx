@@ -115,9 +115,47 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
                 </Tab.Pane>
                 <Tab.Pane
                     className="tab-pane text-muted"
-                    id="specialty"
+                    id="Diagnostician"
                     role="tabpanel"
                     eventKey="seventh"
+                >
+                    <BannerMenu
+                        seoTitle="Diagnosticador"
+                        title="Diagnosticador"
+                        item="Dashboard"
+                        activeItem="Diagnosticador"
+                    />
+                    <DataTableComponent
+                        componentTitle="Tabla del Listado de Diagnosticadores."
+                        componentDescription="En esta tabla se encuentran las Diagnosticadores disponibles."
+                        tableTitle="Diagnosticadores"
+                        reference="diagnostician"
+                    />
+                </Tab.Pane>
+                <Tab.Pane
+                    className="tab-pane text-muted"
+                    id="Agreements"
+                    role="tabpanel"
+                    eventKey="eighth"
+                >
+                    <BannerMenu
+                        seoTitle="Convenios"
+                        title="Convenios"
+                        item="Dashboard"
+                        activeItem="Convenios"
+                    />
+                    <DataTableComponent
+                        componentTitle="Tabla del Listado de Convenios."
+                        componentDescription="En esta tabla se encuentran las Convenios disponibles."
+                        tableTitle="Convenios"
+                        reference="agreements"
+                    />
+                </Tab.Pane>
+                <Tab.Pane
+                    className="tab-pane text-muted"
+                    id="profile"
+                    role="tabpanel"
+                    eventKey="profile"
                 >
                     <Profile />
                 </Tab.Pane>

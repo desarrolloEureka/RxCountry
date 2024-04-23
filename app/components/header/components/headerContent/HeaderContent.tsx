@@ -85,6 +85,19 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                     Especialidades
                                 </Nav.Link>
                             </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link
+                                    href="#diagnostician"
+                                    eventKey="seventh"
+                                >
+                                    Diagnosticadores
+                                </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link href="#agreements" eventKey="eighth">
+                                    Convenios
+                                </Nav.Link>
+                            </Nav.Item>
 
                             <Dropdown>
                                 <Dropdown.Toggle
@@ -119,7 +132,7 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                     </div>
                                     <Dropdown.Item
                                         href="#profile"
-                                        eventKey="seventh"
+                                        eventKey="profile"
                                     >
                                         <i className="fe fe-user fs-16 align-middle me-2"></i>
                                         Perfil

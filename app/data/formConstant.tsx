@@ -24,6 +24,11 @@ export const idTypes = [
 
 export const countries = [{ value: "CO", label: "Colombia" }];
 
+export const personTypes = [
+    { value: "Jurídico", label: "Jurídico" },
+    { value: "Natural", label: "Natural" },
+];
+
 export const ColombianStates = colombianCitiesData.map((state) => ({
     value: state.id + 1,
     label: state.departamento,
