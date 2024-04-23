@@ -7,7 +7,7 @@ import {
     dataMainFormObject,
     dataPatientObject,
     dataProfessionalObject,
-    // dataSpecialtyObject,
+    dataSpecialtyObject,
 } from "@/data/mainFormData";
 import { getAllAgreementsQuery } from "@/queries/AgreementsQueries";
 import { getAllCampusQuery } from "@/queries/campusQueries";
@@ -331,19 +331,19 @@ const MainFormHook = ({
             newData = { ...currentDataObject };
         }
 
-        // if (reference === "specialties") {
-        //     const currentDataObject = { ...dataSpecialtyObject };
+        if (reference === "specialties") {
+            const currentDataObject = { ...dataSpecialtyObject };
 
-        //     editData
-        //         ? (currentDataObject.uid = data.uid)
-        //         : (currentDataObject.uid = documentRef.id);
-        //     currentDataObject.name = data.name;
-        //     currentDataObject.description = data.description;
-        //     currentDataObject.icon = data.icon;
-        //     currentDataObject.isActive = data.isActive;
+            editData
+                ? (currentDataObject.uid = data.uid)
+                : (currentDataObject.uid = documentRef.id);
+            currentDataObject.name = data.name;
+            currentDataObject.description = data.description;
+            currentDataObject.icon = data.icon;
+            currentDataObject.isActive = data.isActive;
 
-        //     newData = { ...currentDataObject };
-        // }
+            newData = { ...currentDataObject };
+        }
 
         if (reference === "diagnostician") {
             const currentDataObject = { ...dataDiagnosticianObject };
