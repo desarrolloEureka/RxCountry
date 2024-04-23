@@ -5,6 +5,8 @@ import {
     DataProfessionalObject,
     DataCampusObject,
     DataSpecialtyObject,
+    DataDiagnosticianObject,
+    DataAgreementsObject,
 } from "@/types/mainForm";
 
 export const dataMainFormObject = {
@@ -14,6 +16,9 @@ export const dataMainFormObject = {
     id: "",
     name: "",
     description: "",
+    personType: "",
+    discount: "",
+    rut: "",
     lastName: "",
     birthDate: "",
     age: "",
@@ -123,7 +128,6 @@ export const dataCampusObject = {
     isDeleted: false,
 } as DataCampusObject;
 
-
 export const dataSpecialtyObject = {
     uid: "",
     icon: "",
@@ -132,3 +136,27 @@ export const dataSpecialtyObject = {
     isActive: "",
     isDeleted: false,
 } as DataSpecialtyObject;
+
+export const dataAgreementsObject = {
+    uid: "",
+    name: "",
+    personType: "",
+    discount: "",
+    isActive: "",
+} as DataAgreementsObject;
+
+export const dataDiagnosticianObject = {
+    uid: "",
+    idType: "",
+    id: "",
+    name: "",
+    rut: "",
+    phone: "",
+    phone2: "",
+    address: "",
+    country: "",
+    state: "",
+    city: "",
+    timestamp: "",
+    isActive: "",
+} as DataDiagnosticianObject;

@@ -1,13 +1,14 @@
 import {
     areas,
-    campus,
+    // campus,
     ColombianStates,
-    contracts,
+    // contracts,
     countries,
     getCities,
     idTypes,
     isActiveData,
-    specialties,
+    // specialties,
+    personTypes,
 } from "@/data/formConstant";
 import { ModalParamsMainForm } from "@/types/modals";
 import "filepond/dist/filepond.min.css";
@@ -99,6 +100,9 @@ const MainFormModal = ({
         selectedArea,
         isEdit,
         errorPass,
+        campus,
+        specialties,
+        contracts,
         setErrorPass,
         handleSendForm,
         handleClose,
@@ -125,6 +129,7 @@ const MainFormModal = ({
         handleEditForm,
         handleMultipleChange,
         urlFile,
+        selectChangeHandlerPersonType,
     } = MainFormHook({
         handleShowMainForm,
         setHandleShowMainForm,
@@ -149,52 +154,17 @@ const MainFormModal = ({
                 {isEdit ? (
                     <Modal.Body className="tw-px-8">
                         <Row>
-                            {/* {reference === "campus" ||
-                                (reference === "specialties" && (
-                                    <>
-                                        <Col md={6} className="mb-3">
-                                            <Form.Label className="">
-                                                Nombre *
-                                            </Form.Label>
-                                            <Form.Control
-                                                required
-                                                value={data.campusName}
-                                                type="text"
-                                                minLength={2}
-                                                maxLength={25}
-                                                name="campusName"
-                                                className="form-control"
-                                                placeholder="Nombre"
-                                                aria-label="campusName"
-                                                onChange={changeHandler}
-                                            />
-                                        </Col>
-                                        <Col md={6} className="mb-3">
-                                            <Form.Label className="">
-                                                Descripción (opcional)
-                                            </Form.Label>
-                                            <Form.Control
-                                                value={data.description}
-                                                type="text"
-                                                minLength={2}
-                                                maxLength={25}
-                                                name="description"
-                                                className="form-control"
-                                                placeholder="Descripción"
-                                                aria-label="description"
-                                                onChange={changeHandler}
-                                            />
-                                        </Col>
-                                    </>
-                                ))} */}
-
                             {reference !== "campus" &&
-                                reference !== "specialties" && (
+                                reference !== "specialties" &&
+                                reference !== "agreements" && (
                                     <>
                                         <Col md={6} lg={4} className="mb-3">
                                             <Form.Group controlId="idType">
                                                 <Form.Label className="">
-                                                    Tipo Documento *
+                                                    Tipo Documento
+                                                    <span className="tw-text-red-500">
+                                                        *
+                                                    </span>
                                                 </Form.Label>
                                                 <Select
                                                     required
@@ -232,7 +202,10 @@ const MainFormModal = ({
                                         </Col>
                                         <Col md={6} lg={4} className="mb-3">
                                             <Form.Label className="">
-                                                Documento *
+                                                Documento
+                                                <span className="tw-text-red-500">
+                                                    *
+                                                </span>
                                             </Form.Label>
                                             <Form.Control
                                                 required
@@ -250,8 +223,15 @@ const MainFormModal = ({
                                     </>
                                 )}
 
-                            <Col md={6} lg={4} className="mb-3">
-                                <Form.Label className="">Nombre/s *</Form.Label>
+                            <Col
+                                md={6}
+                                lg={reference !== "agreements" ? 4 : 6}
+                                className="mb-3"
+                            >
+                                <Form.Label className="">
+                                    Nombre/s
+                                    <span className="tw-text-red-500">*</span>
+                                </Form.Label>
                                 <Form.Control
                                     required
                                     value={data.name}
@@ -286,11 +266,105 @@ const MainFormModal = ({
                                 </Col>
                             )}
 
+                            {reference === "diagnostician" && (
+                                <Col md={6} lg={4} className="mb-3">
+                                    <Form.Label className="">
+                                        Rut
+                                        <span className="tw-text-red-500">
+                                            *
+                                        </span>
+                                    </Form.Label>
+                                    <Form.Control
+                                        value={data.rut}
+                                        type="text"
+                                        minLength={2}
+                                        maxLength={50}
+                                        name="rut"
+                                        className="form-control"
+                                        placeholder="Número"
+                                        aria-label="rut"
+                                        onChange={changeHandler}
+                                        title="Deben ser números del registro"
+                                        pattern="^[0-9\s]+$"
+                                    />
+                                </Col>
+                            )}
+
+                            {reference === "agreements" && (
+                                <>
+                                    <Col md={6} className="mb-3">
+                                        <Form.Group controlId="idType">
+                                            <Form.Label className="">
+                                                Tipo de Persona
+                                                <span className="tw-text-red-500">
+                                                    *
+                                                </span>
+                                            </Form.Label>
+                                            <Select
+                                                required
+                                                noOptionsMessage={({
+                                                    inputValue,
+                                                }) =>
+                                                    `No hay resultados para "${inputValue}"`
+                                                }
+                                                value={
+                                                    data.personType
+                                                        ? personTypes.find(
+                                                              (value) =>
+                                                                  findValue(
+                                                                      value,
+                                                                      data.personType,
+                                                                  ),
+                                                          )
+                                                        : []
+                                                }
+                                                placeholder="Seleccione"
+                                                isClearable
+                                                name="personType"
+                                                options={personTypes}
+                                                id="personType"
+                                                className="basic-multi-select"
+                                                classNamePrefix="Select2"
+                                                onChange={
+                                                    selectChangeHandlerPersonType
+                                                }
+                                            />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={6} className="mb-3">
+                                        <Form.Label className="">
+                                            Descuento (Opcional)
+                                            {/* <span className="tw-text-red-500">
+                                                *
+                                            </span> */}
+                                        </Form.Label>
+                                        <Form.Control
+                                            value={data.discount}
+                                            type="text"
+                                            minLength={2}
+                                            maxLength={50}
+                                            name="discount"
+                                            className="form-control"
+                                            placeholder="Porcentaje"
+                                            aria-label="discount"
+                                            onChange={changeHandler}
+                                            title="Debe ingresar porcentaje en números"
+                                            // pattern="^(\%?)?[0-9\s]+$"
+                                        />
+                                    </Col>
+                                </>
+                            )}
+
                             {reference !== "campus" &&
-                                reference !== "specialties" && (
+                                reference !== "specialties" &&
+                                reference !== "diagnostician" &&
+                                reference !== "agreements" && (
                                     <Col md={6} lg={4} className="mb-3">
                                         <Form.Label className="">
-                                            Apellido/s *
+                                            Apellido/s
+                                            <span className="tw-text-red-500">
+                                                *
+                                            </span>
                                         </Form.Label>
                                         <Form.Control
                                             required
@@ -311,7 +385,10 @@ const MainFormModal = ({
                                 <>
                                     <Col md={6} lg={4} className="mb-3">
                                         <Form.Label className="">
-                                            Fecha Nacimiento *
+                                            Fecha Nacimiento
+                                            <span className="tw-text-red-500">
+                                                *
+                                            </span>
                                         </Form.Label>
                                         <Form.Control
                                             required
@@ -348,14 +425,18 @@ const MainFormModal = ({
                                 </>
                             )}
                             {reference !== "campus" &&
-                                reference !== "specialties" && (
+                                reference !== "specialties" &&
+                                reference !== "agreements" && (
                                     <Col
                                         md={6}
                                         lg={reference !== "campus" && 4}
                                         className="mb-3"
                                     >
                                         <Form.Label className="">
-                                            Celular *
+                                            Celular
+                                            <span className="tw-text-red-500">
+                                                *
+                                            </span>
                                         </Form.Label>
                                         <Form.Control
                                             required
@@ -372,8 +453,10 @@ const MainFormModal = ({
                                         />
                                     </Col>
                                 )}
+
                             {reference !== "functionary" &&
-                                reference !== "specialties" && (
+                                reference !== "specialties" &&
+                                reference !== "agreements" && (
                                     <>
                                         <Col
                                             md={6}
@@ -397,7 +480,10 @@ const MainFormModal = ({
                                         </Col>
                                         <Col md={6} className="mb-3">
                                             <Form.Label className="">
-                                                Dirección *
+                                                Dirección
+                                                <span className="tw-text-red-500">
+                                                    *
+                                                </span>
                                             </Form.Label>
                                             <Form.Control
                                                 required
@@ -424,7 +510,10 @@ const MainFormModal = ({
                                             className="mb-3"
                                         >
                                             <Form.Label className="">
-                                                País *
+                                                País
+                                                <span className="tw-text-red-500">
+                                                    *
+                                                </span>
                                             </Form.Label>
                                             <Select
                                                 required
@@ -471,20 +560,21 @@ const MainFormModal = ({
                                             className="mb-3"
                                         >
                                             <Form.Label className="">
-                                                Departamento/Estado *
+                                                Departamento/Estado
+                                                <span className="tw-text-red-500">
+                                                    *
+                                                </span>
                                             </Form.Label>
                                             <Select
                                                 required
-                                                isDisabled={_.isEmpty(
-                                                    selectedCountry,
-                                                )}
+                                                isDisabled={!data.country}
                                                 noOptionsMessage={({
                                                     inputValue,
                                                 }: any) =>
                                                     `No hay resultados para "${inputValue}"`
                                                 }
                                                 value={
-                                                    data.state
+                                                    data.country
                                                         ? ColombianStates.find(
                                                               (value) =>
                                                                   findValue(
@@ -521,30 +611,33 @@ const MainFormModal = ({
                                             className="mb-3"
                                         >
                                             <Form.Label className="">
-                                                Ciudad *
+                                                Ciudad
+                                                <span className="tw-text-red-500">
+                                                    *
+                                                </span>
                                             </Form.Label>
                                             <Select
                                                 required
                                                 isDisabled={
-                                                    _.isEmpty(selectedState) ||
-                                                    _.isEmpty(selectedCountry)
+                                                    !data.state || !data.country
                                                 }
                                                 noOptionsMessage={({
                                                     inputValue,
                                                 }: any) =>
                                                     `No hay resultados para "${inputValue}"`
                                                 }
-                                                // value={
-                                                //     data.state
-                                                //         ? getCities(data.state).find(
-                                                //               (value) =>
-                                                //                   findValue(
-                                                //                       value,
-                                                //                       data.state,
-                                                //                   ),
-                                                //           )
-                                                //         : []
-                                                // }
+                                                value={
+                                                    data.state
+                                                        ? getCities(
+                                                              data.state,
+                                                          ).find((value) =>
+                                                              findValue(
+                                                                  value,
+                                                                  data.city,
+                                                              ),
+                                                          )
+                                                        : []
+                                                }
                                                 defaultValue={selectedCity}
                                                 placeholder="Ciudad"
                                                 isClearable
@@ -566,7 +659,9 @@ const MainFormModal = ({
                                 )}
 
                             {reference !== "campus" &&
-                                reference !== "specialties" && (
+                                reference !== "specialties" &&
+                                reference !== "diagnostician" &&
+                                reference !== "agreements" && (
                                     <>
                                         <Col
                                             md={6}
@@ -574,7 +669,10 @@ const MainFormModal = ({
                                             className="mb-3"
                                         >
                                             <Form.Label className="">
-                                                Email *
+                                                Email
+                                                <span className="tw-text-red-500">
+                                                    *
+                                                </span>
                                             </Form.Label>
                                             <Form.Control
                                                 required
@@ -589,7 +687,10 @@ const MainFormModal = ({
                                         </Col>
                                         <Col md={6} lg={4} className="mb-3">
                                             <Form.Label className="">
-                                                Contraseña *
+                                                Contraseña
+                                                <span className="tw-text-red-500">
+                                                    *
+                                                </span>
                                             </Form.Label>
                                             <InputGroup>
                                                 <Form.Control
@@ -620,7 +721,10 @@ const MainFormModal = ({
                                         </Col>
                                         <Col md={6} lg={4} className="mb-3">
                                             <Form.Label className="">
-                                                Confirmar Contraseña *
+                                                Confirmar Contraseña
+                                                <span className="tw-text-red-500">
+                                                    *
+                                                </span>
                                             </Form.Label>
                                             <InputGroup>
                                                 <Form.Control
@@ -651,6 +755,7 @@ const MainFormModal = ({
                                         </Col>
                                     </>
                                 )}
+
                             {reference === "professionals" && (
                                 <>
                                     {/* <Col md={6} lg={4} className="mb-3">
@@ -689,7 +794,10 @@ const MainFormModal = ({
                                     </Col> */}
                                     <Col md={6} lg={4} className="mb-3">
                                         <Form.Label className="">
-                                            Especialidad *
+                                            Especialidad
+                                            <span className="tw-text-red-500">
+                                                *
+                                            </span>
                                         </Form.Label>
                                         <Select
                                             required
@@ -700,7 +808,7 @@ const MainFormModal = ({
                                             }
                                             value={
                                                 data.specialty
-                                                    ? specialties.find(
+                                                    ? specialties?.find(
                                                           (value) =>
                                                               findValue(
                                                                   value,
@@ -734,8 +842,8 @@ const MainFormModal = ({
                                                 `No hay resultados para "${inputValue}"`
                                             }
                                             value={
-                                                data.country
-                                                    ? contracts.find((value) =>
+                                                data.contract
+                                                    ? contracts?.find((value) =>
                                                           findValue(
                                                               value,
                                                               data.contract,
@@ -758,12 +866,21 @@ const MainFormModal = ({
                                     </Col>
                                 </>
                             )}
+
                             <Col
                                 md={6}
-                                lg={reference !== "campus" ? 4 : 6}
+                                lg={
+                                    reference !== "campus" &&
+                                    reference !== "agreements"
+                                        ? 4
+                                        : 6
+                                }
                                 className="mb-3"
                             >
-                                <Form.Label className="">Estado *</Form.Label>
+                                <Form.Label className="">
+                                    Estado
+                                    <span className="tw-text-red-500">*</span>
+                                </Form.Label>
                                 <Select
                                     required
                                     noOptionsMessage={({ inputValue }) =>
@@ -800,6 +917,7 @@ const MainFormModal = ({
                                     }}
                                 />
                             </Col>
+
                             {reference === "functionary" && (
                                 <>
                                     {/* <Col md={6} lg={4} className="mb-3">
@@ -840,7 +958,10 @@ const MainFormModal = ({
                         </Col> */}
                                     <Col md={6} lg={4} className="mb-3">
                                         <Form.Label className="">
-                                            Sede *
+                                            Sede
+                                            <span className="tw-text-red-500">
+                                                *
+                                            </span>
                                         </Form.Label>
                                         <Select
                                             required
@@ -851,7 +972,7 @@ const MainFormModal = ({
                                             }
                                             value={
                                                 data.campus
-                                                    ? campus.find((value) =>
+                                                    ? campus?.find((value) =>
                                                           findValue(
                                                               value,
                                                               data.campus,
@@ -872,7 +993,10 @@ const MainFormModal = ({
                                     </Col>
                                     <Col md={6} lg={4} className="mb-3">
                                         <Form.Label className="">
-                                            Área *
+                                            Área
+                                            <span className="tw-text-red-500">
+                                                *
+                                            </span>
                                         </Form.Label>
                                         <Select
                                             required
@@ -904,8 +1028,11 @@ const MainFormModal = ({
                                     </Col>
                                 </>
                             )}
+
                             {reference !== "campus" &&
-                                reference !== "specialties" && (
+                                reference !== "specialties" &&
+                                reference !== "diagnostician" &&
+                                reference !== "agreements" && (
                                     <Col className="mb-3">
                                         {/* <FilePond
                                             className="multiple-filepond single-fileupload"
@@ -922,7 +1049,7 @@ const MainFormModal = ({
                                             controlId="files"
                                         >
                                             <Form.Label>
-                                                Subir Imagen:{" "}
+                                                Subir Imagen:
                                                 <span className="tw-text-red-500">
                                                     *
                                                 </span>
@@ -977,7 +1104,7 @@ const MainFormModal = ({
                                 show={show}
                                 // onClick={() => setErrorForm(false)}
                             >
-                                <strong>Contraseñas no coinciden!.</strong>{" "}
+                                <strong>Contraseñas no coinciden!.</strong>
                                 Vuelva a intentar!
                                 <Button
                                     variant=""
@@ -995,33 +1122,9 @@ const MainFormModal = ({
                 ) : (
                     <Modal.Body className="tw-px-8">
                         <Row>
-                            {/* {reference === "campus" && (
-                                <>
-                                    <Col md={6} className="">
-                                        <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">
-                                                Nombre Sede
-                                            </h6>
-                                            <p className="border-bottom fw-light">
-                                                {data.campusName}
-                                            </p>
-                                        </div>
-                                    </Col>
-                                    <Col md={6} className="">
-                                        <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">
-                                                Descripción (opcional)
-                                            </h6>
-                                            <p className="border-bottom">
-                                                {data.description}
-                                            </p>
-                                        </div>
-                                    </Col>
-                                </>
-                            )} */}
-
                             {reference !== "campus" &&
-                                reference !== "specialties" && (
+                                reference !== "specialties" &&
+                                reference !== "agreements" && (
                                     <>
                                         <Col md={6} lg={4} className="">
                                             <div className="tw-flex-1 tw-text-star tw-text-base">
@@ -1046,7 +1149,11 @@ const MainFormModal = ({
                                     </>
                                 )}
 
-                            <Col md={6} lg={4} className="">
+                            <Col
+                                md={6}
+                                lg={reference !== "agreements" ? 4 : 6}
+                                className=""
+                            >
                                 <div className="tw-flex-1 tw-text-star tw-text-base">
                                     <h6 className="fw-bold">Nombre/s</h6>
                                     <p className="border-bottom fw-light">
@@ -1069,8 +1176,46 @@ const MainFormModal = ({
                                 </Col>
                             )}
 
+                            {reference === "diagnostician" && (
+                                <Col md={6} lg={4} className="mb-3">
+                                    <div className="tw-flex-1 tw-text-star tw-text-base">
+                                        <h6 className="fw-bold">Rut</h6>
+                                        <p className="border-bottom">
+                                            {data.rut}
+                                        </p>
+                                    </div>
+                                </Col>
+                            )}
+
+                            {reference === "agreements" && (
+                                <>
+                                    <Col md={6} className="">
+                                        <div className="tw-flex-1 tw-text-star tw-text-base">
+                                            <h6 className="fw-bold">
+                                                Tipo de Persona
+                                            </h6>
+                                            <p className="border-bottom">
+                                                {data.personType}
+                                            </p>
+                                        </div>
+                                    </Col>
+                                    <Col md={6} className="">
+                                        <div className="tw-flex-1 tw-text-star tw-text-base">
+                                            <h6 className="fw-bold">
+                                                Descuento
+                                            </h6>
+                                            <p className="border-bottom">
+                                                {data.discount}
+                                            </p>
+                                        </div>
+                                    </Col>
+                                </>
+                            )}
+
                             {reference !== "campus" &&
-                                reference !== "specialties" && (
+                                reference !== "specialties" &&
+                                reference !== "diagnostician" &&
+                                reference !== "agreements" && (
                                     <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
                                             <h6 className="fw-bold">
@@ -1083,7 +1228,7 @@ const MainFormModal = ({
                                     </Col>
                                 )}
 
-                            {reference === "patients" && (
+                            {reference === "c" && (
                                 <>
                                     <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
@@ -1105,8 +1250,10 @@ const MainFormModal = ({
                                     </Col>
                                 </>
                             )}
+
                             {reference !== "campus" &&
-                                reference !== "specialties" && (
+                                reference !== "specialties" &&
+                                reference !== "agreements" && (
                                     <Col
                                         md={6}
                                         lg={reference !== "campus" && 4}
@@ -1120,8 +1267,10 @@ const MainFormModal = ({
                                         </div>
                                     </Col>
                                 )}
+
                             {reference !== "functionary" &&
-                                reference !== "specialties" && (
+                                reference !== "specialties" &&
+                                reference !== "agreements" && (
                                     <>
                                         <Col
                                             md={6}
@@ -1183,7 +1332,14 @@ const MainFormModal = ({
                                                     Departamento/Estado
                                                 </h6>
                                                 <p className="border-bottom fw-light">
-                                                    {data.state}
+                                                    {data.state &&
+                                                        ColombianStates.find(
+                                                            (value) =>
+                                                                findValue(
+                                                                    value,
+                                                                    data.state,
+                                                                ),
+                                                        )?.label}
                                                 </p>
                                             </div>
                                         </Col>
@@ -1203,14 +1359,25 @@ const MainFormModal = ({
                                                     Ciudad
                                                 </h6>
                                                 <p className="border-bottom fw-light">
-                                                    {data.city}
+                                                    {data.city &&
+                                                        getCities(
+                                                            data.state,
+                                                        ).find((value) =>
+                                                            findValue(
+                                                                value,
+                                                                data.city,
+                                                            ),
+                                                        )?.label}
                                                 </p>
                                             </div>
                                         </Col>
                                     </>
                                 )}
+
                             {reference !== "campus" &&
-                                reference !== "specialties" && (
+                                reference !== "specialties" &&
+                                reference !== "diagnostician" &&
+                                reference !== "agreements" && (
                                     <>
                                         <Col
                                             md={6}
@@ -1256,6 +1423,7 @@ const MainFormModal = ({
                                         </Col>
                                     </>
                                 )}
+
                             {reference === "professionals" && (
                                 <>
                                     {/* <Col md={6} lg={4} className="">
@@ -1300,9 +1468,15 @@ const MainFormModal = ({
                                     </Col>
                                 </>
                             )}
+
                             <Col
                                 md={6}
-                                lg={reference !== "campus" ? 4 : 6}
+                                lg={
+                                    reference !== "campus" &&
+                                    reference !== "agreements"
+                                        ? 4
+                                        : 6
+                                }
                                 className=""
                             >
                                 <div className="tw-flex-1 tw-text-star tw-text-base">
@@ -1313,18 +1487,21 @@ const MainFormModal = ({
                                 </div>
                             </Col>
 
-                            {reference !== "specialties" && (
-                                <Col md={6} lg={4} className="">
-                                    <div className="tw-flex-1 tw-text-star tw-text-base">
-                                        <h6 className="fw-bold">
-                                            Fecha Registro
-                                        </h6>
-                                        <p className="border-bottom fw-light">
-                                            {data.timestamp}
-                                        </p>
-                                    </div>
-                                </Col>
-                            )}
+                            {reference !== "specialties" &&
+                                reference !== "agreements" &&
+                                reference !== "diagnostician" && (
+                                    <Col md={6} lg={4} className="">
+                                        <div className="tw-flex-1 tw-text-star tw-text-base">
+                                            <h6 className="fw-bold">
+                                                Fecha Registro
+                                            </h6>
+                                            <p className="border-bottom fw-light">
+                                                {data.timestamp}
+                                            </p>
+                                        </div>
+                                    </Col>
+                                )}
+
                             {reference === "functionary" && (
                                 <>
                                     <Col md={6} lg={4} className="">
@@ -1345,20 +1522,23 @@ const MainFormModal = ({
                                     </Col>
                                 </>
                             )}
+
                             {reference !== "campus" &&
-                                reference !== "specialties" && (
+                                reference !== "specialties" &&
+                                reference !== "diagnostician" &&
+                                reference !== "agreements" && (
                                     <Col className="tw-text-center">
                                         <h6 className="pb-3">Foto</h6>
                                         <div className="tw-flex tw-justify-center tw-items-center">
-                                                <img
-                                                    src={
-                                                        data.urlPhoto
-                                                            ? urlFile()
-                                                            : "http://via.placeholder.com/150x150"
-                                                    }
-                                                    alt="Profile Photo"
-                                                    width="150"
-                                                />
+                                            <img
+                                                src={
+                                                    data.urlPhoto
+                                                        ? urlFile()
+                                                        : "http://via.placeholder.com/150x150"
+                                                }
+                                                alt="Profile Photo"
+                                                width="150"
+                                            />
                                         </div>
                                     </Col>
                                 )}

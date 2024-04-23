@@ -1,12 +1,16 @@
 "use client";
 import {
+    dataAgreementsObject,
     dataCampusObject,
+    dataDiagnosticianObject,
     dataFunctionaryObject,
     dataMainFormObject,
     dataPatientObject,
     dataProfessionalObject,
     // dataSpecialtyObject,
 } from "@/data/mainFormData";
+import { getAllAgreementsQuery } from "@/queries/AgreementsQueries";
+import { getAllCampusQuery } from "@/queries/campusQueries";
 import {
     getDocumentReference,
     getUrlFile,
@@ -14,10 +18,15 @@ import {
     saveEditDataDocumentsQuery,
     saveFilesDocuments,
 } from "@/queries/documentsQueries";
+import { getAllSpecialtiesQuery } from "@/queries/SpecialtiesQueries";
+import { AgreementSelector } from "@/types/agreements";
+import { CampusSelector } from "@/types/campus";
 import { ErrorDataForm } from "@/types/documents";
 import { ModalParamsMainForm } from "@/types/modals";
+import { SpecialtySelector } from "@/types/specialty";
+import _ from "lodash";
 import moment from "moment";
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useCallback, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 const MainFormHook = ({
@@ -40,6 +49,9 @@ const MainFormHook = ({
     const [showPassword, setShowPassword] = useState(false);
     const [files, setFiles] = useState<SetStateAction<any>[]>([]);
     const [urlPhoto, setUrlPhoto] = useState<string>("");
+    const [campus, setCampus] = useState<CampusSelector[]>();
+    const [specialties, setSpecialties] = useState<SpecialtySelector[]>();
+    const [contracts, setContract] = useState<AgreementSelector[]>();
 
     const [selectedIdType, setSelectedIdType] = useState<any>(null);
     const [selectedState, setSelectedState] = useState<any>(null);
@@ -155,7 +167,10 @@ const MainFormHook = ({
         setData({ ...data, ["isActive"]: e?.value });
         setSelectedStatus(e);
     };
-
+    const selectChangeHandlerPersonType = (e: any) => {
+        setData({ ...data, ["personType"]: e?.value });
+        setSelectedStatus(e);
+    };
     const handleMultipleChange = (event: { target: any }) => {
         event.target.files && setFiles([...event.target.files]);
     };
@@ -168,6 +183,24 @@ const MainFormHook = ({
         const documentRef: any = getDocumentReference(reference);
 
         if (reference === "functionary") {
+            const currentDataObject = { ...dataFunctionaryObject };
+
+            editData
+                ? (currentDataObject.uid = data.uid)
+                : (currentDataObject.uid = documentRef.id);
+            currentDataObject.idType = data.idType;
+            currentDataObject.id = data.id;
+            currentDataObject.name = data.name;
+            currentDataObject.lastName = data.lastName;
+            currentDataObject.phone = data.phone;
+            currentDataObject.email = data.email;
+            currentDataObject.password = data.password;
+            currentDataObject.confirmPassword = data.confirmPassword;
+            currentDataObject.campus = data.campus;
+            currentDataObject.area = data.area;
+            currentDataObject.isActive = data.isActive;
+            _.isEmpty(files) && (currentDataObject.urlPhoto = data.urlPhoto);
+
             for (const record of files) {
                 const urlName = record.name.split(".")[0];
                 await saveFilesDocuments({
@@ -177,43 +210,19 @@ const MainFormHook = ({
                     reference,
                 })
                     .then((result) => {
-                        const currentDataObject = { ...dataFunctionaryObject };
-
-                        editData
-                            ? (currentDataObject.uid = data.uid)
-                            : (currentDataObject.uid = documentRef.id);
-                        currentDataObject.idType = data.idType;
-                        currentDataObject.id = data.id;
-                        currentDataObject.name = data.name;
-                        currentDataObject.lastName = data.lastName;
-                        currentDataObject.phone = data.phone;
-                        currentDataObject.email = data.email;
-                        currentDataObject.password = data.password;
-                        currentDataObject.confirmPassword =
-                            data.confirmPassword;
-                        currentDataObject.campus = data.campus;
-                        currentDataObject.area = data.area;
-                        currentDataObject.isActive = data.isActive;
                         currentDataObject.urlPhoto = urlName;
                         error.push(...result);
-                        newData = { ...currentDataObject };
                     })
                     .catch((err) => {
                         error.push({ success: false, urlName });
+                        // console.log(error);
                     });
             }
+
+            newData = { ...currentDataObject };
         }
 
         if (reference === "patients") {
-            // for (const record of files) {
-            //     const urlName = record.name.split(".")[0];
-            //     await saveFilesDocuments({
-            //         urlName,
-            //         record,
-            //         uid: editData ? data.uid : documentRef.id,
-            //         reference,
-            //     })
-            //         .then((result) => {
             const currentDataObject = { ...dataPatientObject };
 
             editData
@@ -235,17 +244,8 @@ const MainFormHook = ({
             currentDataObject.password = data.password;
             currentDataObject.confirmPassword = data.confirmPassword;
             currentDataObject.isActive = data.isActive;
-            // currentDataObject.urlPhoto = urlName;
-            // error.push(...result);
-            newData = { ...currentDataObject };
-            // })
-            // .catch((err) => {
-            //     error.push({ success: false, urlName });
-            // });
-            // }
-        }
+            _.isEmpty(files) && (currentDataObject.urlPhoto = data.urlPhoto);
 
-        if (reference === "professionals") {
             for (const record of files) {
                 const urlName = record.name.split(".")[0];
                 await saveFilesDocuments({
@@ -255,38 +255,62 @@ const MainFormHook = ({
                     reference,
                 })
                     .then((result) => {
-                        const currentDataObject = { ...dataProfessionalObject };
-
-                        editData
-                            ? (currentDataObject.uid = data.uid)
-                            : (currentDataObject.uid = documentRef.id);
-                        currentDataObject.idType = data.idType;
-                        currentDataObject.id = data.id;
-                        currentDataObject.name = data.name;
-                        currentDataObject.lastName = data.lastName;
-                        currentDataObject.phone = data.phone;
-                        currentDataObject.phone2 = data.phone2;
-                        currentDataObject.address = data.address;
-                        currentDataObject.country = data.country;
-                        currentDataObject.state = data.state;
-                        currentDataObject.city = data.city;
-                        currentDataObject.email = data.email;
-                        currentDataObject.password = data.password;
-                        currentDataObject.confirmPassword =
-                            data.confirmPassword;
-                        currentDataObject.cardNumber = data.cardNumber;
-                        currentDataObject.medicalRecord = data.medicalRecord;
-                        currentDataObject.specialty = data.specialty;
-                        currentDataObject.contract = data.contract;
-                        currentDataObject.isActive = data.isActive;
                         currentDataObject.urlPhoto = urlName;
                         error.push(...result);
-                        newData = { ...currentDataObject };
+                    })
+                    .catch((err) => {
+                        error.push({ success: false, urlName });
+                        // console.log(error);
+                    });
+            }
+
+            newData = { ...currentDataObject };
+        }
+
+        if (reference === "professionals") {
+            const currentDataObject = { ...dataProfessionalObject };
+
+            editData
+                ? (currentDataObject.uid = data.uid)
+                : (currentDataObject.uid = documentRef.id);
+            currentDataObject.idType = data.idType;
+            currentDataObject.id = data.id;
+            currentDataObject.name = data.name;
+            currentDataObject.lastName = data.lastName;
+            currentDataObject.phone = data.phone;
+            currentDataObject.phone2 = data.phone2;
+            currentDataObject.address = data.address;
+            currentDataObject.country = data.country;
+            currentDataObject.state = data.state;
+            currentDataObject.city = data.city;
+            currentDataObject.email = data.email;
+            currentDataObject.password = data.password;
+            currentDataObject.confirmPassword = data.confirmPassword;
+            currentDataObject.cardNumber = data.cardNumber;
+            currentDataObject.medicalRecord = data.medicalRecord;
+            currentDataObject.specialty = data.specialty;
+            currentDataObject.contract = data.contract;
+            currentDataObject.isActive = data.isActive;
+            _.isEmpty(files) && (currentDataObject.urlPhoto = data.urlPhoto);
+
+            for (const record of files) {
+                const urlName = record.name.split(".")[0];
+                await saveFilesDocuments({
+                    urlName,
+                    record,
+                    uid: editData ? data.uid : documentRef.id,
+                    reference,
+                })
+                    .then((result) => {
+                        currentDataObject.urlPhoto = urlName;
+                        error.push(...result);
                     })
                     .catch((err) => {
                         error.push({ success: false, urlName });
                     });
             }
+
+            newData = { ...currentDataObject };
         }
 
         if (reference === "campus") {
@@ -321,7 +345,42 @@ const MainFormHook = ({
         //     newData = { ...currentDataObject };
         // }
 
-        console.log("newData", newData);
+        if (reference === "diagnostician") {
+            const currentDataObject = { ...dataDiagnosticianObject };
+
+            editData
+                ? (currentDataObject.uid = data.uid)
+                : (currentDataObject.uid = documentRef.id);
+            currentDataObject.idType = data.idType;
+            currentDataObject.id = data.id;
+            currentDataObject.name = data.name;
+            currentDataObject.rut = data.rut;
+            currentDataObject.phone = data.phone;
+            currentDataObject.phone2 = data.phone2;
+            currentDataObject.address = data.address;
+            currentDataObject.country = data.country;
+            currentDataObject.state = data.state;
+            currentDataObject.city = data.city;
+            currentDataObject.isActive = data.isActive;
+
+            newData = { ...currentDataObject };
+        }
+
+        if (reference === "agreements") {
+            const currentDataObject = { ...dataAgreementsObject };
+
+            editData
+                ? (currentDataObject.uid = data.uid)
+                : (currentDataObject.uid = documentRef.id);
+            currentDataObject.name = data.name;
+            currentDataObject.personType = data.personType;
+            currentDataObject.discount = data.discount;
+            currentDataObject.isActive = data.isActive;
+
+            newData = { ...currentDataObject };
+        }
+
+        // console.log("newData", newData);
         // console.log("reference", reference);
 
         handleShowMainFormEdit
@@ -359,6 +418,20 @@ const MainFormHook = ({
         data.state &&
         data.city &&
         data.isActive;
+
+    const diagnosticianVal =
+        data.idType &&
+        data.id &&
+        data.name &&
+        data.rut &&
+        data.phone &&
+        data.address &&
+        data.country &&
+        data.state &&
+        data.city &&
+        data.isActive;
+
+    const agreementsVal = data.name && data.personType && data.isActive;
 
     const specialtyVal = data.name && data.isActive;
 
@@ -412,6 +485,8 @@ const MainFormHook = ({
         if (
             campusVal ||
             specialtyVal ||
+            diagnosticianVal ||
+            agreementsVal ||
             ((functionaryVal || professionalsVal || patientVal) &&
                 passValidation)
         ) {
@@ -443,6 +518,7 @@ const MainFormHook = ({
         setIsEdit(false);
         setShowPassword(false);
         setUrlPhoto("");
+        clearSelectFields();
     };
 
     const clearSelectFields = () => {
@@ -485,16 +561,20 @@ const MainFormHook = ({
         return age;
     };
 
-    // const getAllCustomers = useCallback(async () => {
-    //     if (handleShowSales) {
-    //         const customersResult = await getAllCustomersQuery();
-    //         customersResult && setCustomers(customersResult);
-    //     }
-    // }, [handleShowSales]);
+    const getAllSelectOptions = useCallback(async () => {
+        if (handleShowMainForm || handleShowMainFormEdit) {
+            const campusResult = await getAllCampusQuery();
+            campusResult && setCampus(campusResult);
+            const specialtyResult = await getAllSpecialtiesQuery();
+            specialtyResult && setSpecialties(specialtyResult);
+            const AgreementResult = await getAllAgreementsQuery();
+            AgreementResult && setContract(AgreementResult);
+        }
+    }, [handleShowMainForm, handleShowMainFormEdit]);
 
-    // useEffect(() => {
-    //     getAllCustomers();
-    // }, [getAllCustomers]);
+    useEffect(() => {
+        getAllSelectOptions();
+    }, [getAllSelectOptions]);
 
     useEffect(() => {
         handleShowMainForm && (setShow(true), setIsEdit(true));
@@ -503,10 +583,6 @@ const MainFormHook = ({
     useEffect(() => {
         handleShowMainFormEdit && (setShow(true), setData(editData));
     }, [editData, handleShowMainFormEdit]);
-
-    // useEffect(() => {
-    //     passwordValidate();
-    // }, [passwordValidate]);
 
     return {
         show,
@@ -529,6 +605,9 @@ const MainFormHook = ({
         showPassword,
         isEdit,
         errorPass,
+        campus,
+        specialties,
+        contracts,
         setErrorPass,
         changeHandler,
         handleSendForm,
@@ -555,6 +634,7 @@ const MainFormHook = ({
         handleEditForm,
         handleMultipleChange,
         urlFile,
+        selectChangeHandlerPersonType,
     };
 };
 
