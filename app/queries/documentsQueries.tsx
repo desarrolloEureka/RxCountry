@@ -1,11 +1,12 @@
 import {
     getAllDocumentsFb,
     getDocumentsByIdFb,
+    getReference,
     saveDocumentsFb,
     saveOneDocumentFb,
     updateDocumentsByIdFb,
 } from "@/firebase/Documents";
-import { uploadFiles } from "@/firebase/files";
+import { uploadFile, uploadFiles, urlFile } from "@/firebase/files";
 import {
     DataObject,
     DocumentsById,
@@ -13,6 +14,7 @@ import {
     ErrorDataForm,
 } from "@/types/documents";
 import {
+    DownloadFileProps,
     saveFilesDocumentsProps,
     saveFilesDocumentsQueryProps,
 } from "@/types/files";
@@ -60,13 +62,15 @@ export const saveFilesDocumentsQuery = async ({
 export const saveFilesDocuments = async ({
     urlName,
     record,
-    data,
+    uid,
+    reference,
 }: saveFilesDocumentsProps) => {
     let dataError: ErrorDataForm[] = [];
-    const queryResult = await uploadFiles({
-        folder: data.supplier.toLowerCase(),
+    const queryResult = await uploadFile({
+        folder: uid,
         fileName: urlName,
         file: record,
+        reference,
     });
     if (queryResult) {
         dataError.push({ success: true, urlName });
@@ -115,14 +119,34 @@ export const getDocumentsByIdQuery = async (
     return dataResultArray;
 };
 
-export const saveDataDocumentsQuery = async ({
-    data,
+export const getUrlFile = async ({
+    folder,
+    fileName,
     reference,
-}: {
+}: DownloadFileProps) => {
+    let url = "";
+    const querySnapshot = await urlFile({ folder, fileName, reference });
+    if (querySnapshot) {
+        url = querySnapshot;
+    }
+    // console.log(url);
+    return url;
+};
+
+export const getDocumentReference = (ref: string) => {
+    return getReference(ref);
+};
+
+export const saveDataDocumentsQuery = async ({
+    documentRef,
+    data,
+}: // reference,
+{
+    documentRef: any;
     data: any;
-    reference: string;
+    // reference: string;
 }) => {
-    const queryResult = await saveOneDocumentFb(data, reference);
+    const queryResult = await saveOneDocumentFb(documentRef, data);
     console.log("Nuevo");
     return queryResult;
     // return;

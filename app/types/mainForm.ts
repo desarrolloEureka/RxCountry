@@ -1,8 +1,8 @@
 export interface DataMainFormObject {
     uid: string;
+    icon: string;
     idType: string;
     id: string;
-    campusName: string;
     name: string;
     description: string;
     lastName: string;
@@ -98,7 +98,7 @@ export type DataProfessionalObject = {
 
 export type DataCampusObject = {
     uid: string;
-    campusName: string;
+    name: string;
     description: string;
     // phone: any;
     phone2: any;
@@ -109,3 +109,15 @@ export type DataCampusObject = {
     timestamp: any;
     isActive: any;
 };
+export type DataSpecialtyObject = {
+    uid: string;
+    icon: string;
+    name: string;
+    description: string;
+    isActive: any;
+};
+
+export interface showPasswordParams {
+    showPassword: boolean;
+    setShowPassword: (e: boolean) => void;
+}

@@ -8,9 +8,9 @@ import {
 
 export const dataMainFormObject = {
     uid: "",
+    icon: "",
     idType: "",
     id: "",
-    campusName: "",
     name: "",
     description: "",
     lastName: "",
@@ -109,7 +109,7 @@ export const dataProfessionalObject = {
 
 export const dataCampusObject = {
     uid: "",
-    campusName: "",
+    name: "",
     description: "",
     // phone: "",
     phone2: "",

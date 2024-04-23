@@ -17,36 +17,119 @@ const DataTablesHook = (reference: string) => {
 
     const getAllDocuments = useCallback(async () => {
         const documents = await getAllDocumentsQuery(reference);
-        // console.log("documents", documents);
+
+        // console.log(documents[0]);
 
         if (documents.length > 0) {
             const cols: any[] = [];
-            const entries = Object.entries(documents[0]);
 
-            entries.sort(function (a, b) {
-                if (a[0] > b[0]) {
+            // const entries = Object.entries(documents[0]);
+
+            const entries2 = Object.keys(documents[0]);
+
+            const columnNamesToDisplay = [
+                // "uid",
+                "name",
+                "lastName",
+                "idType",
+                "id",
+                "phone",
+                "phone2",
+                "email",
+                "address",
+                "description",
+                "age",
+                // "birthDate",
+                // "country",
+                // "state",
+                // "city",
+                // "password",
+                // "confirmPassword",
+                // "specialty",
+                // "contract",
+                "rol",
+                // "campus",
+                // "area",
+                // "urlPhoto",
+                // "timestamp",
+                "isActive",
+                // "isDeleted",
+            ];
+
+            // entries.sort(function (a, b) {
+            //     if (a[0] > b[0]) {
+            //         return 1;
+            //     }
+            //     if (a[0] < b[0]) {
+            //         return -1;
+            //     }
+            //     // a must be equal to b
+            //     return 0;
+            // });
+
+            entries2.sort(function (a, b) {
+                if (a > b) {
                     return 1;
                 }
-                if (a[0] < b[0]) {
+                if (a < b) {
                     return -1;
                 }
                 // a must be equal to b
                 return 0;
             });
 
-            entries.forEach((val, key) => {
-                const columnsData = {
-                    name: val[0].toUpperCase(),
-                    selector: (row: any) => [row[val[0]]],
-                    sortable: true,
-                };
-                cols.push(columnsData);
+            // const ordenamiento: any = {
+            //     name: 1,
+            //     lastName: 2,
+            //     idType: 3,
+            //     id: 4,
+            //     phone: 5,
+            //     email: 6,
+            //     isActive: 7,
+            // };
+
+            // entries2.sort((a, b) => {
+            //     if (ordenamiento[a] > ordenamiento[b]) {
+            //         return 1;
+            //     }
+            //     if (ordenamiento[a] < ordenamiento[b]) {
+            //         return -1;
+            //     }
+            //     // a must be equal to b
+            //     return 0;
+            // });
+
+            // entries2.sort((a, b): any => {
+            //     ordenamiento[a] - ordenamiento[b];
+            //     // console.log(ordenamiento[a] - ordenamiento[b]);
+            // });
+
+            // console.log(entries2);
+
+            // entries.forEach((val, key) => {
+            entries2.forEach((val) => {
+                if (columnNamesToDisplay.includes(val)) {
+                    const columnsData = {
+                        name: val.toUpperCase(),
+                        // name: val[0].toUpperCase(),
+                        selector: (row: any) => [row[val]],
+                        // selector: (row: any) => [row[val[0]]],
+                        sortable: true,
+                        // maxWidth: "600px",
+                        width:
+                            val === "email" || val === "address"
+                                ? "210px"
+                                : undefined,
+                    };
+                    cols.push(columnsData);
+                }
             });
 
             const currentData = {
                 columns: cols,
                 data: documents,
             };
+
             // console.log("cols", cols);
             // console.log("currentData", currentData);
 
@@ -74,23 +157,26 @@ const DataTablesHook = (reference: string) => {
     const onMainFormModalEdit = (row: any) => {
         setHandleShowMainFormEdit(true);
         setEditData(row);
+        // console.log(row);
     };
 
-    useEffect(() => {
-        getAllDocuments();
-    }, [getAllDocuments]);
+    // console.log("Rendering");
+
+    // useEffect(() => {
+    //     getAllDocuments();
+    // }, [getAllDocuments]);
 
     useEffect(() => {
-        if (!handleShowMainForm) {
+        if (!handleShowMainForm || !handleShowMainFormEdit) {
             getAllDocuments();
         }
-    }, [getAllDocuments, handleShowMainForm]);
+    }, [getAllDocuments, handleShowMainForm, handleShowMainFormEdit]);
 
-    useEffect(() => {
-        if (!handleShowMainFormEdit) {
-            getAllDocuments();
-        }
-    }, [getAllDocuments, handleShowMainFormEdit]);
+    // useEffect(() => {
+    //     if (!handleShowMainFormEdit) {
+    //         getAllDocuments();
+    //     }
+    // }, [getAllDocuments, handleShowMainFormEdit]);
 
     return {
         columns,

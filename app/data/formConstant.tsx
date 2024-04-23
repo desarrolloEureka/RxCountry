@@ -40,8 +40,18 @@ export const specialties = [{ value: "Example", label: "Example" }];
 export const contracts = [{ value: "Example", label: "Example" }];
 
 export const isActiveData = [
-    { value: "Activo", label: "Activo" },
-    { value: "Inactivo", label: "Inactivo" },
+    {
+        value: "Activo",
+        label: "Activo",
+        statusInfo: "success",
+        color: "#198754",
+    },
+    {
+        value: "Inactivo",
+        label: "Inactivo",
+        statusInfo: "danger",
+        color: "#dc3545",
+    },
 ];
 export const campus = [
     { value: "Marly", label: "Marly" },
