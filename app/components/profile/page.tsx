@@ -14,7 +14,17 @@ import PageHeader from "../page-header";
 import ProfileHook from "./hook/profileHook";
 
 const Profile = () => {
-    const { key, setKey } = ProfileHook();
+    const {
+        data,
+        isDisabled,
+        key,
+        setKey,
+        changeHandler,
+        handleUpdateProfile,
+    } = ProfileHook();
+
+    // console.log(data);
+
     return (
         <>
             <Seo title="Profile" />
@@ -37,7 +47,11 @@ const Profile = () => {
                                                 alt="Profile Photo"
                                                 width="150"
                                             />
-                                            <h3 className="h3">John Doe</h3>
+                                            <h3 className="h3">
+                                                {data.displayName
+                                                    ? data.displayName
+                                                    : "John Doe"}
+                                            </h3>
                                         </div>
                                         <div className="profile-cover__action bg-img"></div>
                                     </div>
@@ -80,7 +94,7 @@ const Profile = () => {
                                                     </Col>
                                                     <Col md={9}>
                                                         <p className="m-b-5 tw-text-center">
-                                                            John Doe
+                                                            {data?.displayName}
                                                         </p>
                                                     </Col>
                                                 </Row>
@@ -92,7 +106,7 @@ const Profile = () => {
                                                     </Col>
                                                     <Col md={9}>
                                                         <p className="m-b-5 tw-text-center">
-                                                            John
+                                                            {data?.name}
                                                         </p>
                                                     </Col>
                                                 </Row>
@@ -104,23 +118,23 @@ const Profile = () => {
                                                     </Col>
                                                     <Col md={9}>
                                                         <p className="m-b-5 tw-text-center">
-                                                            Doe
-                                                        </p>
-                                                    </Col>
-                                                </Row>
-                                                <Row className="row-sm">
-                                                    <Col md={3}>
-                                                        <h4 className="fs-15 text-uppercase mb-3">
-                                                            Sobre Nombre
-                                                        </h4>
-                                                    </Col>
-                                                    <Col md={9}>
-                                                        <p className="m-b-5 tw-text-center">
-                                                            JohnDoe
+                                                            {data?.lastName}
                                                         </p>
                                                     </Col>
                                                 </Row>
                                                 <Row className=" row-sm">
+                                                    <Col md={3}>
+                                                        <h4 className="fs-15 text-uppercase mb-3">
+                                                            Rol
+                                                        </h4>
+                                                    </Col>
+                                                    <Col md={9}>
+                                                        <p className="m-b-5 tw-text-center">
+                                                            {data?.rol}
+                                                        </p>
+                                                    </Col>
+                                                </Row>
+                                                <Row className="row-sm">
                                                     <Col md={3}>
                                                         <h4 className="fs-15 text-uppercase mb-3">
                                                             Cargo
@@ -128,7 +142,7 @@ const Profile = () => {
                                                     </Col>
                                                     <Col md={9}>
                                                         <p className="m-b-5 tw-text-center">
-                                                            Admin
+                                                            {data?.position}
                                                         </p>
                                                     </Col>
                                                 </Row>
@@ -144,7 +158,7 @@ const Profile = () => {
                                                     </Col>
                                                     <Col md={9}>
                                                         <p className="m-b-5 tw-text-center">
-                                                            John@mail.com
+                                                            {data?.email}
                                                         </p>
                                                     </Col>
                                                 </Row>
@@ -156,7 +170,7 @@ const Profile = () => {
                                                     </Col>
                                                     <Col md={9}>
                                                         <p className="m-b-5 tw-text-center">
-                                                            +57 321-564-8778
+                                                            {data?.phone}
                                                         </p>
                                                     </Col>
                                                 </Row>
@@ -168,7 +182,7 @@ const Profile = () => {
                                                     </Col>
                                                     <Col md={9}>
                                                         <p className="m-b-5 tw-text-center">
-                                                            Calle 01 # 02-03
+                                                            {data?.address}
                                                         </p>
                                                     </Col>
                                                 </Row>
@@ -183,32 +197,7 @@ const Profile = () => {
                                                     </Col>
                                                     <Col md={9}>
                                                         <p className="m-b-5 tw-text-justify">
-                                                            John Doe es un
-                                                            administrador
-                                                            experimentado en
-                                                            laboratorios de
-                                                            radiografías orales,
-                                                            con más de una
-                                                            década de
-                                                            experiencia. Es
-                                                            reconocido por su
-                                                            habilidad para
-                                                            garantizar la
-                                                            precisión y
-                                                            seguridad en todas
-                                                            las operaciones del
-                                                            laboratorio, así
-                                                            como por su enfoque
-                                                            proactivo en la
-                                                            actualización de
-                                                            equipos y
-                                                            tecnologías. Su
-                                                            dedicación a la
-                                                            excelencia en la
-                                                            salud bucal lo
-                                                            convierte en un
-                                                            líder valorado en su
-                                                            campo.
+                                                            {data?.aboutMe}
                                                         </p>
                                                     </Col>
                                                 </Row>
@@ -247,9 +236,16 @@ const Profile = () => {
                                                             </Col>
                                                             <Col md={9}>
                                                                 <Form.Control
+                                                                    value={
+                                                                        data?.displayName
+                                                                    }
                                                                     type="text"
+                                                                    name="displayName"
                                                                     placeholder="User Name"
-                                                                    defaultValue="Mack Adamia"
+                                                                    // defaultValue="Mack Adamia"
+                                                                    onChange={
+                                                                        changeHandler
+                                                                    }
                                                                 />
                                                             </Col>
                                                         </Row>
@@ -263,9 +259,16 @@ const Profile = () => {
                                                             </Col>
                                                             <Col md={9}>
                                                                 <Form.Control
+                                                                    value={
+                                                                        data?.name
+                                                                    }
                                                                     type="text"
+                                                                    name="name"
                                                                     placeholder="First Name"
-                                                                    defaultValue="Mack Adamia"
+                                                                    // defaultValue="Mack Adamia"
+                                                                    onChange={
+                                                                        changeHandler
+                                                                    }
                                                                 />
                                                             </Col>
                                                         </Row>
@@ -279,9 +282,16 @@ const Profile = () => {
                                                             </Col>
                                                             <Col md={9}>
                                                                 <Form.Control
+                                                                    value={
+                                                                        data?.lastName
+                                                                    }
                                                                     type="text"
+                                                                    name="lastName"
                                                                     placeholder="Last Name"
-                                                                    defaultValue="Mack Adamia"
+                                                                    // defaultValue="Mack Adamia"
+                                                                    onChange={
+                                                                        changeHandler
+                                                                    }
                                                                 />
                                                             </Col>
                                                         </Row>
@@ -290,14 +300,21 @@ const Profile = () => {
                                                         <Row className="row-sm">
                                                             <Col md={3}>
                                                                 <Form.Label>
-                                                                    Sobre Nombre
+                                                                    Rol
                                                                 </Form.Label>
                                                             </Col>
                                                             <Col md={9}>
                                                                 <Form.Control
+                                                                    value={
+                                                                        data?.rol
+                                                                    }
                                                                     type="text"
-                                                                    placeholder="Nick Name"
-                                                                    defaultValue="Spruha"
+                                                                    name="rol"
+                                                                    placeholder="Rol"
+                                                                    // defaultValue="Admin"
+                                                                    onChange={
+                                                                        changeHandler
+                                                                    }
                                                                 />
                                                             </Col>
                                                         </Row>
@@ -311,9 +328,16 @@ const Profile = () => {
                                                             </Col>
                                                             <Col md={9}>
                                                                 <Form.Control
+                                                                    value={
+                                                                        data?.position
+                                                                    }
                                                                     type="text"
+                                                                    name="position"
                                                                     placeholder="Designation"
-                                                                    defaultValue="Web Designer"
+                                                                    // defaultValue="Web Designer"
+                                                                    onChange={
+                                                                        changeHandler
+                                                                    }
                                                                 />
                                                             </Col>
                                                         </Row>
@@ -333,9 +357,17 @@ const Profile = () => {
                                                             </Col>
                                                             <Col md={9}>
                                                                 <Form.Control
+                                                                    disabled
+                                                                    value={
+                                                                        data?.email
+                                                                    }
                                                                     type="text"
-                                                                    placeholder="Email"
-                                                                    defaultValue="info@Spruha.in"
+                                                                    name="email"
+                                                                    placeholder="email"
+                                                                    // defaultValue="info@Spruha.in"
+                                                                    onChange={
+                                                                        changeHandler
+                                                                    }
                                                                 />
                                                             </Col>
                                                         </Row>
@@ -349,9 +381,16 @@ const Profile = () => {
                                                             </Col>
                                                             <Col md={9}>
                                                                 <Form.Control
+                                                                    value={
+                                                                        data?.phone
+                                                                    }
                                                                     type="text"
+                                                                    name="phone"
                                                                     placeholder="phone number"
-                                                                    defaultValue="+245 354 654"
+                                                                    // defaultValue="+245 354 654"
+                                                                    onChange={
+                                                                        changeHandler
+                                                                    }
                                                                 />
                                                             </Col>
                                                         </Row>
@@ -366,11 +405,17 @@ const Profile = () => {
                                                             <Col md={9}>
                                                                 <Form.Control
                                                                     aria-label="Comments"
+                                                                    value={
+                                                                        data?.address
+                                                                    }
                                                                     as="textarea"
-                                                                    name="example-textarea-input"
+                                                                    name="address"
                                                                     rows={2}
                                                                     placeholder="Address"
-                                                                    defaultValue="San Francisco, CA"
+                                                                    // defaultValue="San Francisco, CA"
+                                                                    onChange={
+                                                                        changeHandler
+                                                                    }
                                                                 ></Form.Control>
                                                             </Col>
                                                         </Row>
@@ -387,23 +432,30 @@ const Profile = () => {
                                                             </Col>
                                                             <Col md={9}>
                                                                 <Form.Control
-                                                                    name="example-textarea-input"
+                                                                    value={
+                                                                        data?.aboutMe
+                                                                    }
+                                                                    name="aboutMe"
                                                                     rows={4}
                                                                     as="textarea"
-                                                                    aria-label="pleasure rationally encounter but because pursue consequences that are extremely painful.occur in which toil and pain can procure him some great pleasure.."
-                                                                    placeholder=""
+                                                                    // aria-label="pleasure rationally encounter but because pursue consequences that are extremely painful.occur in which toil and pain can procure him some great pleasure.."
+                                                                    placeholder="About you"
+                                                                    // defaultValue="John Doe es un administrador experimentado en laboratorios de radiografías orales, con más de una década de experiencia. Es reconocido por su habilidad para garantizar la precisión y seguridad en todas las operaciones del laboratorio, así como por su enfoque proactivo en la actualización de equipos y tecnologías. Su dedicación a la excelencia en la salud bucal lo convierte en un líder valorado en su campo."
+                                                                    onChange={
+                                                                        changeHandler
+                                                                    }
                                                                 ></Form.Control>
                                                             </Col>
                                                         </Row>
                                                     </FormGroup>
                                                     <div className="tw-flex tw-justify-end tw-items-center">
                                                         <Button
-                                                            // onClick={() =>
-                                                            //     handleSignUp({
-                                                            //         email,
-                                                            //         password,
-                                                            //     })
+                                                            // disabled={
+                                                            //     isDisabled
                                                             // }
+                                                            onClick={
+                                                                handleUpdateProfile
+                                                            }
                                                             className="btn ripple btn-main-primary btn-block mt-2"
                                                         >
                                                             Guardar
