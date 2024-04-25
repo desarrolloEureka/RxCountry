@@ -1,11 +1,13 @@
 import { ProfileData } from "@/data/user";
 import useAuth from "@/firebase/auth";
 import { getProfileDataByIdFb, saveUserById } from "@/firebase/user";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Swal from "sweetalert2";
 import _ from "lodash";
 
-type Props = {};
+type Props = {
+    // sendData: (e: any) => void;
+};
 
 const ProfileHook = (props?: Props) => {
     const { user } = useAuth();
@@ -54,7 +56,7 @@ const ProfileHook = (props?: Props) => {
 
     const getUserProfileData = useCallback(async () => {
         if (user) {
-            const userData = await getProfileDataByIdFb(user?.uid);
+            const userData: any = await getProfileDataByIdFb(user?.uid);
             setData(userData);
             setEditData(userData);
             // console.log({ ...userData });

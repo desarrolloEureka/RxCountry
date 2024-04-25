@@ -23,8 +23,6 @@ const Profile = () => {
         handleUpdateProfile,
     } = ProfileHook();
 
-    // console.log(data);
-
     return (
         <>
             <Seo title="Profile" />
@@ -48,8 +46,8 @@ const Profile = () => {
                                                 width="150"
                                             />
                                             <h3 className="h3">
-                                                {data.displayName
-                                                    ? data.displayName
+                                                {data?.displayName
+                                                    ? data?.displayName
                                                     : "John Doe"}
                                             </h3>
                                         </div>

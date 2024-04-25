@@ -11,7 +11,7 @@ const HeadDropDown = dynamic(
 );
 
 const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
-    const { logOut, main_logo } = HeaderHook();
+    const { logOut, main_logo, data } = HeaderHook();
 
     return (
         <header className="app-header ">
@@ -124,10 +124,14 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                             />
                                         </div>
                                         <h6 className="main-notification-title">
-                                            John Doe
+                                            {data?.displayName
+                                                ? data?.displayName
+                                                : "John Doe"}
                                         </h6>
                                         <p className="main-notification-text mb-0">
-                                            Super Admin
+                                            {data?.rol
+                                                ? data?.rol
+                                                : "Super Admin"}
                                         </p>
                                     </div>
                                     <Dropdown.Item

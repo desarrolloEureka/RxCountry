@@ -2,8 +2,8 @@ import { Tab } from "react-bootstrap";
 import BannerMenu from "../bannerMenu/BannerMenu";
 import HomeDash from "../dashBoard/homeDash/HomeDash";
 import DataTableComponent from "../dataTable/DataTableComponent";
-import HeaderContent from "./components/headerContent/HeaderContent";
 import Profile from "../profile/page";
+import HeaderContent from "./components/headerContent/HeaderContent";
 
 const Header = ({ hamburger }: { hamburger?: boolean }) => {
     return (
