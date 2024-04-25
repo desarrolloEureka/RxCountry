@@ -1,10 +1,13 @@
 export interface DataMainFormObject {
     uid: string;
+    icon: string;
     idType: string;
     id: string;
-    campusName: string;
     name: string;
     description: string;
+    personType: string;
+    discount: string;
+    rut: string;
     lastName: string;
     birthDate: string;
     age: string;
@@ -98,7 +101,7 @@ export type DataProfessionalObject = {
 
 export type DataCampusObject = {
     uid: string;
-    campusName: string;
+    name: string;
     description: string;
     // phone: any;
     phone2: any;
@@ -109,3 +112,40 @@ export type DataCampusObject = {
     timestamp: any;
     isActive: any;
 };
+
+export type DataSpecialtyObject = {
+    uid: string;
+    icon: string;
+    name: string;
+    description: string;
+    isActive: any;
+};
+
+export type DataAgreementsObject = {
+    uid: string;
+    name: string;
+    personType: string;
+    discount: string;
+    isActive: any;
+};
+
+export type DataDiagnosticianObject = {
+    uid: string;
+    idType: string;
+    id: string;
+    name: string;
+    phone: any;
+    phone2: any;
+    rut: string;
+    address: string;
+    country: string;
+    state: any;
+    city: string;
+    timestamp: any;
+    isActive: any;
+};
+
+export interface showPasswordParams {
+    showPassword: boolean;
+    setShowPassword: (e: boolean) => void;
+}

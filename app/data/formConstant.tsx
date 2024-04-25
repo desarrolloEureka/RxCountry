@@ -24,6 +24,11 @@ export const idTypes = [
 
 export const countries = [{ value: "CO", label: "Colombia" }];
 
+export const personTypes = [
+    { value: "Jurídico", label: "Jurídico" },
+    { value: "Natural", label: "Natural" },
+];
+
 export const ColombianStates = colombianCitiesData.map((state) => ({
     value: state.id + 1,
     label: state.departamento,
@@ -40,8 +45,18 @@ export const specialties = [{ value: "Example", label: "Example" }];
 export const contracts = [{ value: "Example", label: "Example" }];
 
 export const isActiveData = [
-    { value: "Activo", label: "Activo" },
-    { value: "Inactivo", label: "Inactivo" },
+    {
+        value: "Activo",
+        label: "Activo",
+        statusInfo: "success",
+        color: "#198754",
+    },
+    {
+        value: "Inactivo",
+        label: "Inactivo",
+        statusInfo: "danger",
+        color: "#dc3545",
+    },
 ];
 export const campus = [
     { value: "Marly", label: "Marly" },

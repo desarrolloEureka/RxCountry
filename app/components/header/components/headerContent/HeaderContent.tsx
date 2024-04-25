@@ -1,7 +1,7 @@
 import HeaderHook from "@/components/header/hook/HeaderHook";
 import { main_logo_dark } from "@/globals/images";
 import dynamic from "next/dynamic";
-import { Container, Nav, NavDropdown, Dropdown } from "react-bootstrap";
+import { Container, Dropdown, Nav, NavDropdown } from "react-bootstrap";
 
 const HeadDropDown = dynamic(
     () => import("@/components/header/headDropDown/HeadDropDown"),
@@ -11,7 +11,7 @@ const HeadDropDown = dynamic(
 );
 
 const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
-    const { logOut, main_logo } = HeaderHook();
+    const { logOut, main_logo, data } = HeaderHook();
 
     return (
         <header className="app-header ">
@@ -41,7 +41,7 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                 <div className="header-content-right">
                     <div className="d-flex order-lg-2 align-items-center ms-auto">
                         <Nav
-                            className="nav nav-tabs mb-3 border-0"
+                            className="nav nav-tabs border-0"
                             id="myTab"
                             role="tablist"
                             defaultActiveKey="first"
@@ -80,6 +80,76 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                     Sedes
                                 </Nav.Link>
                             </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link href="#specialties" eventKey="sixth">
+                                    Especialidades
+                                </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link
+                                    href="#diagnostician"
+                                    eventKey="seventh"
+                                >
+                                    Diagnosticadores
+                                </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link href="#agreements" eventKey="eighth">
+                                    Convenios
+                                </Nav.Link>
+                            </Nav.Item>
+
+                            <Dropdown>
+                                <Dropdown.Toggle
+                                    id="mainHeaderProfile"
+                                    aria-expanded="false"
+                                    className="nav-link show"
+                                    variant=""
+                                    role="button"
+                                >
+                                    <i className="fe fe-user header-link-icon"></i>
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu
+                                    className="main-header-dropdown dropdown-menu pt-0 overflow-hidden dropdown-menu-end"
+                                    aria-labelledby="mainHeaderProfile"
+                                >
+                                    <div className="header-navheading border-bottom">
+                                        <div className="tw-pb-5">
+                                            <img
+                                                src="https://ui-avatars.com/api/?name=John+Doe"
+                                                alt="img"
+                                                width="32"
+                                                height="32"
+                                                className="rounded-circle"
+                                            />
+                                        </div>
+                                        <h6 className="main-notification-title">
+                                            {data?.displayName
+                                                ? data?.displayName
+                                                : "John Doe"}
+                                        </h6>
+                                        <p className="main-notification-text mb-0">
+                                            {data?.rol
+                                                ? data?.rol
+                                                : "Super Admin"}
+                                        </p>
+                                    </div>
+                                    <Dropdown.Item
+                                        href="#profile"
+                                        eventKey="profile"
+                                    >
+                                        <i className="fe fe-user fs-16 align-middle me-2"></i>
+                                        Perfil
+                                    </Dropdown.Item>
+                                    <li>
+                                        <hr className="dropdown-divider" />
+                                    </li>
+                                    <Dropdown.Item onClick={logOut}>
+                                        <i className="fe fe-power fs-16 align-middle me-2"></i>
+                                        Cerrar sesión
+                                    </Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
                         </Nav>
                         <HeadDropDown logOut={logOut} notifications dark />
                     </div>

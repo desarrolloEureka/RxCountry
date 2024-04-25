@@ -71,18 +71,20 @@ function convertArrayOfObjectsToCSV(array: object[]): string {
     return result;
 }
 
-function downloadCSV(array: any[]) {
+function downloadCSV(array: any[], tableTitle: string) {
     const link = document.createElement("a");
     let csv = convertArrayOfObjectsToCSV(array);
     if (csv == null) return;
 
-    const filename = "export.csv";
+    const filename = `${tableTitle}.csv`;
 
-    if (!csv.match(/^data:text\/csv/i)) {
-        csv = `data:text/csv;charset=utf-8,${csv}`;
-    }
+    // Codificar el contenido del CSV
+    const encodedCSV = encodeURIComponent(csv);
 
-    link.setAttribute("href", encodeURI(csv));
+    // Crear el enlace de descarga con la cadena codificada
+    const dataURI = `data:text/csv;charset=utf-8,${encodedCSV}`;
+    
+    link.setAttribute("href", dataURI);
     link.setAttribute("download", filename);
     link.click();
 }
@@ -140,6 +142,9 @@ export const ExportCSV = ({
     const actionsMemo = React.useMemo(() => {
         return (
             <>
+                {onMainFormModal && (
+                    <MainFormModal onMainFormModal={onMainFormModal} />
+                )}
                 {onUploadDataModalCsv && (
                     <UploadDataCsvModal
                         onUploadDataModalCsv={onUploadDataModalCsv}
@@ -150,15 +155,15 @@ export const ExportCSV = ({
                         onUploadDataModalPdf={onUploadDataModalPdf}
                     />
                 )}
-                {onMainFormModal && (
-                    <MainFormModal onMainFormModal={onMainFormModal} />
-                )}
                 {dataTable.length !== 0 && (
-                    <Export onExport={() => downloadCSV(dataTable)} />
+                    <Export
+                        onExport={() => downloadCSV(dataTable, tableTitle)}
+                    />
                 )}
             </>
         );
     }, [
+        tableTitle,
         dataTable,
         onMainFormModal,
         onUploadDataModalCsv,
@@ -234,7 +239,6 @@ export const ExportCSV = ({
                 onRowClicked={(row: any, event) => {
                     !row.isDeleted && onMainFormModalEdit(row);
                 }}
-
                 // onRowClicked={onMainFormModalEdit}
                 pointerOnHover
                 defaultSortFieldId={2}
@@ -243,7 +247,7 @@ export const ExportCSV = ({
                 actions={actionsMemo}
                 pagination
                 highlightOnHover
-                title={tableTitle}
+                // title={tableTitle}
                 progressPending={dataTable ? false : true}
                 theme="solarized"
             />

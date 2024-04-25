@@ -2,6 +2,7 @@ import { Tab } from "react-bootstrap";
 import BannerMenu from "../bannerMenu/BannerMenu";
 import HomeDash from "../dashBoard/homeDash/HomeDash";
 import DataTableComponent from "../dataTable/DataTableComponent";
+import Profile from "../profile/page";
 import HeaderContent from "./components/headerContent/HeaderContent";
 
 const Header = ({ hamburger }: { hamburger?: boolean }) => {
@@ -92,6 +93,71 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
                         tableTitle="Sedes"
                         reference="campus"
                     />
+                </Tab.Pane>
+                <Tab.Pane
+                    className="tab-pane text-muted"
+                    id="specialty"
+                    role="tabpanel"
+                    eventKey="sixth"
+                >
+                    <BannerMenu
+                        seoTitle="Especialidades"
+                        title="Especialidades"
+                        item="Dashboard"
+                        activeItem="Especialidades"
+                    />
+                    <DataTableComponent
+                        componentTitle="Tabla del Listado de Especialidades."
+                        componentDescription="En esta tabla se encuentran las Especialidades disponibles."
+                        tableTitle="Especialidades"
+                        reference="specialties"
+                    />
+                </Tab.Pane>
+                <Tab.Pane
+                    className="tab-pane text-muted"
+                    id="Diagnostician"
+                    role="tabpanel"
+                    eventKey="seventh"
+                >
+                    <BannerMenu
+                        seoTitle="Diagnosticador"
+                        title="Diagnosticador"
+                        item="Dashboard"
+                        activeItem="Diagnosticador"
+                    />
+                    <DataTableComponent
+                        componentTitle="Tabla del Listado de Diagnosticadores."
+                        componentDescription="En esta tabla se encuentran las Diagnosticadores disponibles."
+                        tableTitle="Diagnosticadores"
+                        reference="diagnostician"
+                    />
+                </Tab.Pane>
+                <Tab.Pane
+                    className="tab-pane text-muted"
+                    id="Agreements"
+                    role="tabpanel"
+                    eventKey="eighth"
+                >
+                    <BannerMenu
+                        seoTitle="Convenios"
+                        title="Convenios"
+                        item="Dashboard"
+                        activeItem="Convenios"
+                    />
+                    <DataTableComponent
+                        componentTitle="Tabla del Listado de Convenios."
+                        componentDescription="En esta tabla se encuentran las Convenios disponibles."
+                        tableTitle="Convenios"
+                        reference="agreements"
+                    />
+                </Tab.Pane>
+                <Tab.Pane
+                    className="tab-pane text-muted"
+                    id="profile"
+                    role="tabpanel"
+                    eventKey="profile"
+                >
+                    <Profile />
                 </Tab.Pane>
             </Tab.Content>
         </Tab.Container>
