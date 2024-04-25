@@ -1057,7 +1057,7 @@ const MainFormModal = ({
                                             <Form.Control
                                                 type="file"
                                                 name="files"
-                                                multiple
+                                                // multiple
                                                 placeholder="Agregue una foto"
                                                 onChange={handleMultipleChange}
                                             />
