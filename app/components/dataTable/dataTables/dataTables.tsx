@@ -83,7 +83,7 @@ function downloadCSV(array: any[], tableTitle: string) {
 
     // Crear el enlace de descarga con la cadena codificada
     const dataURI = `data:text/csv;charset=utf-8,${encodedCSV}`;
-    
+
     link.setAttribute("href", dataURI);
     link.setAttribute("download", filename);
     link.click();
@@ -124,6 +124,13 @@ const NoDataCard = () => (
     </div>
 );
 
+const refToShowButtonCsv = [
+    "professionals",
+    "patients",
+    "functionary",
+    "diagnostician",
+];
+
 export const ExportCSV = ({
     onUploadDataModalCsv,
     onUploadDataModalPdf,
@@ -134,6 +141,7 @@ export const ExportCSV = ({
     columns,
     // noHeader = false,
     tableTitle,
+    reference,
 }: UploadDataModalProps) => {
     const [selectedRows, setSelectedRows] = React.useState([]);
     const [toggleCleared, setToggleCleared] = React.useState(false);
@@ -145,11 +153,12 @@ export const ExportCSV = ({
                 {onMainFormModal && (
                     <MainFormModal onMainFormModal={onMainFormModal} />
                 )}
-                {onUploadDataModalCsv && (
-                    <UploadDataCsvModal
-                        onUploadDataModalCsv={onUploadDataModalCsv}
-                    />
-                )}
+                {refToShowButtonCsv.includes(reference) &&
+                    onUploadDataModalCsv && (
+                        <UploadDataCsvModal
+                            onUploadDataModalCsv={onUploadDataModalCsv}
+                        />
+                    )}
                 {onUploadDataModalPdf && (
                     <UploadDataPdfModal
                         onUploadDataModalPdf={onUploadDataModalPdf}
@@ -162,13 +171,7 @@ export const ExportCSV = ({
                 )}
             </>
         );
-    }, [
-        tableTitle,
-        dataTable,
-        onMainFormModal,
-        onUploadDataModalCsv,
-        onUploadDataModalPdf,
-    ]);
+    }, [onMainFormModal, reference, onUploadDataModalCsv, onUploadDataModalPdf, dataTable, tableTitle]);
 
     const handleRowSelected = React.useCallback((state: any) => {
         setSelectedRows(state.selectedRows);

@@ -151,7 +151,7 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Nav>
-                        <HeadDropDown logOut={logOut} notifications dark />
+                        <HeadDropDown notifications dark />
                     </div>
                 </div>
             </Container>

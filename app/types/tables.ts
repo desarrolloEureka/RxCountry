@@ -10,7 +10,7 @@ export interface UploadDataModalProps {
     columns: any;
     noHeader?: boolean;
     tableTitle: string;
-    reference?: string;
+    reference: string;
 }
 export interface UploadDataButtonModalProps {
     onUploadDataModalPdf?: () => void;
