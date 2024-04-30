@@ -20,8 +20,8 @@ export interface DataMainFormObject {
     email: string;
     password: string;
     confirmPassword: string;
-    cardNumber: string;
-    medicalRecord: string;
+    // cardNumber: string;
+    // medicalRecord: string;
     specialty: string;
     contract: string;
     rol: string;
