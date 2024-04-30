@@ -39,6 +39,7 @@ const DataTablesHook = (reference: string) => {
                 "address",
                 "description",
                 "age",
+                "discount",
                 // "birthDate",
                 // "country",
                 // "state",

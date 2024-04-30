@@ -25,6 +25,11 @@ export const getReference = (reference: string) => {
     return documentRef;
 };
 
+export const getDocumentRefById = (reference: string, uid: string) => {
+    const documentRef = doc(db, reference, uid);
+    return documentRef;
+};
+
 export const getAllDocumentsFb = async (ref: string) =>
     await getDocs(allRef({ ref }));
 

@@ -9,6 +9,8 @@ import {
     dataProfessionalObject,
     dataSpecialtyObject,
 } from "@/data/mainFormData";
+import { getDocumentRefById } from "@/firebase/Documents";
+import { registerFirebase } from "@/firebase/user";
 import { getAllAgreementsQuery } from "@/queries/AgreementsQueries";
 import { getAllCampusQuery } from "@/queries/campusQueries";
 import {
@@ -24,7 +26,6 @@ import { CampusSelector } from "@/types/campus";
 import { ErrorDataForm } from "@/types/documents";
 import { ModalParamsMainForm } from "@/types/modals";
 import { SpecialtySelector } from "@/types/specialty";
-import _ from "lodash";
 import moment from "moment";
 import { SetStateAction, useCallback, useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -124,7 +125,6 @@ const MainFormHook = ({
             [e.target.name]: dateFormat,
             ["age"]: `${calculateAge(dateFormat)}`,
         });
-        // console.log({ ...data, [e.target.name]: dateFormat });
     };
 
     const selectChangeHandlerIdType = (e: any) => {
@@ -175,8 +175,6 @@ const MainFormHook = ({
         event.target.files && setFiles([...event.target.files]);
     };
 
-    // console.log(data);
-
     const uploadHandle = async () => {
         let newData = {};
         const error: ErrorDataForm[] = [];
@@ -194,12 +192,16 @@ const MainFormHook = ({
             currentDataObject.lastName = data.lastName;
             currentDataObject.phone = data.phone;
             currentDataObject.email = data.email;
+            currentDataObject.phone2 = data.phone2;
+            currentDataObject.address = data.address;
+            currentDataObject.country = data.country;
+            currentDataObject.state = data.state;
+            currentDataObject.city = data.city;
             currentDataObject.password = data.password;
             currentDataObject.confirmPassword = data.confirmPassword;
             currentDataObject.campus = data.campus;
             currentDataObject.area = data.area;
             currentDataObject.isActive = data.isActive;
-            _.isEmpty(files) && (currentDataObject.urlPhoto = data.urlPhoto);
 
             for (const record of files) {
                 const urlName = record.name.split(".")[0];
@@ -244,7 +246,6 @@ const MainFormHook = ({
             currentDataObject.password = data.password;
             currentDataObject.confirmPassword = data.confirmPassword;
             currentDataObject.isActive = data.isActive;
-            _.isEmpty(files) && (currentDataObject.urlPhoto = data.urlPhoto);
 
             for (const record of files) {
                 const urlName = record.name.split(".")[0];
@@ -286,8 +287,6 @@ const MainFormHook = ({
             currentDataObject.email = data.email;
             currentDataObject.password = data.password;
             currentDataObject.confirmPassword = data.confirmPassword;
-            currentDataObject.cardNumber = data.cardNumber;
-            currentDataObject.medicalRecord = data.medicalRecord;
             currentDataObject.specialty = data.specialty;
             currentDataObject.contract = data.contract;
             currentDataObject.isActive = data.isActive;
@@ -309,10 +308,30 @@ const MainFormHook = ({
                     })
                     .catch((err) => {
                         error.push({ success: false, urlName });
+                        // console.log(error);
                     });
             }
-
             newData = { ...currentDataObject };
+
+            // !editData &&
+            //     !handleShowMainFormEdit &&
+            //     (await registerFirebase(data.email, data.password)
+            //         .then((result: any) => {
+            //             const newUser = result.user;
+            //             if (newUser !== null) {
+            //                 const newDocumentRef: any = getDocumentRefById(
+            //                     reference,
+            //                     newUser.uid,
+            //                 );
+
+            //                 currentDataObject.uid = newDocumentRef.id;
+            //                 documentRef = newDocumentRef;
+
+            //             }
+            //         })
+            //         .catch((err) => {
+            //             console.log(err);
+            //         }));
         }
 
         if (reference === "campus") {
@@ -359,6 +378,7 @@ const MainFormHook = ({
             currentDataObject.rut = data.rut;
             currentDataObject.phone = data.phone;
             currentDataObject.phone2 = data.phone2;
+            currentDataObject.email = data.email;
             currentDataObject.address = data.address;
             currentDataObject.country = data.country;
             currentDataObject.state = data.state;
@@ -382,8 +402,8 @@ const MainFormHook = ({
             newData = { ...currentDataObject };
         }
 
-        // console.log("newData", newData);
-        // console.log("reference", reference);
+        console.log("newData", newData);
+        console.log("reference", reference);
 
         handleShowMainFormEdit
             ? await saveEditDataDocumentsQuery({
@@ -405,6 +425,11 @@ const MainFormHook = ({
         data.lastName &&
         data.phone &&
         data.email &&
+        data.phone2 &&
+        data.address &&
+        data.country &&
+        data.state &&
+        data.city &&
         data.password &&
         data.confirmPassword &&
         // data.rol &&
@@ -427,6 +452,7 @@ const MainFormHook = ({
         data.name &&
         data.rut &&
         data.phone &&
+        data.email &&
         data.address &&
         data.country &&
         data.state &&
@@ -451,8 +477,8 @@ const MainFormHook = ({
         data.email &&
         data.password &&
         data.confirmPassword &&
-        data.cardNumber &&
-        data.medicalRecord &&
+        // data.cardNumber &&
+        // data.medicalRecord &&
         data.specialty &&
         data.contract &&
         data.isActive;
@@ -482,7 +508,7 @@ const MainFormHook = ({
     const passValidation = data.confirmPassword === data.password;
 
     const handleSendForm = async (e?: any) => {
-        // console.log("data", data);
+        console.log("data", data);
 
         if (
             campusVal ||
