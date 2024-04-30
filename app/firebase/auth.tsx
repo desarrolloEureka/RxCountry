@@ -45,8 +45,8 @@ const useAuth = () => {
     //   }, [getRole]);
 
     useEffect(() => {
-        console.log("user", user);
-        if (user !== undefined) {
+      console.log("user", user);
+      if (user !== undefined) {
             setIsLoading(false);
         }
     }, [user]);

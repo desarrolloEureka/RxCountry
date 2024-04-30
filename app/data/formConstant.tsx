@@ -10,6 +10,7 @@ export const roles = [
 
 export const idTypes = [
     { value: "CC", label: "CC" },
+    { value: "NIT", label: "NIT" },
     { value: "RC", label: "RC" },
     { value: "TI", label: "TI" },
     { value: "CN", label: "CN" },

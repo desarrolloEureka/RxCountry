@@ -63,8 +63,8 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
                     eventKey="fourth"
                 >
                     <BannerMenu
-                        seoTitle="Medicos"
-                        title="Medicos"
+                        seoTitle="Profesionales"
+                        title="Profesionales"
                         item="Dashboard"
                         activeItem="Registro profesionales"
                     />

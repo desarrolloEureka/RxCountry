@@ -333,7 +333,7 @@ const MainFormModal = ({
                                     </Col>
                                     <Col md={6} className="mb-3">
                                         <Form.Label className="">
-                                            Descuento (Opcional)
+                                            Descuento(%) (Opcional)
                                             {/* <span className="tw-text-red-500">
                                                 *
                                             </span> */}
@@ -345,7 +345,7 @@ const MainFormModal = ({
                                             maxLength={50}
                                             name="discount"
                                             className="form-control"
-                                            placeholder="Porcentaje"
+                                            placeholder="Porcentaje(%)"
                                             aria-label="discount"
                                             onChange={changeHandler}
                                             title="Debe ingresar porcentaje en números"
@@ -454,8 +454,7 @@ const MainFormModal = ({
                                     </Col>
                                 )}
 
-                            {reference !== "functionary" &&
-                                reference !== "specialties" &&
+                            {reference !== "specialties" &&
                                 reference !== "agreements" && (
                                     <>
                                         <Col
@@ -560,7 +559,7 @@ const MainFormModal = ({
                                             className="mb-3"
                                         >
                                             <Form.Label className="">
-                                                Departamento/Estado
+                                                Departamento
                                                 <span className="tw-text-red-500">
                                                     *
                                                 </span>
@@ -660,7 +659,6 @@ const MainFormModal = ({
 
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
-                                reference !== "diagnostician" &&
                                 reference !== "agreements" && (
                                     <>
                                         <Col
@@ -675,6 +673,9 @@ const MainFormModal = ({
                                                 </span>
                                             </Form.Label>
                                             <Form.Control
+                                                disabled={
+                                                    handleShowMainFormEdit
+                                                }
                                                 required
                                                 value={data.email}
                                                 type="email"
@@ -685,74 +686,98 @@ const MainFormModal = ({
                                                 onChange={changeHandler}
                                             />
                                         </Col>
-                                        <Col md={6} lg={4} className="mb-3">
-                                            <Form.Label className="">
-                                                Contraseña
-                                                <span className="tw-text-red-500">
-                                                    *
-                                                </span>
-                                            </Form.Label>
-                                            <InputGroup>
-                                                <Form.Control
-                                                    required
-                                                    value={data.password}
-                                                    type={
-                                                        showPassword
-                                                            ? "text"
-                                                            : "password"
-                                                    }
-                                                    minLength={8}
-                                                    maxLength={16}
-                                                    name="password"
-                                                    className=""
-                                                    placeholder="Contraseña"
-                                                    aria-label="password"
-                                                    onChange={changeHandler}
-                                                    title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres"
-                                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                                />
-                                                <ShowPasswordButton
-                                                    setShowPassword={
-                                                        setShowPassword
-                                                    }
-                                                    showPassword={showPassword}
-                                                />
-                                            </InputGroup>
-                                        </Col>
-                                        <Col md={6} lg={4} className="mb-3">
-                                            <Form.Label className="">
-                                                Confirmar Contraseña
-                                                <span className="tw-text-red-500">
-                                                    *
-                                                </span>
-                                            </Form.Label>
-                                            <InputGroup>
-                                                <Form.Control
-                                                    required
-                                                    value={data.confirmPassword}
-                                                    type={
-                                                        showPassword
-                                                            ? "text"
-                                                            : "password"
-                                                    }
-                                                    minLength={8}
-                                                    maxLength={16}
-                                                    name="confirmPassword"
-                                                    className=""
-                                                    placeholder="Confirmar"
-                                                    aria-label="passwordConfirm"
-                                                    onChange={changeHandler}
-                                                    title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres"
-                                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                                />
-                                                <ShowPasswordButton
-                                                    showPassword={showPassword}
-                                                    setShowPassword={
-                                                        setShowPassword
-                                                    }
-                                                />
-                                            </InputGroup>
-                                        </Col>
+                                        {handleShowMainForm && (
+                                            <>
+                                                <Col
+                                                    md={6}
+                                                    lg={4}
+                                                    className="mb-3"
+                                                >
+                                                    <Form.Label className="">
+                                                        Contraseña
+                                                        <span className="tw-text-red-500">
+                                                            *
+                                                        </span>
+                                                    </Form.Label>
+                                                    <InputGroup>
+                                                        <Form.Control
+                                                            required
+                                                            value={
+                                                                data.password
+                                                            }
+                                                            type={
+                                                                showPassword
+                                                                    ? "text"
+                                                                    : "password"
+                                                            }
+                                                            minLength={8}
+                                                            maxLength={16}
+                                                            name="password"
+                                                            className=""
+                                                            placeholder="Contraseña"
+                                                            aria-label="password"
+                                                            onChange={
+                                                                changeHandler
+                                                            }
+                                                            title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres"
+                                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                                        />
+                                                        <ShowPasswordButton
+                                                            setShowPassword={
+                                                                setShowPassword
+                                                            }
+                                                            showPassword={
+                                                                showPassword
+                                                            }
+                                                        />
+                                                    </InputGroup>
+                                                </Col>
+                                                <Col
+                                                    md={6}
+                                                    lg={4}
+                                                    className="mb-3"
+                                                >
+                                                    <Form.Label className="">
+                                                        Confirmar Contraseña
+                                                        <span className="tw-text-red-500">
+                                                            *
+                                                        </span>
+                                                    </Form.Label>
+                                                    <InputGroup>
+                                                        <Form.Control
+                                                            required
+                                                            value={
+                                                                data.confirmPassword
+                                                            }
+                                                            type={
+                                                                showPassword
+                                                                    ? "text"
+                                                                    : "password"
+                                                            }
+                                                            minLength={8}
+                                                            maxLength={16}
+                                                            name="confirmPassword"
+                                                            className=""
+                                                            placeholder="Confirmar"
+                                                            aria-label="passwordConfirm"
+                                                            onChange={
+                                                                changeHandler
+                                                            }
+                                                            title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres"
+                                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                                        />
+                                                        <ShowPasswordButton
+                                                            showPassword={
+                                                                showPassword
+                                                            }
+                                                            setShowPassword={
+                                                                setShowPassword
+                                                            }
+                                                        />
+                                                    </InputGroup>
+                                                </Col>
+                                            </>
+                                        )}
                                     </>
                                 )}
 
@@ -1376,7 +1401,6 @@ const MainFormModal = ({
 
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
-                                reference !== "diagnostician" &&
                                 reference !== "agreements" && (
                                     <>
                                         <Col

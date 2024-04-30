@@ -41,6 +41,11 @@ export type DataFunctionaryObject = {
     lastName: string;
     phone: any;
     email: string;
+    phone2: any;
+    address: string;
+    country: string;
+    state: any;
+    city: string;
     password: string;
     confirmPassword: string;
     rol: string;
@@ -89,8 +94,8 @@ export type DataProfessionalObject = {
     email: string;
     password: string;
     confirmPassword: string;
-    cardNumber: string;
-    medicalRecord: string;
+    // cardNumber: string;
+    // medicalRecord: string;
     specialty: string;
     contract: string;
     rol: string;
@@ -136,6 +141,7 @@ export type DataDiagnosticianObject = {
     name: string;
     phone: any;
     phone2: any;
+    email: string;
     rut: string;
     address: string;
     country: string;
