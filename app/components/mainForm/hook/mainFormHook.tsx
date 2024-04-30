@@ -290,7 +290,7 @@ const MainFormHook = ({
             currentDataObject.specialty = data.specialty;
             currentDataObject.contract = data.contract;
             currentDataObject.isActive = data.isActive;
-            // currentDataObject.urlPhoto = data.urlPhoto;
+            currentDataObject.urlPhoto = data.urlPhoto;
 
             // editData && (currentDataObject.uid = data.uid);
 
