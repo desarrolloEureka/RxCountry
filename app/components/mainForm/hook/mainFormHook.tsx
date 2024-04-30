@@ -291,7 +291,9 @@ const MainFormHook = ({
             currentDataObject.specialty = data.specialty;
             currentDataObject.contract = data.contract;
             currentDataObject.isActive = data.isActive;
-            _.isEmpty(files) && (currentDataObject.urlPhoto = data.urlPhoto);
+            currentDataObject.urlPhoto = data.urlPhoto;
+
+            // editData && (currentDataObject.uid = data.uid);
 
             for (const record of files) {
                 const urlName = record.name.split(".")[0];
