@@ -28,8 +28,8 @@ export interface DataMainFormObject {
     campus: string;
     area: string;
     urlPhoto: string;
-    timestamp: any;
-    isActive: any;
+    timestamp: Date;
+    isActive: boolean;
     isDeleted: boolean;
 }
 
@@ -52,8 +52,9 @@ export type DataFunctionaryObject = {
     campus: string;
     area: string;
     urlPhoto: string;
-    timestamp: any;
-    isActive: any;
+    timestamp: Date;
+    isActive: boolean;
+    isDeleted: boolean;
 };
 
 export type DataPatientObject = {
@@ -75,8 +76,9 @@ export type DataPatientObject = {
     confirmPassword: string;
     rol: string;
     urlPhoto: string;
-    timestamp: any;
-    isActive: any;
+    timestamp: Date;
+    isActive: boolean;
+    isDeleted: boolean;
 };
 
 export type DataProfessionalObject = {
@@ -100,8 +102,9 @@ export type DataProfessionalObject = {
     contract: string;
     rol: string;
     urlPhoto: string;
-    timestamp: any;
-    isActive: any;
+    timestamp: Date;
+    isActive: boolean;
+    isDeleted: boolean;
 };
 
 export type DataCampusObject = {
@@ -114,8 +117,9 @@ export type DataCampusObject = {
     country: string;
     state: any;
     city: string;
-    timestamp: any;
-    isActive: any;
+    timestamp: Date;
+    isActive: boolean;
+    isDeleted: boolean;
 };
 
 export type DataSpecialtyObject = {
@@ -123,7 +127,8 @@ export type DataSpecialtyObject = {
     icon: string;
     name: string;
     description: string;
-    isActive: any;
+    isActive: boolean;
+    isDeleted: boolean;
 };
 
 export type DataAgreementsObject = {
@@ -131,7 +136,8 @@ export type DataAgreementsObject = {
     name: string;
     personType: string;
     discount: string;
-    isActive: any;
+    isActive: boolean;
+    isDeleted: boolean;
 };
 
 export type DataDiagnosticianObject = {
@@ -147,8 +153,9 @@ export type DataDiagnosticianObject = {
     country: string;
     state: any;
     city: string;
-    timestamp: any;
-    isActive: any;
+    timestamp: Date;
+    isActive: boolean;
+    isDeleted: boolean;
 };
 
 export interface showPasswordParams {

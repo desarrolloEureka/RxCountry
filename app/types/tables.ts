@@ -46,6 +46,41 @@ export interface TableDataItem {
     url: string;
 }
 
+export interface TableDataObject {
+    uid: string;
+    icon: string;
+    idType: string;
+    id: string;
+    name: string;
+    description: string;
+    personType: string;
+    discount: string;
+    rut: string;
+    lastName: string;
+    birthDate: string;
+    age: string;
+    phone: any;
+    phone2: any;
+    address: string;
+    country: string;
+    state: any;
+    city: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    // cardNumber: string;
+    // medicalRecord: string;
+    specialty: string;
+    contract: string;
+    rol: string;
+    campus: string;
+    area: string;
+    urlPhoto: string;
+    timestamp: Date;
+    isActive: boolean;
+    isDeleted: boolean;
+}
+
 export interface DataTableComponentProps {
     componentTitle?: string;
     componentDescription?: string;

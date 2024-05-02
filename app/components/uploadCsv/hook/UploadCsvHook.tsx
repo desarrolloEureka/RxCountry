@@ -70,7 +70,7 @@ const UploadDocumentHook = ({
                 // currentDataObject.rol = val[0];
                 currentDataObject.campus = val[9];
                 currentDataObject.area = val[10];
-                currentDataObject.isActive = val[11];
+                // currentDataObject.isActive = val[11];
                 // currentDataObject.urlPhoto = urlName;
 
                 newData = { ...currentDataObject };
@@ -95,7 +95,7 @@ const UploadDocumentHook = ({
                 currentDataObject.email = val[12];
                 currentDataObject.password = val[13];
                 currentDataObject.confirmPassword = val[14];
-                currentDataObject.isActive = val[15];
+                currentDataObject.isActive = val[15] === "true" ? true : false;;
                 currentDataObject.rol = val[16];
 
                 newData = { ...currentDataObject };
@@ -122,7 +122,7 @@ const UploadDocumentHook = ({
                 // currentDataObject.medicalRecord = val[14];
                 currentDataObject.specialty = val[15];
                 currentDataObject.contract = val[16];
-                currentDataObject.isActive = val[17];
+                currentDataObject.isActive = val[17] === "true" ? true : false;
                 currentDataObject.rol = val[18];
 
                 newData = { ...currentDataObject };
@@ -139,7 +139,7 @@ const UploadDocumentHook = ({
                 currentDataObject.country = val[4];
                 currentDataObject.state = val[5];
                 currentDataObject.city = val[6];
-                currentDataObject.isActive = val[7];
+                currentDataObject.isActive = val[7] === "true" ? true : false;;
 
                 newData = { ...currentDataObject };
             }
@@ -149,16 +149,14 @@ const UploadDocumentHook = ({
 
                 currentDataObject.uid = documentRef.id;
                 currentDataObject.name = val[0];
-                currentDataObject.description = val[1];                
+                currentDataObject.description = val[1];
                 currentDataObject.name = val[2];
                 currentDataObject.description = val[3];
                 // currentDataObject.icon = val[1];
-                currentDataObject.isActive = val[4];
+                currentDataObject.isActive = val[4] === "true" ? true : false;;
 
                 newData = { ...currentDataObject };
             }
-
-
         });
 
         saveDataDocumentsQuery({

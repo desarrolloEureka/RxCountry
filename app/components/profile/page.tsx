@@ -41,7 +41,7 @@ const Profile = () => {
                                     <div className="panel profile-cover tw-pb-24">
                                         <div className="profile-cover__img ">
                                             <img
-                                                src="https://ui-avatars.com/api/?name=John+Doe?size=150?bold=true"
+                                                src={`https://ui-avatars.com/api/?name=${data?.displayName}?size=150?bold=true`}
                                                 alt="Profile Photo"
                                                 width="150"
                                             />
