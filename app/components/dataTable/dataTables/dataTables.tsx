@@ -1,16 +1,19 @@
 import {
     ExportProps,
-    TableDataItemOld,
+    // TableDataItemOld,
     UploadDataButtonModalProps,
     UploadDataModalProps,
 } from "@/types/tables";
-import differenceBy from "lodash/differenceBy";
+// import differenceBy from "lodash/differenceBy";
 import dynamic from "next/dynamic";
 import React, { MouseEvent } from "react";
-import { Button, Card } from "react-bootstrap";
+import {
+    Button,
+    // Card
+} from "react-bootstrap";
 import DataTable, { createTheme } from "react-data-table-component";
 import "react-data-table-component-extensions/dist/index.css";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 // import DataTableExtensions from 'react-data-table-component-extensions';
 
@@ -143,9 +146,9 @@ export const ExportCSV = ({
     tableTitle,
     reference,
 }: UploadDataModalProps) => {
-    const [selectedRows, setSelectedRows] = React.useState([]);
-    const [toggleCleared, setToggleCleared] = React.useState(false);
-    const [dataTable, setDataTable] = React.useState(data);
+    // const [selectedRows, setSelectedRows] = React.useState([]);
+    // const [toggleCleared, setToggleCleared] = React.useState(false);
+    // const [dataTable, setDataTable] = React.useState(data);
 
     const actionsMemo = React.useMemo(() => {
         return (
@@ -164,18 +167,18 @@ export const ExportCSV = ({
                         onUploadDataModalPdf={onUploadDataModalPdf}
                     />
                 )}
-                {dataTable.length !== 0 && (
+                {data.length !== 0 && (
                     <Export
-                        onExport={() => downloadCSV(dataTable, tableTitle)}
+                        onExport={() => downloadCSV(data, tableTitle)}
                     />
                 )}
             </>
         );
-    }, [onMainFormModal, reference, onUploadDataModalCsv, onUploadDataModalPdf, dataTable, tableTitle]);
+    }, [onMainFormModal, reference, onUploadDataModalCsv, onUploadDataModalPdf, data, tableTitle]);
 
-    const handleRowSelected = React.useCallback((state: any) => {
-        setSelectedRows(state.selectedRows);
-    }, []);
+    // const handleRowSelected = React.useCallback((state: any) => {
+    //     setSelectedRows(state.selectedRows);
+    // }, []);
 
     const handleRowEdit = (row: any, event: any) => {
         // console.log(row);
@@ -190,39 +193,39 @@ export const ExportCSV = ({
         },
     ];
 
-    const contextActionsMemo = React.useMemo(() => {
-        const handleDelete = () => {
-            Swal.fire({
-                title: `Are you sure you want to delete:\r ${selectedRows.map(
-                    (r: TableDataItemOld) => r.SNO,
-                )}?`,
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                // confirmButtonColor: "#3085d6",
-                // cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                        "Deleted!",
-                        "Your file has been deleted.",
-                        "success",
-                    );
-                    setToggleCleared(!toggleCleared);
-                    setDataTable(differenceBy(dataTable, selectedRows, "SNO"));
-                } else {
-                    setToggleCleared(!toggleCleared);
-                }
-            });
-        };
+    // const contextActionsMemo = React.useMemo(() => {
+    //     const handleDelete = () => {
+    //         Swal.fire({
+    //             title: `Are you sure you want to delete:\r ${selectedRows.map(
+    //                 (r: TableDataItemOld) => r.SNO,
+    //             )}?`,
+    //             text: "You won't be able to revert this!",
+    //             icon: "warning",
+    //             showCancelButton: true,
+    //             // confirmButtonColor: "#3085d6",
+    //             // cancelButtonColor: "#d33",
+    //             confirmButtonText: "Yes, delete it!",
+    //         }).then((result) => {
+    //             if (result.isConfirmed) {
+    //                 Swal.fire(
+    //                     "Deleted!",
+    //                     "Your file has been deleted.",
+    //                     "success",
+    //                 );
+    //                 setToggleCleared(!toggleCleared);
+    //                 setDataTable(differenceBy(dataTable, selectedRows, "SNO"));
+    //             } else {
+    //                 setToggleCleared(!toggleCleared);
+    //             }
+    //         });
+    //     };
 
-        return (
-            <Button key="delete" onClick={handleDelete}>
-                Delete
-            </Button>
-        );
-    }, [dataTable, selectedRows, toggleCleared]);
+    //     return (
+    //         <Button key="delete" onClick={handleDelete}>
+    //             Delete
+    //         </Button>
+    //     );
+    // }, [dataTable, selectedRows, toggleCleared]);
 
     return (
         <DataTableExtensions
@@ -246,12 +249,13 @@ export const ExportCSV = ({
                 pointerOnHover
                 defaultSortFieldId={2}
                 columns={columns}
-                data={dataTable}
+                data={data}
+                // data={dataTable}
                 actions={actionsMemo}
                 pagination
                 highlightOnHover
                 // title={tableTitle}
-                progressPending={dataTable ? false : true}
+                // progressPending={dataTable ? false : true}
                 theme="solarized"
             />
         </DataTableExtensions>

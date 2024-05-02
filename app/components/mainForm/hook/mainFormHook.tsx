@@ -292,8 +292,6 @@ const MainFormHook = ({
             currentDataObject.isActive = data.isActive;
             currentDataObject.urlPhoto = data.urlPhoto;
 
-            // editData && (currentDataObject.uid = data.uid);
-
             for (const record of files) {
                 const urlName = record.name.split(".")[0];
                 await saveFilesDocuments({
@@ -311,28 +309,29 @@ const MainFormHook = ({
                         // console.log(error);
                     });
             }
+
             newData = { ...currentDataObject };
-
-            // !editData &&
-            //     !handleShowMainFormEdit &&
-            //     (await registerFirebase(data.email, data.password)
-            //         .then((result: any) => {
-            //             const newUser = result.user;
-            //             if (newUser !== null) {
-            //                 const newDocumentRef: any = getDocumentRefById(
-            //                     reference,
-            //                     newUser.uid,
-            //                 );
-
-            //                 currentDataObject.uid = newDocumentRef.id;
-            //                 documentRef = newDocumentRef;
-
-            //             }
-            //         })
-            //         .catch((err) => {
-            //             console.log(err);
-            //         }));
         }
+
+        // !editData &&
+        //     !handleShowMainFormEdit &&
+        //     (await registerFirebase(data.email, data.password)
+        //         .then((result: any) => {
+        //             const newUser = result.user;
+        //             if (newUser !== null) {
+        //                 const newDocumentRef: any = getDocumentRefById(
+        //                     reference,
+        //                     newUser.uid,
+        //                 );
+
+        //                 currentDataObject.uid = newDocumentRef.id;
+        //                 documentRef = newDocumentRef;
+
+        //             }
+        //         })
+        //         .catch((err) => {
+        //             console.log(err);
+        //         }));
 
         if (reference === "campus") {
             const currentDataObject = { ...dataCampusObject };
@@ -402,8 +401,8 @@ const MainFormHook = ({
             newData = { ...currentDataObject };
         }
 
-        console.log("newData", newData);
-        console.log("reference", reference);
+        // console.log("newData", newData);
+        // console.log("reference", reference);
 
         handleShowMainFormEdit
             ? await saveEditDataDocumentsQuery({
@@ -434,8 +433,8 @@ const MainFormHook = ({
         data.confirmPassword &&
         // data.rol &&
         data.campus &&
-        data.area &&
-        data.isActive;
+        data.area;
+        // data.isActive;
     // files.length > 0;
 
     const campusVal =
@@ -443,8 +442,8 @@ const MainFormHook = ({
         data.address &&
         data.country &&
         data.state &&
-        data.city &&
-        data.isActive;
+        data.city;
+        // data.isActive;
 
     const diagnosticianVal =
         data.idType &&
@@ -456,12 +455,14 @@ const MainFormHook = ({
         data.address &&
         data.country &&
         data.state &&
-        data.city &&
-        data.isActive;
+        data.city;
+        // data.isActive;
 
-    const agreementsVal = data.name && data.personType && data.isActive;
+    const agreementsVal = data.name && data.personType;
+        // && data.isActive;
 
-    const specialtyVal = data.name && data.isActive;
+    const specialtyVal = data.name;
+        // && data.isActive;
 
     const professionalsVal =
         data.idType &&
@@ -480,8 +481,8 @@ const MainFormHook = ({
         // data.cardNumber &&
         // data.medicalRecord &&
         data.specialty &&
-        data.contract &&
-        data.isActive;
+        data.contract;
+        // data.isActive;
     // data.rol &&
     // files.length > 0;
 
@@ -500,8 +501,8 @@ const MainFormHook = ({
         data.city &&
         data.email &&
         data.password &&
-        data.confirmPassword &&
-        data.isActive;
+        data.confirmPassword;
+        // data.isActive;
     // data.rol &&
     // files.length > 0;
 

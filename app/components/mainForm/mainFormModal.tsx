@@ -212,7 +212,7 @@ const MainFormModal = ({
                                                 value={data.id}
                                                 type="text"
                                                 minLength={2}
-                                                maxLength={25}
+                                                maxLength={250}
                                                 name="id"
                                                 className="form-control"
                                                 placeholder="Número"
@@ -225,7 +225,12 @@ const MainFormModal = ({
 
                             <Col
                                 md={6}
-                                lg={reference !== "agreements" ? 4 : 6}
+                                lg={
+                                    reference !== "agreements" &&
+                                    reference !== "campus"
+                                        ? 4
+                                        : 6
+                                }
                                 className="mb-3"
                             >
                                 <Form.Label className="">
@@ -237,7 +242,7 @@ const MainFormModal = ({
                                     value={data.name}
                                     type="text"
                                     minLength={1}
-                                    maxLength={25}
+                                    maxLength={250}
                                     name="name"
                                     className="form-control"
                                     placeholder="Nombres"
@@ -256,7 +261,7 @@ const MainFormModal = ({
                                         value={data.description}
                                         type="text"
                                         minLength={2}
-                                        maxLength={25}
+                                        maxLength={1500}
                                         name="description"
                                         className="form-control"
                                         placeholder="Descripción"
@@ -278,7 +283,7 @@ const MainFormModal = ({
                                         value={data.rut}
                                         type="text"
                                         minLength={2}
-                                        maxLength={50}
+                                        maxLength={250}
                                         name="rut"
                                         className="form-control"
                                         placeholder="Número"
@@ -341,8 +346,8 @@ const MainFormModal = ({
                                         <Form.Control
                                             value={data.discount}
                                             type="text"
-                                            minLength={2}
-                                            maxLength={50}
+                                            minLength={1}
+                                            maxLength={500}
                                             name="discount"
                                             className="form-control"
                                             placeholder="Porcentaje(%)"
@@ -371,7 +376,7 @@ const MainFormModal = ({
                                             value={data.lastName}
                                             type="text"
                                             minLength={1}
-                                            maxLength={25}
+                                            maxLength={250}
                                             name="lastName"
                                             className="form-control"
                                             placeholder="Apellidos"
@@ -414,7 +419,7 @@ const MainFormModal = ({
                                             disabled
                                             type="number"
                                             min={0}
-                                            max={999}
+                                            max={9999}
                                             name="age"
                                             className=""
                                             placeholder="Edad"
@@ -442,7 +447,7 @@ const MainFormModal = ({
                                             required
                                             value={data.phone}
                                             type="tel"
-                                            maxLength={25}
+                                            maxLength={250}
                                             name="phone"
                                             className=""
                                             placeholder="Número"
@@ -469,7 +474,7 @@ const MainFormModal = ({
                                                 value={data.phone2}
                                                 type="tel"
                                                 min={0}
-                                                max={999999999999}
+                                                max={999999999999999}
                                                 name="phone2"
                                                 className=""
                                                 placeholder="Número"
@@ -489,7 +494,7 @@ const MainFormModal = ({
                                                 value={data.address}
                                                 type="text"
                                                 minLength={2}
-                                                maxLength={150}
+                                                maxLength={550}
                                                 name="address"
                                                 className=""
                                                 placeholder="Dirección"
@@ -660,32 +665,36 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "agreements" && (
+                                    <Col
+                                        md={6}
+                                        lg={reference !== "campus" && 4}
+                                        className="mb-3"
+                                    >
+                                        <Form.Label className="">
+                                            Email
+                                            <span className="tw-text-red-500">
+                                                *
+                                            </span>
+                                        </Form.Label>
+                                        <Form.Control
+                                            disabled={handleShowMainFormEdit}
+                                            required
+                                            value={data.email}
+                                            type="email"
+                                            name="email"
+                                            className=""
+                                            placeholder="Email"
+                                            aria-label="email"
+                                            onChange={changeHandler}
+                                        />
+                                    </Col>
+                                )}
+
+                            {reference !== "campus" &&
+                                reference !== "specialties" &&
+                                reference !== "diagnostician" &&
+                                reference !== "agreements" && (
                                     <>
-                                        <Col
-                                            md={6}
-                                            lg={reference !== "campus" && 4}
-                                            className="mb-3"
-                                        >
-                                            <Form.Label className="">
-                                                Email
-                                                <span className="tw-text-red-500">
-                                                    *
-                                                </span>
-                                            </Form.Label>
-                                            <Form.Control
-                                                disabled={
-                                                    handleShowMainFormEdit
-                                                }
-                                                required
-                                                value={data.email}
-                                                type="email"
-                                                name="email"
-                                                className=""
-                                                placeholder="Email"
-                                                aria-label="email"
-                                                onChange={changeHandler}
-                                            />
-                                        </Col>
                                         {handleShowMainForm && (
                                             <>
                                                 <Col
@@ -911,16 +920,9 @@ const MainFormModal = ({
                                     noOptionsMessage={({ inputValue }) =>
                                         `No hay resultados para "${inputValue}"`
                                     }
-                                    value={
-                                        data.isActive
-                                            ? isActiveData.find((value) =>
-                                                  findValue(
-                                                      value,
-                                                      data.isActive,
-                                                  ),
-                                              )
-                                            : []
-                                    }
+                                    value={isActiveData.find((value) =>
+                                        findValue(value, data.isActive),
+                                    )}
                                     defaultValue={selectedStatus}
                                     placeholder="Estado"
                                     isClearable
@@ -942,6 +944,22 @@ const MainFormModal = ({
                                     }}
                                 />
                             </Col>
+
+                            {/* {reference !== "specialties" &&
+                                reference !== "agreements" &&
+                                reference !== "diagnostician" && (
+                                    <Col md={6} lg={4} className="mb-3">
+                                        <Form.Label className="">
+                                            Fecha Registro
+                                        </Form.Label>
+                                        <Form.Control
+                                            // disabled
+                                            type="date"
+                                            className=""
+                                            aria-label="dateRegister"
+                                        />
+                                    </Col>
+                                )} */}
 
                             {reference === "functionary" && (
                                 <>
@@ -972,15 +990,7 @@ const MainFormModal = ({
                                         onChange={selectChangeHandlerRol}
                                     />
                                 </Col> */}
-                                    {/* <Col md={6} lg={4} className="mb-3">
-                            <Form.Label className="">Fecha Registro</Form.Label>
-                            <Form.Control
-                                // disabled
-                                type="date"
-                                className=""
-                                aria-label="dateRegister"
-                            />
-                        </Col> */}
+
                                     <Col md={6} lg={4} className="mb-3">
                                         <Form.Label className="">
                                             Sede
@@ -1176,7 +1186,12 @@ const MainFormModal = ({
 
                             <Col
                                 md={6}
-                                lg={reference !== "agreements" ? 4 : 6}
+                                lg={
+                                    reference !== "agreements" &&
+                                    reference !== "campus"
+                                        ? 4
+                                        : 6
+                                }
                                 className=""
                             >
                                 <div className="tw-flex-1 tw-text-star tw-text-base">
@@ -1227,7 +1242,7 @@ const MainFormModal = ({
                                     <Col md={6} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
                                             <h6 className="fw-bold">
-                                                Descuento
+                                                Descuento(%)
                                             </h6>
                                             <p className="border-bottom">
                                                 {data.discount}
@@ -1354,7 +1369,7 @@ const MainFormModal = ({
                                         >
                                             <div className="tw-flex-1 tw-text-star tw-text-base">
                                                 <h6 className="fw-bold">
-                                                    Departamento/Estado
+                                                    Departamento
                                                 </h6>
                                                 <p className="border-bottom fw-light">
                                                     {data.state &&
@@ -1402,21 +1417,25 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "agreements" && (
+                                    <Col
+                                        md={6}
+                                        lg={reference !== "campus" && 4}
+                                        className=""
+                                    >
+                                        <div className="tw-flex-1 tw-text-star tw-text-base">
+                                            <h6 className="fw-bold">Email</h6>
+                                            <p className="border-bottom fw-light">
+                                                {data.email}
+                                            </p>
+                                        </div>
+                                    </Col>
+                                )}
+
+                            {reference !== "campus" &&
+                                reference !== "specialties" &&
+                                reference !== "diagnostician" &&
+                                reference !== "agreements" && (
                                     <>
-                                        <Col
-                                            md={6}
-                                            lg={reference !== "campus" && 4}
-                                            className=""
-                                        >
-                                            <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold">
-                                                    Email
-                                                </h6>
-                                                <p className="border-bottom fw-light">
-                                                    {data.email}
-                                                </p>
-                                            </div>
-                                        </Col>
                                         {/* <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
                                             <h6 className="fw-bold">
@@ -1437,14 +1456,6 @@ const MainFormModal = ({
                                             </p>
                                         </div>
                                     </Col> */}
-                                        <Col md={6} lg={4} className="">
-                                            <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold">Rol</h6>
-                                                <p className="border-bottom fw-light">
-                                                    {data.rol}
-                                                </p>
-                                            </div>
-                                        </Col>
                                     </>
                                 )}
 
@@ -1506,7 +1517,7 @@ const MainFormModal = ({
                                 <div className="tw-flex-1 tw-text-star tw-text-base">
                                     <h6 className="fw-bold">Estado</h6>
                                     <p className="border-bottom fw-light">
-                                        {data.isActive}
+                                        {data.isActive ? "Activo":"Inactivo"}
                                     </p>
                                 </div>
                             </Col>
@@ -1520,7 +1531,7 @@ const MainFormModal = ({
                                                 Fecha Registro
                                             </h6>
                                             <p className="border-bottom fw-light">
-                                                {data.timestamp}
+                                                {`${data.timestamp}`}
                                             </p>
                                         </div>
                                     </Col>
@@ -1528,6 +1539,15 @@ const MainFormModal = ({
 
                             {reference === "functionary" && (
                                 <>
+                                    {/* <Col md={6} lg={4} className="">
+                                        <div className="tw-flex-1 tw-text-star tw-text-base">
+                                            <h6 className="fw-bold">Rol</h6>
+                                            <p className="border-bottom fw-light">
+                                                {data.rol}
+                                            </p>
+                                        </div>
+                                    </Col> */}
+
                                     <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
                                             <h6 className="fw-bold">Sede</h6>

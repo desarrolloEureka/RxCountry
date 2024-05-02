@@ -5,6 +5,15 @@ import { DataObject } from "@/types/documents";
 import { setDataTable } from "@/types/tables";
 import { useCallback, useEffect, useState } from "react";
 
+const CustomTitle = ({ row }: any) => (
+    <div data-tag="allowRowEvents">
+        <span
+            className={`status ${row.isActive ? "bg-success" : "bg-danger"} `}
+        ></span>
+        {row.isActive ? "Activo" : "Inactivo"}
+    </div>
+);
+
 const DataTablesHook = (reference: string) => {
     const [handleShowCsv, setHandleShowCsv] = useState(false);
     const [handleShowPdf, setHandleShowPdf] = useState(false);
@@ -17,8 +26,6 @@ const DataTablesHook = (reference: string) => {
 
     const getAllDocuments = useCallback(async () => {
         const documents = await getAllDocumentsQuery(reference);
-
-        // console.log(documents[0]);
 
         if (documents.length > 0) {
             const cols: any[] = [];
@@ -109,21 +116,23 @@ const DataTablesHook = (reference: string) => {
 
             // entries.forEach((val, key) => {
             entries2.forEach((val) => {
-                if (columnNamesToDisplay.includes(val)) {
-                    const columnsData = {
-                        name: val.toUpperCase(),
-                        // name: val[0].toUpperCase(),
-                        selector: (row: any) => [row[val]],
-                        // selector: (row: any) => [row[val[0]]],
-                        sortable: true,
-                        // maxWidth: "600px",
-                        width:
-                            val === "email" || val === "address"
-                                ? "210px"
-                                : undefined,
-                    };
-                    cols.push(columnsData);
-                }
+                const columnsData = {
+                    name: val.toUpperCase(),
+                    selector: (row: any) =>
+                        val === "isActive" ? (
+                            <CustomTitle row={row} />
+                        ) : (
+                            [row[val]]
+                        ),
+                    sortable: true,
+                    // grow: val === "email" || val === "address" ? 2 : 1,
+                    width:
+                        val === "email" || val === "address"
+                            ? "250px"
+                            : undefined,
+                    omit: !columnNamesToDisplay.includes(val),
+                };
+                cols.push(columnsData);
             });
 
             const currentData = {
@@ -133,6 +142,7 @@ const DataTablesHook = (reference: string) => {
 
             // console.log("cols", cols);
             // console.log("currentData", currentData);
+            // console.log("documents", documents);
 
             setColumns(cols);
             setDataTable(currentData); //obtain dataTable
@@ -163,9 +173,9 @@ const DataTablesHook = (reference: string) => {
 
     // console.log("Rendering");
 
-    // useEffect(() => {
-    //     getAllDocuments();
-    // }, [getAllDocuments]);
+    useEffect(() => {
+        getAllDocuments();
+    }, [getAllDocuments]);
 
     useEffect(() => {
         if (!handleShowMainForm || !handleShowMainFormEdit) {

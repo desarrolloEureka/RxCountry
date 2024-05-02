@@ -39,8 +39,8 @@ export const dataMainFormObject = {
     campus: "",
     area: "",
     urlPhoto: "",
-    timestamp: "",
-    isActive: "",
+    timestamp: new Date(),
+    isActive: false,
     isDeleted: false,
 } as DataMainFormObject;
 
@@ -63,8 +63,8 @@ export const dataFunctionaryObject = {
     campus: "",
     area: "",
     urlPhoto: "",
-    timestamp: "",
-    isActive: "",
+    timestamp: new Date(),
+    isActive: false,
     isDeleted: false,
 } as DataFunctionaryObject;
 
@@ -87,8 +87,8 @@ export const dataPatientObject = {
     confirmPassword: "",
     rol: "Paciente",
     urlPhoto: "",
-    timestamp: "",
-    isActive: "",
+    timestamp: new Date(),
+    isActive: false,
     isDeleted: false,
 } as DataPatientObject;
 
@@ -113,8 +113,8 @@ export const dataProfessionalObject = {
     contract: "",
     rol: "Profesional",
     urlPhoto: "",
-    timestamp: "",
-    isActive: "",
+    timestamp: new Date(),
+    isActive: false,
     isDeleted: false,
 } as DataProfessionalObject;
 
@@ -128,8 +128,8 @@ export const dataCampusObject = {
     country: "",
     state: "",
     city: "",
-    timestamp: "",
-    isActive: "",
+    timestamp: new Date(),
+    isActive: false,
     isDeleted: false,
 } as DataCampusObject;
 
@@ -138,7 +138,7 @@ export const dataSpecialtyObject = {
     icon: "",
     name: "",
     description: "",
-    isActive: "",
+    isActive: false,
     isDeleted: false,
 } as DataSpecialtyObject;
 
@@ -147,7 +147,8 @@ export const dataAgreementsObject = {
     name: "",
     personType: "",
     discount: "",
-    isActive: "",
+    isActive: false,
+    isDeleted: false,
 } as DataAgreementsObject;
 
 export const dataDiagnosticianObject = {
@@ -163,6 +164,6 @@ export const dataDiagnosticianObject = {
     country: "",
     state: "",
     city: "",
-    timestamp: "",
-    isActive: "",
+    isActive: false,
+    isDeleted: false,
 } as DataDiagnosticianObject;
