@@ -163,7 +163,10 @@ const MainFormModal = ({
                 onSubmit={handleSendForm}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title as="h6">{`Nuevo Registro ${title}`}</Modal.Title>
+                    <Modal.Title
+                        className="tw-text-[#e9a225]"
+                        as="h6"
+                    >{`Nuevo Registro ${title}`}</Modal.Title>
                 </Modal.Header>
                 {isEdit ? (
                     <Modal.Body className="tw-px-8">
@@ -174,7 +177,7 @@ const MainFormModal = ({
                                     <>
                                         <Col md={6} lg={4} className="mb-3">
                                             <Form.Group controlId="idType">
-                                                <Form.Label className="tw-text-[#e9a225]">
+                                                <Form.Label className="">
                                                     Tipo Documento
                                                     <span className="tw-text-red-500">
                                                         *
@@ -215,7 +218,7 @@ const MainFormModal = ({
                                             </Form.Group>
                                         </Col>
                                         <Col md={6} lg={4} className="mb-3">
-                                            <Form.Label className="tw-text-[#e9a225]">
+                                            <Form.Label className="">
                                                 Documento
                                                 <span className="tw-text-red-500">
                                                     *
@@ -247,7 +250,7 @@ const MainFormModal = ({
                                 }
                                 className="mb-3"
                             >
-                                <Form.Label className="tw-text-[#e9a225]">
+                                <Form.Label className="">
                                     Nombre/s
                                     <span className="tw-text-red-500">*</span>
                                 </Form.Label>
@@ -268,7 +271,7 @@ const MainFormModal = ({
                             {(reference === "campus" ||
                                 reference === "specialties") && (
                                 <Col md={6} className="mb-3">
-                                    <Form.Label className="tw-text-[#e9a225]">
+                                    <Form.Label className="">
                                         Descripción (opcional)
                                     </Form.Label>
                                     <Form.Control
@@ -287,7 +290,7 @@ const MainFormModal = ({
 
                             {reference === "diagnostician" && (
                                 <Col md={6} lg={4} className="mb-3">
-                                    <Form.Label className="tw-text-[#e9a225]">
+                                    <Form.Label className="">
                                         Rut
                                         <span className="tw-text-red-500">
                                             *
@@ -313,7 +316,7 @@ const MainFormModal = ({
                                 <>
                                     <Col md={6} className="mb-3">
                                         <Form.Group controlId="idType">
-                                            <Form.Label className="tw-text-[#e9a225]">
+                                            <Form.Label className="">
                                                 Tipo de Persona
                                                 <span className="tw-text-red-500">
                                                     *
@@ -351,7 +354,7 @@ const MainFormModal = ({
                                         </Form.Group>
                                     </Col>
                                     <Col md={6} className="mb-3">
-                                        <Form.Label className="tw-text-[#e9a225]">
+                                        <Form.Label className="">
                                             Descuento(%) (Opcional)
                                             {/* <span className="tw-text-red-500">
                                                 *
@@ -379,7 +382,7 @@ const MainFormModal = ({
                                 reference !== "diagnostician" &&
                                 reference !== "agreements" && (
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="tw-text-[#e9a225]">
+                                        <Form.Label className="">
                                             Apellido/s
                                             <span className="tw-text-red-500">
                                                 *
@@ -403,7 +406,7 @@ const MainFormModal = ({
                             {reference === "patients" && (
                                 <>
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="tw-text-[#e9a225]">
+                                        <Form.Label className="">
                                             Fecha Nacimiento
                                             <span className="tw-text-red-500">
                                                 *
@@ -421,7 +424,7 @@ const MainFormModal = ({
                                         />
                                     </Col>
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="tw-text-[#e9a225]">
+                                        <Form.Label className="">
                                             Edad
                                         </Form.Label>
                                         <Form.Control
@@ -451,7 +454,7 @@ const MainFormModal = ({
                                         lg={reference !== "campus" && 4}
                                         className="mb-3"
                                     >
-                                        <Form.Label className="tw-text-[#e9a225]">
+                                        <Form.Label className="">
                                             Celular
                                             <span className="tw-text-red-500">
                                                 *
@@ -481,7 +484,7 @@ const MainFormModal = ({
                                             lg={reference !== "campus" && 4}
                                             className="mb-3"
                                         >
-                                            <Form.Label className="tw-text-[#e9a225]">
+                                            <Form.Label className="">
                                                 Teléfono fijo (opcional)
                                             </Form.Label>
                                             <Form.Control
@@ -497,7 +500,7 @@ const MainFormModal = ({
                                             />
                                         </Col>
                                         <Col md={6} className="mb-3">
-                                            <Form.Label className="tw-text-[#e9a225]">
+                                            <Form.Label className="">
                                                 Dirección
                                                 {/* <span className="tw-text-red-500">
                                                     *
@@ -527,7 +530,7 @@ const MainFormModal = ({
                                             }
                                             className="mb-3"
                                         >
-                                            <Form.Label className="tw-text-[#e9a225]">
+                                            <Form.Label className="">
                                                 País
                                                 {/* <span className="tw-text-red-500">
                                                     *
@@ -577,7 +580,7 @@ const MainFormModal = ({
                                             }
                                             className="mb-3"
                                         >
-                                            <Form.Label className="tw-text-[#e9a225]">
+                                            <Form.Label className="">
                                                 Departamento
                                                 {/* <span className="tw-text-red-500">
                                                     *
@@ -629,7 +632,7 @@ const MainFormModal = ({
                                             }
                                             className="mb-3"
                                         >
-                                            <Form.Label className="tw-text-[#e9a225]">
+                                            <Form.Label className="">
                                                 Ciudad
                                                 {/* <span className="tw-text-red-500">
                                                     *
@@ -686,7 +689,7 @@ const MainFormModal = ({
                                         lg={reference !== "campus" && 4}
                                         className="mb-3"
                                     >
-                                        <Form.Label className="tw-text-[#e9a225]">
+                                        <Form.Label className="">
                                             Email
                                             <span className="tw-text-red-500">
                                                 *
@@ -718,7 +721,7 @@ const MainFormModal = ({
                                                     lg={4}
                                                     className="mb-3"
                                                 >
-                                                    <Form.Label className="tw-text-[#e9a225]">
+                                                    <Form.Label className="">
                                                         Contraseña
                                                         <span className="tw-text-red-500">
                                                             *
@@ -762,7 +765,7 @@ const MainFormModal = ({
                                                     lg={4}
                                                     className="mb-3"
                                                 >
-                                                    <Form.Label className="tw-text-[#e9a225]">
+                                                    <Form.Label className="">
                                                         Confirmar Contraseña
                                                         <span className="tw-text-red-500">
                                                             *
@@ -809,7 +812,7 @@ const MainFormModal = ({
                             {reference === "professionals" && (
                                 <>
                                     {/* <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="tw-text-[#e9a225]">
+                                        <Form.Label className="">
                                             Número Tarjeta Profesional *
                                         </Form.Label>
                                         <Form.Control
@@ -826,7 +829,7 @@ const MainFormModal = ({
                                         />
                                     </Col> */}
                                     {/* <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="tw-text-[#e9a225]">
+                                        <Form.Label className="">
                                             Registro Médico *
                                         </Form.Label>
                                         <Form.Control
@@ -843,7 +846,7 @@ const MainFormModal = ({
                                         />
                                     </Col> */}
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="tw-text-[#e9a225]">
+                                        <Form.Label className="">
                                             Especialidad
                                             {/* <span className="tw-text-red-500">
                                                 *
@@ -881,7 +884,7 @@ const MainFormModal = ({
                                         />
                                     </Col>
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="tw-text-[#e9a225]">
+                                        <Form.Label className="">
                                             Convenio (Opcional)
                                         </Form.Label>
                                         <Select
@@ -927,7 +930,7 @@ const MainFormModal = ({
                                 }
                                 className="mb-3"
                             >
-                                <Form.Label className="tw-text-[#e9a225]">
+                                <Form.Label className="">
                                     Estado
                                     <span className="tw-text-red-500">*</span>
                                 </Form.Label>
@@ -965,7 +968,7 @@ const MainFormModal = ({
                                 reference !== "agreements" &&
                                 reference !== "diagnostician" && (
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="tw-text-[#e9a225]">
+                                        <Form.Label className="">
                                             Fecha Registro
                                         </Form.Label>
                                         <Form.Control
@@ -980,7 +983,7 @@ const MainFormModal = ({
                             {reference === "functionary" && (
                                 <>
                                     {/* <Col md={6} lg={4} className="mb-3">
-                                    <Form.Label className="tw-text-[#e9a225]">Rol</Form.Label>
+                                    <Form.Label className="">Rol</Form.Label>
                                     <Select
                                         noOptionsMessage={({ inputValue }) =>
                                             `No hay resultados para "${inputValue}"`
@@ -1008,7 +1011,7 @@ const MainFormModal = ({
                                 </Col> */}
 
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="tw-text-[#e9a225]">
+                                        <Form.Label className="">
                                             Sede
                                             <span className="tw-text-red-500">
                                                 *
@@ -1043,7 +1046,7 @@ const MainFormModal = ({
                                         />
                                     </Col>
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="tw-text-[#e9a225]">
+                                        <Form.Label className="">
                                             Área
                                             <span className="tw-text-red-500">
                                                 *
@@ -1180,7 +1183,7 @@ const MainFormModal = ({
                                         {data.idType && (
                                             <Col md={6} lg={4} className="">
                                                 <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    <h6 className="fw-bold">
                                                         Tipo Documento
                                                     </h6>
                                                     <p className="border-bottom fw-light">
@@ -1192,7 +1195,7 @@ const MainFormModal = ({
                                         {data.id && (
                                             <Col md={6} lg={4} className="">
                                                 <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    <h6 className="fw-bold">
                                                         Documento
                                                     </h6>
                                                     <p className="border-bottom fw-light">
@@ -1215,7 +1218,7 @@ const MainFormModal = ({
                                     className=""
                                 >
                                     <div className="tw-flex-1 tw-text-star tw-text-base">
-                                        <h6 className="fw-bold tw-text-[#e9a225]">
+                                        <h6 className="fw-bold">
                                             Nombre/s
                                         </h6>
                                         <p className="border-bottom fw-light">
@@ -1231,7 +1234,7 @@ const MainFormModal = ({
                                     {data.description && (
                                         <Col md={6} className="">
                                             <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                <h6 className="fw-bold">
                                                     Descripción (opcional)
                                                 </h6>
                                                 <p className="border-bottom">
@@ -1248,7 +1251,7 @@ const MainFormModal = ({
                                     {data.rut && (
                                         <Col md={6} lg={4} className="mb-3">
                                             <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                <h6 className="fw-bold">
                                                     Rut
                                                 </h6>
                                                 <p className="border-bottom">
@@ -1265,7 +1268,7 @@ const MainFormModal = ({
                                     {data.personType && (
                                         <Col md={6} className="">
                                             <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                <h6 className="fw-bold">
                                                     Tipo de Persona
                                                 </h6>
                                                 <p className="border-bottom">
@@ -1277,7 +1280,7 @@ const MainFormModal = ({
                                     {data.discount && (
                                         <Col md={6} className="">
                                             <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                <h6 className="fw-bold">
                                                     Descuento(%)
                                                 </h6>
                                                 <p className="border-bottom">
@@ -1297,7 +1300,7 @@ const MainFormModal = ({
                                         {data.lastName && (
                                             <Col md={6} lg={4} className="">
                                                 <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    <h6 className="fw-bold">
                                                         Apellido/s
                                                     </h6>
                                                     <p className="border-bottom fw-light">
@@ -1314,7 +1317,7 @@ const MainFormModal = ({
                                     {data.birthDate && (
                                         <Col md={6} lg={4} className="">
                                             <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                <h6 className="fw-bold">
                                                     Fecha Nacimiento
                                                 </h6>
                                                 <p className="border-bottom fw-light">
@@ -1327,7 +1330,7 @@ const MainFormModal = ({
                                     {data.age && (
                                         <Col md={6} lg={4} className="">
                                             <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                <h6 className="fw-bold">
                                                     Edad
                                                 </h6>
                                                 <p className="border-bottom fw-light">
@@ -1350,7 +1353,7 @@ const MainFormModal = ({
                                                 className=""
                                             >
                                                 <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    <h6 className="fw-bold">
                                                         Celular
                                                     </h6>
                                                     <p className="border-bottom fw-light">
@@ -1373,7 +1376,7 @@ const MainFormModal = ({
                                                 className=""
                                             >
                                                 <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    <h6 className="fw-bold">
                                                         Teléfono fijo (opcional)
                                                     </h6>
                                                     <p className="border-bottom fw-light">
@@ -1385,7 +1388,7 @@ const MainFormModal = ({
                                         {data.address && (
                                             <Col md={6} className="">
                                                 <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    <h6 className="fw-bold">
                                                         Dirección
                                                     </h6>
                                                     <p className="border-bottom fw-light">
@@ -1408,7 +1411,7 @@ const MainFormModal = ({
                                                 className=""
                                             >
                                                 <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    <h6 className="fw-bold">
                                                         País
                                                     </h6>
                                                     <p className="border-bottom fw-light">
@@ -1431,7 +1434,7 @@ const MainFormModal = ({
                                                 className="mb-3"
                                             >
                                                 <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    <h6 className="fw-bold">
                                                         Departamento
                                                     </h6>
                                                     <p className="border-bottom fw-light">
@@ -1461,7 +1464,7 @@ const MainFormModal = ({
                                                 className="mb-3"
                                             >
                                                 <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    <h6 className="fw-bold">
                                                         Ciudad
                                                     </h6>
                                                     <p className="border-bottom fw-light">
@@ -1492,7 +1495,7 @@ const MainFormModal = ({
                                                 className=""
                                             >
                                                 <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    <h6 className="fw-bold">
                                                         Email
                                                     </h6>
                                                     <p className="border-bottom fw-light">
@@ -1511,7 +1514,7 @@ const MainFormModal = ({
                                     <>
                                         {/* <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold tw-text-[#e9a225]">
+                                            <h6 className="fw-bold">
                                                 Contraseña
                                             </h6>
                                             <p className="border-bottom fw-light">
@@ -1521,7 +1524,7 @@ const MainFormModal = ({
                                     </Col>
                                     <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold tw-text-[#e9a225]">
+                                            <h6 className="fw-bold">
                                                 Confirmar Contraseña
                                             </h6>
                                             <p className="border-bottom fw-light">
@@ -1536,7 +1539,7 @@ const MainFormModal = ({
                                 <>
                                     {/* <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold tw-text-[#e9a225]">
+                                            <h6 className="fw-bold">
                                                 Número Tarjeta Profesional
                                             </h6>
                                             <p className="border-bottom fw-light">
@@ -1546,7 +1549,7 @@ const MainFormModal = ({
                                     </Col>
                                     <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold tw-text-[#e9a225]">
+                                            <h6 className="fw-bold">
                                                 Registro Médico
                                             </h6>
                                             <p className="border-bottom fw-light">
@@ -1557,7 +1560,7 @@ const MainFormModal = ({
                                     {data.specialty && (
                                         <Col md={6} lg={4} className="">
                                             <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                <h6 className="fw-bold">
                                                     Especialidad
                                                 </h6>
                                                 <p className="border-bottom fw-light">
@@ -1569,7 +1572,7 @@ const MainFormModal = ({
                                     {data.contract && (
                                         <Col md={6} lg={4} className="">
                                             <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                <h6 className="fw-bold">
                                                     Convenio
                                                 </h6>
                                                 <p className="border-bottom fw-light">
@@ -1593,7 +1596,7 @@ const MainFormModal = ({
                                     className=""
                                 >
                                     <div className="tw-flex-1 tw-text-star tw-text-base">
-                                        <h6 className="fw-bold tw-text-[#e9a225]">
+                                        <h6 className="fw-bold">
                                             Estado
                                         </h6>
                                         <p className="border-bottom fw-light">
@@ -1612,7 +1615,7 @@ const MainFormModal = ({
                                         {data.timestamp && (
                                             <Col md={6} lg={4} className="">
                                                 <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    <h6 className="fw-bold">
                                                         Fecha Registro
                                                     </h6>
                                                     <p className="border-bottom fw-light">
@@ -1628,7 +1631,7 @@ const MainFormModal = ({
                                 <>
                                     {/* <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold tw-text-[#e9a225]">Rol</h6>
+                                            <h6 className="fw-bold">Rol</h6>
                                             <p className="border-bottom fw-light">
                                                 {data.rol}
                                             </p>
@@ -1638,7 +1641,7 @@ const MainFormModal = ({
                                     {data.campus && (
                                         <Col md={6} lg={4} className="">
                                             <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                <h6 className="fw-bold">
                                                     Sede
                                                 </h6>
                                                 <p className="border-bottom fw-light">
@@ -1650,7 +1653,7 @@ const MainFormModal = ({
                                     {data.area && (
                                         <Col md={6} lg={4} className="">
                                             <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                <h6 className="fw-bold">
                                                     Área
                                                 </h6>
                                                 <p className="border-bottom fw-light">

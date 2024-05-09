@@ -116,7 +116,7 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                     <div className="header-navheading border-bottom">
                                         <div className="tw-pb-5">
                                             <img
-                                                src="https://ui-avatars.com/api/?name=John+Doe"
+                                                src={`https://ui-avatars.com/api/?name=${data?.displayName}?size=150?bold=true`}
                                                 alt="img"
                                                 width="32"
                                                 height="32"

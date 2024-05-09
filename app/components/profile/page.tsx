@@ -93,12 +93,12 @@ const Profile = () => {
                                                 <div className="mb-4 tw-font-bold tw-text-xl text-capitalize tw-text-[#E9A225]">
                                                     Información Personal
                                                 </div>
-                                                <div className="mb-4 tw-text-xl text-capitalize tw-text-[#E9A225]">
+                                                <div className="mb-4 tw-text-xl text-capitalize">
                                                     Nombre
                                                 </div>
                                                 <Row className=" row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                        <h4 className="fs-15 text-capitalize mb-3">
                                                             Nombre de Usuario
                                                         </h4>
                                                     </Col>
@@ -110,7 +110,7 @@ const Profile = () => {
                                                 </Row>
                                                 <Row className=" row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                        <h4 className="fs-15 text-capitalize mb-3">
                                                             Nombre/s
                                                         </h4>
                                                     </Col>
@@ -122,7 +122,7 @@ const Profile = () => {
                                                 </Row>
                                                 <Row className="row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                        <h4 className="fs-15 text-capitalize mb-3">
                                                             Apellido/s
                                                         </h4>
                                                     </Col>
@@ -134,7 +134,7 @@ const Profile = () => {
                                                 </Row>
                                                 <Row className=" row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                        <h4 className="fs-15 text-capitalize mb-3">
                                                             Rol
                                                         </h4>
                                                     </Col>
@@ -146,7 +146,7 @@ const Profile = () => {
                                                 </Row>
                                                 <Row className="row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                        <h4 className="fs-15 text-capitalize mb-3">
                                                             Cargo
                                                         </h4>
                                                     </Col>
@@ -161,7 +161,7 @@ const Profile = () => {
                                                 </div>
                                                 <Row className=" row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                        <h4 className="fs-15 text-capitalize mb-3">
                                                             Email
                                                             <i>(requerido)</i>
                                                         </h4>
@@ -174,7 +174,7 @@ const Profile = () => {
                                                 </Row>
                                                 <Row className=" row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                        <h4 className="fs-15 text-capitalize mb-3">
                                                             Teléfono
                                                         </h4>
                                                     </Col>
@@ -186,7 +186,7 @@ const Profile = () => {
                                                 </Row>
                                                 <Row className=" row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                        <h4 className="fs-15 text-capitalize mb-3">
                                                             Dirección
                                                         </h4>
                                                     </Col>
@@ -201,7 +201,7 @@ const Profile = () => {
                                                 </div>
                                                 <Row className=" row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                        <h4 className="fs-15 text-capitalize mb-3">
                                                             Biografía
                                                         </h4>
                                                     </Col>
@@ -233,13 +233,13 @@ const Profile = () => {
                                                     Información Personal
                                                 </div>
                                                 <Form className="form-horizontal">
-                                                    <div className="mb-4 tw-text-xl tw-text-[#E9A225]">
+                                                    <div className="mb-4 tw-text-xl">
                                                         Nombre
                                                     </div>
                                                     <FormGroup className="form-group">
                                                         <Row className=" row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                                <Form.Label className="fs-15 text-capitalize mb-3">
                                                                     Nombre de
                                                                     Usuario
                                                                 </Form.Label>
@@ -263,7 +263,7 @@ const Profile = () => {
                                                     <FormGroup className="form-group">
                                                         <Row className=" row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                                <Form.Label className="fs-15 text-capitalize mb-3">
                                                                     Nombre/s
                                                                 </Form.Label>
                                                             </Col>
@@ -286,7 +286,7 @@ const Profile = () => {
                                                     <FormGroup className="form-group">
                                                         <Row className="row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                                <Form.Label className="fs-15 text-capitalize mb-3">
                                                                     Apellido/s
                                                                 </Form.Label>
                                                             </Col>
@@ -309,7 +309,7 @@ const Profile = () => {
                                                     <FormGroup className="form-group">
                                                         <Row className="row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                                <Form.Label className="fs-15 text-capitalize mb-3">
                                                                     Rol
                                                                 </Form.Label>
                                                             </Col>
@@ -332,7 +332,7 @@ const Profile = () => {
                                                     <FormGroup className="form-group">
                                                         <Row className=" row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                                <Form.Label className="fs-15 text-capitalize mb-3">
                                                                     Cargo
                                                                 </Form.Label>
                                                             </Col>
@@ -358,7 +358,7 @@ const Profile = () => {
                                                     <FormGroup className="form-group">
                                                         <Row className=" row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                                <Form.Label className="fs-15 text-capitalize mb-3">
                                                                     Email
                                                                     <i>
                                                                         (requerido)
@@ -385,7 +385,7 @@ const Profile = () => {
                                                     <FormGroup className="form-group">
                                                         <Row className=" row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                                <Form.Label className="fs-15 text-capitalize mb-3">
                                                                     Teléfono
                                                                 </Form.Label>
                                                             </Col>
@@ -408,7 +408,7 @@ const Profile = () => {
                                                     <FormGroup className="form-group">
                                                         <Row className=" row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                                <Form.Label className="fs-15 text-capitalize mb-3">
                                                                     Dirección
                                                                 </Form.Label>
                                                             </Col>
@@ -436,7 +436,7 @@ const Profile = () => {
                                                     <FormGroup className="form-group">
                                                         <Row className=" row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
+                                                                <Form.Label className="fs-15 text-capitalize mb-3">
                                                                     Biography
                                                                 </Form.Label>
                                                             </Col>

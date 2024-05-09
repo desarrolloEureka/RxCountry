@@ -18,7 +18,6 @@ interface ColumnNamesToDisplay {
     [key: string]: string;
 }
 
-
 const DataTablesHook = (reference: string) => {
     const [handleShowCsv, setHandleShowCsv] = useState(false);
     const [handleShowPdf, setHandleShowPdf] = useState(false);
@@ -29,25 +28,42 @@ const DataTablesHook = (reference: string) => {
     const [columns, setColumns] = useState<any[]>();
     const [editData, setEditData] = useState<any>();
 
+    const formatearFecha = (fechaISO: string): string => {
+        // Crear un objeto Date con la fecha
+        const fecha = new Date(fechaISO);
+
+        // Obtener los componentes de la fecha
+        const dia: number = fecha.getDate();
+        const mes: number = fecha.getMonth() + 1; // Los meses van de 0 a 11, por lo que se suma 1
+        const año: number = fecha.getFullYear();
+        const hora: number = fecha.getHours();
+        const minutos: number = fecha.getMinutes();
+        const segundos: number = fecha.getSeconds();
+
+        // Formatear la fecha según el formato deseado (por ejemplo, DD/MM/YYYY HH:mm:ss)
+        const fechaFormateada: string = `${dia}/${mes}/${año} ${hora}:${minutos}:${segundos}`;
+
+        return fechaFormateada;
+    };
+
     const getAllDocuments = useCallback(async () => {
         const documents = await getAllDocumentsQuery(reference);
 
         if (documents.length > 0) {
             const cols: any[] = [];
 
-            // const entries = Object.entries(documents[0]);
-
-            const entries2 = Object.keys(documents[0]);
+            const entries = Object.keys(documents[0]);
 
             const columnNamesToDisplay: ColumnNamesToDisplay = {
                 // uid:"uid",
-                name: "Nombre",
-                lastName: "Apellido",
+                timestamp: "Fecha Registro",
                 idType: "Tipo",
                 id: "Documento",
+                name: "Nombre",
+                lastName: "Apellido",
+                email: "Correo",
                 phone: "Teléfono",
                 phone2: "Teléfono fijo",
-                email: "Correo",
                 address: "Dirección",
                 description: "Descripción",
                 age: "Edad",
@@ -55,87 +71,48 @@ const DataTablesHook = (reference: string) => {
                 // "birthDate",
                 // "country",
                 // "state",
-                // "city",
+                city: "Ciudad",
                 // "password",
                 // "confirmPassword",
-                // "specialty",
-                // "contract",
-                rol: "Rol",
-                // "campus",
+                specialty: "Especialidad",
+                contract: "Convenio",
+                // rol: "Rol",
+                campus: "Sede",
                 // "area",
-                // "urlPhoto",
-                // "timestamp",
+                // urlPhoto: "urlPhoto",
                 isActive: "Estado",
                 // "isDeleted",
             };
 
             const omittedColumns = Object.keys(columnNamesToDisplay);
 
-            // entries.sort(function (a, b) {
-            //     if (a[0] > b[0]) {
-            //         return 1;
-            //     }
-            //     if (a[0] < b[0]) {
-            //         return -1;
-            //     }
-            //     // a must be equal to b
-            //     return 0;
-            // });
+            entries.filter((item) => omittedColumns.includes(item));
 
-            entries2.sort(function (a, b) {
-                if (a > b) {
-                    return 1;
-                }
-                if (a < b) {
-                    return -1;
-                }
-                // a must be equal to b
-                return 0;
+            entries.sort((a, b): number => {
+                return omittedColumns.indexOf(a) - omittedColumns.indexOf(b);
             });
 
-            // const ordenamiento: any = {
-            //     name: 1,
-            //     lastName: 2,
-            //     idType: 3,
-            //     id: 4,
-            //     phone: 5,
-            //     email: 6,
-            //     isActive: 7,
-            // };
-
-            // entries2.sort((a, b) => {
-            //     if (ordenamiento[a] > ordenamiento[b]) {
-            //         return 1;
-            //     }
-            //     if (ordenamiento[a] < ordenamiento[b]) {
-            //         return -1;
-            //     }
-            //     // a must be equal to b
-            //     return 0;
-            // });
-
-            // entries2.sort((a, b): any => {
-            //     ordenamiento[a] - ordenamiento[b];
-            //     // console.log(ordenamiento[a] - ordenamiento[b]);
-            // });
-
-            // console.log(entries2);
-
             // entries.forEach((val, key) => {
-            entries2.forEach((val) => {
+            entries.forEach((val) => {
                 const columnsData = {
                     name: columnNamesToDisplay[val],
                     selector: (row: any) =>
                         val === "isActive" ? (
                             <CustomTitle row={row} />
+                        ) : val === "timestamp" ? (
+                            formatearFecha(row[val])
                         ) : (
                             [row[val]]
                         ),
                     sortable: true,
                     // grow: val === "email" || val === "address" ? 2 : 1,
                     width:
-                        val === "email" || val === "address"
-                            ? "250px"
+                        val === "email" ||
+                        val === "address" ||
+                        val === "timestamp"
+                            ? "240px"
+                            : val === "id" || val === "phone" || val === "phone2"
+                            ? "150px"
                             : undefined,
                     omit: !omittedColumns.includes(val),
                 };
