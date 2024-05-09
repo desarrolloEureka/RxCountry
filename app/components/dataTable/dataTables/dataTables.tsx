@@ -7,46 +7,25 @@ import {
 // import differenceBy from "lodash/differenceBy";
 import dynamic from "next/dynamic";
 import React, { MouseEvent } from "react";
-import {
-    Button,
-    // Card
-} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import DataTable, { createTheme } from "react-data-table-component";
 import "react-data-table-component-extensions/dist/index.css";
 // import Swal from "sweetalert2";
-
-// import DataTableExtensions from 'react-data-table-component-extensions';
-
-createTheme(
-    "solarized",
-    {
-        text: {
-            primary: "#268bd2",
-            secondary: "#2aa198",
-        },
-        background: {
-            default: "#f0f8ff",
-        },
-        context: {
-            background: "#BBDEFB",
-            text: "#000000",
-        },
-        divider: {
-            default: "#778899",
-        },
-        // action: {
-        //     button: "rgba(0,0,0,.54)",
-        //     hover: "#rgba(0,0,0,.08)",
-        //     disabled: "rgba(0,0,0,.12)",
-        // },
-    },
-    "dark",
-);
 
 const DataTableExtensions: any = dynamic(
     () => import("react-data-table-component-extensions"),
     { ssr: false },
 );
+
+createTheme("solarized", "dark");
+
+const customStyles = {
+    headCells: {
+        style: {
+            color: "#e9a225",
+        },
+    },
+};
 
 function convertArrayOfObjectsToCSV(array: object[]): string {
     let result: string;
@@ -168,13 +147,18 @@ export const ExportCSV = ({
                     />
                 )}
                 {data.length !== 0 && (
-                    <Export
-                        onExport={() => downloadCSV(data, tableTitle)}
-                    />
+                    <Export onExport={() => downloadCSV(data, tableTitle)} />
                 )}
             </>
         );
-    }, [onMainFormModal, reference, onUploadDataModalCsv, onUploadDataModalPdf, data, tableTitle]);
+    }, [
+        onMainFormModal,
+        reference,
+        onUploadDataModalCsv,
+        onUploadDataModalPdf,
+        data,
+        tableTitle,
+    ]);
 
     // const handleRowSelected = React.useCallback((state: any) => {
     //     setSelectedRows(state.selectedRows);
@@ -257,6 +241,7 @@ export const ExportCSV = ({
                 // title={tableTitle}
                 // progressPending={dataTable ? false : true}
                 theme="solarized"
+                customStyles={customStyles}
             />
         </DataTableExtensions>
     );
