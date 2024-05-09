@@ -24,6 +24,7 @@ import { getAllSpecialtiesQuery } from "@/queries/SpecialtiesQueries";
 import { AgreementSelector } from "@/types/agreements";
 import { CampusSelector } from "@/types/campus";
 import { ErrorDataForm } from "@/types/documents";
+import { LocalVariable } from "@/types/global";
 import { ModalParamsMainForm } from "@/types/modals";
 import { SpecialtySelector } from "@/types/specialty";
 import moment from "moment";
@@ -65,6 +66,9 @@ const MainFormHook = ({
     const [selectedRol, setSelectedRol] = useState<any>(null);
     const [selectedCampus, setSelectedCampus] = useState<any>(null);
     const [selectedArea, setSelectedArea] = useState<any>(null);
+
+    const theme = localStorage.getItem("@theme");
+    const themeParsed = theme ? (JSON.parse(theme) as LocalVariable) : null;
 
     const generateGUID = () => {
         const S4 = (): string => {
@@ -424,26 +428,23 @@ const MainFormHook = ({
         data.lastName &&
         data.phone &&
         data.email &&
-        data.phone2 &&
-        data.address &&
-        data.country &&
-        data.state &&
-        data.city &&
+        // data.phone2 &&
+        // data.address &&
+        // data.country &&
+        // data.state &&
+        // data.city &&
         data.password &&
         data.confirmPassword &&
         // data.rol &&
         data.campus &&
         data.area;
-        // data.isActive;
+    // data.isActive;
     // files.length > 0;
 
     const campusVal =
-        data.name &&
-        data.address &&
-        data.country &&
-        data.state &&
-        data.city;
-        // data.isActive;
+        data.name;
+        // && data.address && data.country && data.state && data.city;
+    // data.isActive;
 
     const diagnosticianVal =
         data.idType &&
@@ -451,18 +452,18 @@ const MainFormHook = ({
         data.name &&
         data.rut &&
         data.phone &&
-        data.email &&
-        data.address &&
-        data.country &&
-        data.state &&
-        data.city;
-        // data.isActive;
+        data.email;
+        // data.address &&
+        // data.country &&
+        // data.state &&
+        // data.city;
+    // data.isActive;
 
     const agreementsVal = data.name && data.personType;
-        // && data.isActive;
+    // && data.isActive;
 
     const specialtyVal = data.name;
-        // && data.isActive;
+    // && data.isActive;
 
     const professionalsVal =
         data.idType &&
@@ -470,19 +471,19 @@ const MainFormHook = ({
         data.name &&
         data.lastName &&
         data.phone &&
-        data.phone2 &&
-        data.address &&
-        data.country &&
-        data.state &&
-        data.city &&
+        // data.phone2 &&
+        // data.address &&
+        // data.country &&
+        // data.state &&
+        // data.city &&
         data.email &&
         data.password &&
         data.confirmPassword &&
         // data.cardNumber &&
         // data.medicalRecord &&
-        data.specialty &&
-        data.contract;
-        // data.isActive;
+        // data.specialty &&
+        // data.contract;
+        data.isActive;
     // data.rol &&
     // files.length > 0;
 
@@ -494,15 +495,15 @@ const MainFormHook = ({
         data.birthDate &&
         data.age &&
         data.phone &&
-        data.phone2 &&
-        data.address &&
-        data.country &&
-        data.state &&
-        data.city &&
+        // data.phone2 &&
+        // data.address &&
+        // data.country &&
+        // data.state &&
+        // data.city &&
         data.email &&
         data.password &&
         data.confirmPassword;
-        // data.isActive;
+    // data.isActive;
     // data.rol &&
     // files.length > 0;
 
@@ -637,6 +638,7 @@ const MainFormHook = ({
         campus,
         specialties,
         contracts,
+        theme: themeParsed?.dataThemeMode,
         setErrorPass,
         changeHandler,
         handleSendForm,

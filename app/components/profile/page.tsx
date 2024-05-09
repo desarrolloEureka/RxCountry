@@ -56,13 +56,25 @@ const Profile = () => {
                                     <div className="profile-tab tab-menu-heading">
                                         <Nav className=" main-nav-line p-3 tabs-menu profile-nav-line">
                                             <Nav.Item>
-                                                <Nav.Link eventKey="first">
-                                                    About
+                                                <Nav.Link
+                                                    className={`hover:tw-text-[#e9a225] focus:tw-text-[#E9A225] active:tw-text-[#E9A225] ${
+                                                        key === "first" &&
+                                                        "tw-text-[#E9A225]"
+                                                    }`}
+                                                    eventKey="first"
+                                                >
+                                                    Información
                                                 </Nav.Link>
                                             </Nav.Item>
                                             <Nav.Item>
-                                                <Nav.Link eventKey="editProfile">
-                                                    Edit Profile
+                                                <Nav.Link
+                                                    className={`hover:tw-text-[#E9A225] focus:tw-text-[#E9A225] active:tw-text-[#E9A225] ${
+                                                        key !== "first" &&
+                                                        "tw-text-[#E9A225]"
+                                                    }`}
+                                                    eventKey="editProfile"
+                                                >
+                                                    Editar perfil
                                                 </Nav.Link>
                                             </Nav.Item>
                                         </Nav>
@@ -78,118 +90,118 @@ const Profile = () => {
                                     <Tab.Pane eventKey="first">
                                         <div className="main-content-body tab-pane p-sm-4 p-0 border-top-0">
                                             <div className="card-body border">
-                                                <div className="mb-4 main-content-label">
+                                                <div className="mb-4 tw-font-bold tw-text-xl text-capitalize tw-text-[#E9A225]">
                                                     Información Personal
                                                 </div>
-                                                <div className="mb-4 main-content-label">
+                                                <div className="mb-4 tw-text-xl text-capitalize tw-text-[#E9A225]">
                                                     Nombre
                                                 </div>
                                                 <Row className=" row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-uppercase mb-3">
+                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                             Nombre de Usuario
                                                         </h4>
                                                     </Col>
                                                     <Col md={9}>
-                                                        <p className="m-b-5 tw-text-center">
+                                                        <p className="m-b-5">
                                                             {data?.displayName}
                                                         </p>
                                                     </Col>
                                                 </Row>
                                                 <Row className=" row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-uppercase mb-3">
+                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                             Nombre/s
                                                         </h4>
                                                     </Col>
                                                     <Col md={9}>
-                                                        <p className="m-b-5 tw-text-center">
+                                                        <p className="m-b-5">
                                                             {data?.name}
                                                         </p>
                                                     </Col>
                                                 </Row>
                                                 <Row className="row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-uppercase mb-3">
+                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                             Apellido/s
                                                         </h4>
                                                     </Col>
                                                     <Col md={9}>
-                                                        <p className="m-b-5 tw-text-center">
+                                                        <p className="m-b-5 ">
                                                             {data?.lastName}
                                                         </p>
                                                     </Col>
                                                 </Row>
                                                 <Row className=" row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-uppercase mb-3">
+                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                             Rol
                                                         </h4>
                                                     </Col>
                                                     <Col md={9}>
-                                                        <p className="m-b-5 tw-text-center">
+                                                        <p className="m-b-5">
                                                             {data?.rol}
                                                         </p>
                                                     </Col>
                                                 </Row>
                                                 <Row className="row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-uppercase mb-3">
+                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                             Cargo
                                                         </h4>
                                                     </Col>
                                                     <Col md={9}>
-                                                        <p className="m-b-5 tw-text-center">
+                                                        <p className="m-b-5">
                                                             {data?.position}
                                                         </p>
                                                     </Col>
                                                 </Row>
-                                                <div className="mb-4 main-content-label">
+                                                <div className="mb-4 tw-font-bold tw-text-xl text-capitalize tw-text-[#E9A225]">
                                                     Información de Contacto
                                                 </div>
                                                 <Row className=" row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-uppercase mb-3">
+                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                             Email
                                                             <i>(requerido)</i>
                                                         </h4>
                                                     </Col>
                                                     <Col md={9}>
-                                                        <p className="m-b-5 tw-text-center">
+                                                        <p className="m-b-5">
                                                             {data?.email}
                                                         </p>
                                                     </Col>
                                                 </Row>
                                                 <Row className=" row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-uppercase mb-3">
+                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                             Teléfono
                                                         </h4>
                                                     </Col>
                                                     <Col md={9}>
-                                                        <p className="m-b-5 tw-text-center">
+                                                        <p className="m-b-5 ">
                                                             {data?.phone}
                                                         </p>
                                                     </Col>
                                                 </Row>
                                                 <Row className=" row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-uppercase mb-3">
+                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                             Dirección
                                                         </h4>
                                                     </Col>
                                                     <Col md={9}>
-                                                        <p className="m-b-5 tw-text-center">
+                                                        <p className="m-b-5 ">
                                                             {data?.address}
                                                         </p>
                                                     </Col>
                                                 </Row>
-                                                <div className="mb-4 main-content-label">
+                                                <div className="mb-4 tw-font-bold tw-text-xl text-capitalize tw-text-[#E9A225]">
                                                     Algo Sobre Ti
                                                 </div>
                                                 <Row className=" row-sm">
                                                     <Col md={3}>
-                                                        <h4 className="fs-15 text-uppercase mb-3">
+                                                        <h4 className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                             Biografía
                                                         </h4>
                                                     </Col>
@@ -217,17 +229,17 @@ const Profile = () => {
                                     <Tab.Pane eventKey="editProfile">
                                         <div className="main-content-body tab-pane p-sm-4 p-0 border-top-0">
                                             <div className="card-body border">
-                                                <div className="mb-4 main-content-label">
+                                                <div className="mb-4 tw-font-bold tw-text-xl tw-text-[#E9A225]">
                                                     Información Personal
                                                 </div>
                                                 <Form className="form-horizontal">
-                                                    <div className="mb-4 main-content-label">
+                                                    <div className="mb-4 tw-text-xl tw-text-[#E9A225]">
                                                         Nombre
                                                     </div>
                                                     <FormGroup className="form-group">
                                                         <Row className=" row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label>
+                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                                     Nombre de
                                                                     Usuario
                                                                 </Form.Label>
@@ -251,7 +263,7 @@ const Profile = () => {
                                                     <FormGroup className="form-group">
                                                         <Row className=" row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label>
+                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                                     Nombre/s
                                                                 </Form.Label>
                                                             </Col>
@@ -274,7 +286,7 @@ const Profile = () => {
                                                     <FormGroup className="form-group">
                                                         <Row className="row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label>
+                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                                     Apellido/s
                                                                 </Form.Label>
                                                             </Col>
@@ -297,7 +309,7 @@ const Profile = () => {
                                                     <FormGroup className="form-group">
                                                         <Row className="row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label>
+                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                                     Rol
                                                                 </Form.Label>
                                                             </Col>
@@ -320,7 +332,7 @@ const Profile = () => {
                                                     <FormGroup className="form-group">
                                                         <Row className=" row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label>
+                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                                     Cargo
                                                                 </Form.Label>
                                                             </Col>
@@ -340,13 +352,13 @@ const Profile = () => {
                                                             </Col>
                                                         </Row>
                                                     </FormGroup>
-                                                    <div className="mb-4 main-content-label">
+                                                    <div className="mb-4 tw-font-bold tw-text-xl tw-text-[#E9A225]">
                                                         Información de Contacto
                                                     </div>
                                                     <FormGroup className="form-group">
                                                         <Row className=" row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label>
+                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                                     Email
                                                                     <i>
                                                                         (requerido)
@@ -373,7 +385,7 @@ const Profile = () => {
                                                     <FormGroup className="form-group">
                                                         <Row className=" row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label>
+                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                                     Teléfono
                                                                 </Form.Label>
                                                             </Col>
@@ -396,7 +408,7 @@ const Profile = () => {
                                                     <FormGroup className="form-group">
                                                         <Row className=" row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label>
+                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                                     Dirección
                                                                 </Form.Label>
                                                             </Col>
@@ -418,13 +430,13 @@ const Profile = () => {
                                                             </Col>
                                                         </Row>
                                                     </FormGroup>
-                                                    <div className="mb-4 main-content-label">
+                                                    <div className="mb-4 tw-font-bold tw-text-xl tw-text-[#E9A225]">
                                                         Algo Sobre Ti
                                                     </div>
                                                     <FormGroup className="form-group">
                                                         <Row className=" row-sm">
                                                             <Col md={3}>
-                                                                <Form.Label>
+                                                                <Form.Label className="fs-15 text-capitalize tw-text-[#E9A225] mb-3">
                                                                     Biography
                                                                 </Form.Label>
                                                             </Col>

@@ -175,7 +175,8 @@ Width
 /*black set*/
 /* dark mode */
 [data-theme-mode='dark'] {
-  --body-bg-rgb: 14, 14, 35;
+  /* --body-bg-rgb: 14, 14, 35; */
+    --body-bg-rgb: 33, 33, 33;
   --menu-bg: rgb(var(--body-bg-rgb));
   --menu-border-color: rgba(255, 255, 255, 0.1);
   --menu-prime-color: rgba(255, 255, 255, 0.6);
@@ -186,7 +187,8 @@ Width
   --custom-black: #fff;
   --default-border: rgba(255, 255, 255, 0.1);
   --default-text-color: #d0d0e2;
-  --light-rgb: 43, 46, 65;
+  /* --light-rgb: 43, 46, 65; */
+    --light-rgb: 86, 86, 86;
   --dark-rgb: 240, 245, 248;
   --bootstrap-card-border: rgba(255, 255, 255, 0.1);
   --list-hover-focus-bg: rgba(255, 255, 255, 0.1);
@@ -194,7 +196,8 @@ Width
   --default-body-bg-color: rgb(var(--body-bg-rgb), 0.9);
   --text-muted: rgba(255, 255, 255, 0.5);
   --input-border: #313335;
-  --form-control-bg: #0e0e23;
+  /* --form-control-bg: #0e0e23; */
+  --form-control-bg: #3a3a3d;
   --sidemenu-active-bgcolor: #252538;
   /* Gray Set */
   --gray-100: #110f0f;

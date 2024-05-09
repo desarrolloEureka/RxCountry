@@ -14,6 +14,11 @@ const CustomTitle = ({ row }: any) => (
     </div>
 );
 
+interface ColumnNamesToDisplay {
+    [key: string]: string;
+}
+
+
 const DataTablesHook = (reference: string) => {
     const [handleShowCsv, setHandleShowCsv] = useState(false);
     const [handleShowPdf, setHandleShowPdf] = useState(false);
@@ -34,19 +39,19 @@ const DataTablesHook = (reference: string) => {
 
             const entries2 = Object.keys(documents[0]);
 
-            const columnNamesToDisplay = [
-                // "uid",
-                "name",
-                "lastName",
-                "idType",
-                "id",
-                "phone",
-                "phone2",
-                "email",
-                "address",
-                "description",
-                "age",
-                "discount",
+            const columnNamesToDisplay: ColumnNamesToDisplay = {
+                // uid:"uid",
+                name: "Nombre",
+                lastName: "Apellido",
+                idType: "Tipo",
+                id: "Documento",
+                phone: "Teléfono",
+                phone2: "Teléfono fijo",
+                email: "Correo",
+                address: "Dirección",
+                description: "Descripción",
+                age: "Edad",
+                discount: "Descuento(%)",
                 // "birthDate",
                 // "country",
                 // "state",
@@ -55,14 +60,16 @@ const DataTablesHook = (reference: string) => {
                 // "confirmPassword",
                 // "specialty",
                 // "contract",
-                "rol",
+                rol: "Rol",
                 // "campus",
                 // "area",
                 // "urlPhoto",
                 // "timestamp",
-                "isActive",
+                isActive: "Estado",
                 // "isDeleted",
-            ];
+            };
+
+            const omittedColumns = Object.keys(columnNamesToDisplay);
 
             // entries.sort(function (a, b) {
             //     if (a[0] > b[0]) {
@@ -117,7 +124,7 @@ const DataTablesHook = (reference: string) => {
             // entries.forEach((val, key) => {
             entries2.forEach((val) => {
                 const columnsData = {
-                    name: val.toUpperCase(),
+                    name: columnNamesToDisplay[val],
                     selector: (row: any) =>
                         val === "isActive" ? (
                             <CustomTitle row={row} />
@@ -130,7 +137,7 @@ const DataTablesHook = (reference: string) => {
                         val === "email" || val === "address"
                             ? "250px"
                             : undefined,
-                    omit: !columnNamesToDisplay.includes(val),
+                    omit: !omittedColumns.includes(val),
                 };
                 cols.push(columnsData);
             });

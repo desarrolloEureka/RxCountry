@@ -40,6 +40,19 @@ const IconOption = (props: any) => (
     </Option>
 );
 
+const customStyles = (theme: any) => ({
+    control: (provided: any, state: any) => ({
+        ...provided,
+        backgroundColor: state.isDisabled
+            ? theme === "dark"
+                ? "#565656"
+                : "#f0f0f0"
+            : theme === "light"
+            ? "white"
+            : "#3a3a3d",
+    }),
+});
+
 const dot = (color = "transparent") => ({
     alignItems: "center",
     display: "flex",
@@ -103,6 +116,7 @@ const MainFormModal = ({
         campus,
         specialties,
         contracts,
+        theme,
         setErrorPass,
         handleSendForm,
         handleClose,
@@ -160,7 +174,7 @@ const MainFormModal = ({
                                     <>
                                         <Col md={6} lg={4} className="mb-3">
                                             <Form.Group controlId="idType">
-                                                <Form.Label className="">
+                                                <Form.Label className="tw-text-[#e9a225]">
                                                     Tipo Documento
                                                     <span className="tw-text-red-500">
                                                         *
@@ -201,7 +215,7 @@ const MainFormModal = ({
                                             </Form.Group>
                                         </Col>
                                         <Col md={6} lg={4} className="mb-3">
-                                            <Form.Label className="">
+                                            <Form.Label className="tw-text-[#e9a225]">
                                                 Documento
                                                 <span className="tw-text-red-500">
                                                     *
@@ -233,7 +247,7 @@ const MainFormModal = ({
                                 }
                                 className="mb-3"
                             >
-                                <Form.Label className="">
+                                <Form.Label className="tw-text-[#e9a225]">
                                     Nombre/s
                                     <span className="tw-text-red-500">*</span>
                                 </Form.Label>
@@ -254,7 +268,7 @@ const MainFormModal = ({
                             {(reference === "campus" ||
                                 reference === "specialties") && (
                                 <Col md={6} className="mb-3">
-                                    <Form.Label className="">
+                                    <Form.Label className="tw-text-[#e9a225]">
                                         Descripción (opcional)
                                     </Form.Label>
                                     <Form.Control
@@ -273,7 +287,7 @@ const MainFormModal = ({
 
                             {reference === "diagnostician" && (
                                 <Col md={6} lg={4} className="mb-3">
-                                    <Form.Label className="">
+                                    <Form.Label className="tw-text-[#e9a225]">
                                         Rut
                                         <span className="tw-text-red-500">
                                             *
@@ -299,7 +313,7 @@ const MainFormModal = ({
                                 <>
                                     <Col md={6} className="mb-3">
                                         <Form.Group controlId="idType">
-                                            <Form.Label className="">
+                                            <Form.Label className="tw-text-[#e9a225]">
                                                 Tipo de Persona
                                                 <span className="tw-text-red-500">
                                                     *
@@ -337,7 +351,7 @@ const MainFormModal = ({
                                         </Form.Group>
                                     </Col>
                                     <Col md={6} className="mb-3">
-                                        <Form.Label className="">
+                                        <Form.Label className="tw-text-[#e9a225]">
                                             Descuento(%) (Opcional)
                                             {/* <span className="tw-text-red-500">
                                                 *
@@ -365,7 +379,7 @@ const MainFormModal = ({
                                 reference !== "diagnostician" &&
                                 reference !== "agreements" && (
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="">
+                                        <Form.Label className="tw-text-[#e9a225]">
                                             Apellido/s
                                             <span className="tw-text-red-500">
                                                 *
@@ -389,7 +403,7 @@ const MainFormModal = ({
                             {reference === "patients" && (
                                 <>
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="">
+                                        <Form.Label className="tw-text-[#e9a225]">
                                             Fecha Nacimiento
                                             <span className="tw-text-red-500">
                                                 *
@@ -407,7 +421,7 @@ const MainFormModal = ({
                                         />
                                     </Col>
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="">
+                                        <Form.Label className="tw-text-[#e9a225]">
                                             Edad
                                         </Form.Label>
                                         <Form.Control
@@ -437,7 +451,7 @@ const MainFormModal = ({
                                         lg={reference !== "campus" && 4}
                                         className="mb-3"
                                     >
-                                        <Form.Label className="">
+                                        <Form.Label className="tw-text-[#e9a225]">
                                             Celular
                                             <span className="tw-text-red-500">
                                                 *
@@ -467,7 +481,7 @@ const MainFormModal = ({
                                             lg={reference !== "campus" && 4}
                                             className="mb-3"
                                         >
-                                            <Form.Label className="">
+                                            <Form.Label className="tw-text-[#e9a225]">
                                                 Teléfono fijo (opcional)
                                             </Form.Label>
                                             <Form.Control
@@ -483,14 +497,14 @@ const MainFormModal = ({
                                             />
                                         </Col>
                                         <Col md={6} className="mb-3">
-                                            <Form.Label className="">
+                                            <Form.Label className="tw-text-[#e9a225]">
                                                 Dirección
-                                                <span className="tw-text-red-500">
+                                                {/* <span className="tw-text-red-500">
                                                     *
-                                                </span>
+                                                </span> */}
                                             </Form.Label>
                                             <Form.Control
-                                                required
+                                                // required
                                                 value={data.address}
                                                 type="text"
                                                 minLength={2}
@@ -513,14 +527,14 @@ const MainFormModal = ({
                                             }
                                             className="mb-3"
                                         >
-                                            <Form.Label className="">
+                                            <Form.Label className="tw-text-[#e9a225]">
                                                 País
-                                                <span className="tw-text-red-500">
+                                                {/* <span className="tw-text-red-500">
                                                     *
-                                                </span>
+                                                </span> */}
                                             </Form.Label>
                                             <Select
-                                                required
+                                                // required
                                                 noOptionsMessage={({
                                                     inputValue,
                                                 }: any) =>
@@ -563,14 +577,14 @@ const MainFormModal = ({
                                             }
                                             className="mb-3"
                                         >
-                                            <Form.Label className="">
+                                            <Form.Label className="tw-text-[#e9a225]">
                                                 Departamento
-                                                <span className="tw-text-red-500">
+                                                {/* <span className="tw-text-red-500">
                                                     *
-                                                </span>
+                                                </span> */}
                                             </Form.Label>
                                             <Select
-                                                required
+                                                // required
                                                 isDisabled={!data.country}
                                                 noOptionsMessage={({
                                                     inputValue,
@@ -601,6 +615,7 @@ const MainFormModal = ({
                                                         value,
                                                     );
                                                 }}
+                                                styles={customStyles(theme)}
                                             />
                                         </Col>
                                         <Col
@@ -614,14 +629,14 @@ const MainFormModal = ({
                                             }
                                             className="mb-3"
                                         >
-                                            <Form.Label className="">
+                                            <Form.Label className="tw-text-[#e9a225]">
                                                 Ciudad
-                                                <span className="tw-text-red-500">
+                                                {/* <span className="tw-text-red-500">
                                                     *
-                                                </span>
+                                                </span> */}
                                             </Form.Label>
                                             <Select
-                                                required
+                                                // required
                                                 isDisabled={
                                                     !data.state || !data.country
                                                 }
@@ -657,6 +672,7 @@ const MainFormModal = ({
                                                 onChange={
                                                     selectChangeHandlerCity
                                                 }
+                                                styles={customStyles(theme)}
                                             />
                                         </Col>
                                     </>
@@ -670,7 +686,7 @@ const MainFormModal = ({
                                         lg={reference !== "campus" && 4}
                                         className="mb-3"
                                     >
-                                        <Form.Label className="">
+                                        <Form.Label className="tw-text-[#e9a225]">
                                             Email
                                             <span className="tw-text-red-500">
                                                 *
@@ -702,7 +718,7 @@ const MainFormModal = ({
                                                     lg={4}
                                                     className="mb-3"
                                                 >
-                                                    <Form.Label className="">
+                                                    <Form.Label className="tw-text-[#e9a225]">
                                                         Contraseña
                                                         <span className="tw-text-red-500">
                                                             *
@@ -746,7 +762,7 @@ const MainFormModal = ({
                                                     lg={4}
                                                     className="mb-3"
                                                 >
-                                                    <Form.Label className="">
+                                                    <Form.Label className="tw-text-[#e9a225]">
                                                         Confirmar Contraseña
                                                         <span className="tw-text-red-500">
                                                             *
@@ -793,7 +809,7 @@ const MainFormModal = ({
                             {reference === "professionals" && (
                                 <>
                                     {/* <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="">
+                                        <Form.Label className="tw-text-[#e9a225]">
                                             Número Tarjeta Profesional *
                                         </Form.Label>
                                         <Form.Control
@@ -810,7 +826,7 @@ const MainFormModal = ({
                                         />
                                     </Col> */}
                                     {/* <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="">
+                                        <Form.Label className="tw-text-[#e9a225]">
                                             Registro Médico *
                                         </Form.Label>
                                         <Form.Control
@@ -827,14 +843,14 @@ const MainFormModal = ({
                                         />
                                     </Col> */}
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="">
+                                        <Form.Label className="tw-text-[#e9a225]">
                                             Especialidad
-                                            <span className="tw-text-red-500">
+                                            {/* <span className="tw-text-red-500">
                                                 *
-                                            </span>
+                                            </span> */}
                                         </Form.Label>
                                         <Select
-                                            required
+                                            // required
                                             noOptionsMessage={({
                                                 inputValue,
                                             }) =>
@@ -865,7 +881,7 @@ const MainFormModal = ({
                                         />
                                     </Col>
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="">
+                                        <Form.Label className="tw-text-[#e9a225]">
                                             Convenio (Opcional)
                                         </Form.Label>
                                         <Select
@@ -911,7 +927,7 @@ const MainFormModal = ({
                                 }
                                 className="mb-3"
                             >
-                                <Form.Label className="">
+                                <Form.Label className="tw-text-[#e9a225]">
                                     Estado
                                     <span className="tw-text-red-500">*</span>
                                 </Form.Label>
@@ -949,7 +965,7 @@ const MainFormModal = ({
                                 reference !== "agreements" &&
                                 reference !== "diagnostician" && (
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="">
+                                        <Form.Label className="tw-text-[#e9a225]">
                                             Fecha Registro
                                         </Form.Label>
                                         <Form.Control
@@ -964,7 +980,7 @@ const MainFormModal = ({
                             {reference === "functionary" && (
                                 <>
                                     {/* <Col md={6} lg={4} className="mb-3">
-                                    <Form.Label className="">Rol</Form.Label>
+                                    <Form.Label className="tw-text-[#e9a225]">Rol</Form.Label>
                                     <Select
                                         noOptionsMessage={({ inputValue }) =>
                                             `No hay resultados para "${inputValue}"`
@@ -992,7 +1008,7 @@ const MainFormModal = ({
                                 </Col> */}
 
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="">
+                                        <Form.Label className="tw-text-[#e9a225]">
                                             Sede
                                             <span className="tw-text-red-500">
                                                 *
@@ -1027,7 +1043,7 @@ const MainFormModal = ({
                                         />
                                     </Col>
                                     <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="">
+                                        <Form.Label className="tw-text-[#e9a225]">
                                             Área
                                             <span className="tw-text-red-500">
                                                 *
@@ -1085,9 +1101,9 @@ const MainFormModal = ({
                                         >
                                             <Form.Label>
                                                 Subir Imagen:
-                                                <span className="tw-text-red-500">
+                                                {/* <span className="tw-text-red-500">
                                                     *
-                                                </span>
+                                                </span> */}
                                             </Form.Label>
                                             <Form.Control
                                                 type="file"
@@ -1161,94 +1177,115 @@ const MainFormModal = ({
                                 reference !== "specialties" &&
                                 reference !== "agreements" && (
                                     <>
-                                        <Col md={6} lg={4} className="">
-                                            <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold">
-                                                    Tipo Documento
-                                                </h6>
-                                                <p className="border-bottom fw-light">
-                                                    {data.idType}
-                                                </p>
-                                            </div>
-                                        </Col>
-                                        <Col md={6} lg={4} className="">
-                                            <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold">
-                                                    Documento
-                                                </h6>
-                                                <p className="border-bottom fw-light">
-                                                    {data.id}
-                                                </p>
-                                            </div>
-                                        </Col>
+                                        {data.idType && (
+                                            <Col md={6} lg={4} className="">
+                                                <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                        Tipo Documento
+                                                    </h6>
+                                                    <p className="border-bottom fw-light">
+                                                        {data.idType}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                        )}
+                                        {data.id && (
+                                            <Col md={6} lg={4} className="">
+                                                <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                        Documento
+                                                    </h6>
+                                                    <p className="border-bottom fw-light">
+                                                        {data.id}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                        )}
                                     </>
                                 )}
-
-                            <Col
-                                md={6}
-                                lg={
-                                    reference !== "agreements" &&
-                                    reference !== "campus"
-                                        ? 4
-                                        : 6
-                                }
-                                className=""
-                            >
-                                <div className="tw-flex-1 tw-text-star tw-text-base">
-                                    <h6 className="fw-bold">Nombre/s</h6>
-                                    <p className="border-bottom fw-light">
-                                        {data.name}
-                                    </p>
-                                </div>
-                            </Col>
-
-                            {(reference === "campus" ||
-                                reference === "specialties") && (
-                                <Col md={6} className="">
+                            {data.name && (
+                                <Col
+                                    md={6}
+                                    lg={
+                                        reference !== "agreements" &&
+                                        reference !== "campus"
+                                            ? 4
+                                            : 6
+                                    }
+                                    className=""
+                                >
                                     <div className="tw-flex-1 tw-text-star tw-text-base">
-                                        <h6 className="fw-bold">
-                                            Descripción (opcional)
+                                        <h6 className="fw-bold tw-text-[#e9a225]">
+                                            Nombre/s
                                         </h6>
-                                        <p className="border-bottom">
-                                            {data.description}
+                                        <p className="border-bottom fw-light">
+                                            {data.name}
                                         </p>
                                     </div>
                                 </Col>
                             )}
 
+                            {(reference === "campus" ||
+                                reference === "specialties") && (
+                                <>
+                                    {data.description && (
+                                        <Col md={6} className="">
+                                            <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    Descripción (opcional)
+                                                </h6>
+                                                <p className="border-bottom">
+                                                    {data.description}
+                                                </p>
+                                            </div>
+                                        </Col>
+                                    )}
+                                </>
+                            )}
+
                             {reference === "diagnostician" && (
-                                <Col md={6} lg={4} className="mb-3">
-                                    <div className="tw-flex-1 tw-text-star tw-text-base">
-                                        <h6 className="fw-bold">Rut</h6>
-                                        <p className="border-bottom">
-                                            {data.rut}
-                                        </p>
-                                    </div>
-                                </Col>
+                                <>
+                                    {data.rut && (
+                                        <Col md={6} lg={4} className="mb-3">
+                                            <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    Rut
+                                                </h6>
+                                                <p className="border-bottom">
+                                                    {data.rut}
+                                                </p>
+                                            </div>
+                                        </Col>
+                                    )}
+                                </>
                             )}
 
                             {reference === "agreements" && (
                                 <>
-                                    <Col md={6} className="">
-                                        <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">
-                                                Tipo de Persona
-                                            </h6>
-                                            <p className="border-bottom">
-                                                {data.personType}
-                                            </p>
-                                        </div>
-                                    </Col>
-                                    <Col md={6} className="">
-                                        <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">
-                                                Descuento(%)
-                                            </h6>
-                                            <p className="border-bottom">
-                                                {data.discount}
-                                            </p>
-                                        </div>
-                                    </Col>
+                                    {data.personType && (
+                                        <Col md={6} className="">
+                                            <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    Tipo de Persona
+                                                </h6>
+                                                <p className="border-bottom">
+                                                    {data.personType}
+                                                </p>
+                                            </div>
+                                        </Col>
+                                    )}
+                                    {data.discount && (
+                                        <Col md={6} className="">
+                                            <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    Descuento(%)
+                                                </h6>
+                                                <p className="border-bottom">
+                                                    {data.discount}
+                                                </p>
+                                            </div>
+                                        </Col>
+                                    )}
                                 </>
                             )}
 
@@ -1256,179 +1293,215 @@ const MainFormModal = ({
                                 reference !== "specialties" &&
                                 reference !== "diagnostician" &&
                                 reference !== "agreements" && (
-                                    <Col md={6} lg={4} className="">
-                                        <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">
-                                                Apellido/s
-                                            </h6>
-                                            <p className="border-bottom fw-light">
-                                                {data.lastName}
-                                            </p>
-                                        </div>
-                                    </Col>
+                                    <>
+                                        {data.lastName && (
+                                            <Col md={6} lg={4} className="">
+                                                <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                        Apellido/s
+                                                    </h6>
+                                                    <p className="border-bottom fw-light">
+                                                        {data.lastName}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                        )}
+                                    </>
                                 )}
 
                             {reference === "c" && (
                                 <>
-                                    <Col md={6} lg={4} className="">
-                                        <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">
-                                                Fecha Nacimiento
-                                            </h6>
-                                            <p className="border-bottom fw-light">
-                                                {data.birthDate}
-                                            </p>
-                                        </div>
-                                    </Col>
-                                    <Col md={6} lg={4} className="">
-                                        <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">Edad</h6>
-                                            <p className="border-bottom fw-light">
-                                                {data.age}
-                                            </p>
-                                        </div>
-                                    </Col>
+                                    {data.birthDate && (
+                                        <Col md={6} lg={4} className="">
+                                            <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    Fecha Nacimiento
+                                                </h6>
+                                                <p className="border-bottom fw-light">
+                                                    {data.birthDate}
+                                                </p>
+                                            </div>
+                                        </Col>
+                                    )}
+
+                                    {data.age && (
+                                        <Col md={6} lg={4} className="">
+                                            <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    Edad
+                                                </h6>
+                                                <p className="border-bottom fw-light">
+                                                    {data.age}
+                                                </p>
+                                            </div>
+                                        </Col>
+                                    )}
                                 </>
                             )}
 
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "agreements" && (
-                                    <Col
-                                        md={6}
-                                        lg={reference !== "campus" && 4}
-                                        className=""
-                                    >
-                                        <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">Celular</h6>
-                                            <p className="border-bottom fw-light">
-                                                {data.phone}
-                                            </p>
-                                        </div>
-                                    </Col>
+                                    <>
+                                        {data.phone && (
+                                            <Col
+                                                md={6}
+                                                lg={reference !== "campus" && 4}
+                                                className=""
+                                            >
+                                                <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                        Celular
+                                                    </h6>
+                                                    <p className="border-bottom fw-light">
+                                                        {data.phone}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                        )}
+                                    </>
                                 )}
 
                             {reference !== "functionary" &&
                                 reference !== "specialties" &&
                                 reference !== "agreements" && (
                                     <>
-                                        <Col
-                                            md={6}
-                                            lg={reference !== "campus" && 4}
-                                            className=""
-                                        >
-                                            <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold">
-                                                    Teléfono fijo (opcional)
-                                                </h6>
-                                                <p className="border-bottom fw-light">
-                                                    {data.phone2}
-                                                </p>
-                                            </div>
-                                        </Col>
-                                        <Col md={6} className="">
-                                            <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold">
-                                                    Dirección
-                                                </h6>
-                                                <p className="border-bottom fw-light">
-                                                    {data.address}
-                                                </p>
-                                            </div>
-                                        </Col>
-                                        <Col
-                                            md={6}
-                                            lg={
-                                                reference !== "professionals"
-                                                    ? reference !== "campus"
-                                                        ? 4
-                                                        : 6
-                                                    : 3
-                                            }
-                                            className=""
-                                        >
-                                            <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold">
-                                                    País
-                                                </h6>
-                                                <p className="border-bottom fw-light">
-                                                    {data.country}
-                                                </p>
-                                            </div>
-                                        </Col>
-                                        <Col
-                                            md={6}
-                                            lg={
-                                                reference !== "professionals"
-                                                    ? reference !== "campus"
-                                                        ? 4
-                                                        : 6
-                                                    : 3
-                                            }
-                                            className="mb-3"
-                                        >
-                                            <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold">
-                                                    Departamento
-                                                </h6>
-                                                <p className="border-bottom fw-light">
-                                                    {data.state &&
-                                                        ColombianStates.find(
-                                                            (value) =>
+                                        {data.phone2 && (
+                                            <Col
+                                                md={6}
+                                                lg={reference !== "campus" && 4}
+                                                className=""
+                                            >
+                                                <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                        Teléfono fijo (opcional)
+                                                    </h6>
+                                                    <p className="border-bottom fw-light">
+                                                        {data.phone2}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                        )}
+                                        {data.address && (
+                                            <Col md={6} className="">
+                                                <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                        Dirección
+                                                    </h6>
+                                                    <p className="border-bottom fw-light">
+                                                        {data.address}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                        )}
+                                        {data.country && (
+                                            <Col
+                                                md={6}
+                                                lg={
+                                                    reference !==
+                                                    "professionals"
+                                                        ? reference !== "campus"
+                                                            ? 4
+                                                            : 6
+                                                        : 3
+                                                }
+                                                className=""
+                                            >
+                                                <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                        País
+                                                    </h6>
+                                                    <p className="border-bottom fw-light">
+                                                        {data.country}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                        )}
+                                        {data.state && (
+                                            <Col
+                                                md={6}
+                                                lg={
+                                                    reference !==
+                                                    "professionals"
+                                                        ? reference !== "campus"
+                                                            ? 4
+                                                            : 6
+                                                        : 3
+                                                }
+                                                className="mb-3"
+                                            >
+                                                <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                        Departamento
+                                                    </h6>
+                                                    <p className="border-bottom fw-light">
+                                                        {data.state &&
+                                                            ColombianStates.find(
+                                                                (value) =>
+                                                                    findValue(
+                                                                        value,
+                                                                        data.state,
+                                                                    ),
+                                                            )?.label}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                        )}
+                                        {data.city && (
+                                            <Col
+                                                md={6}
+                                                lg={
+                                                    reference !==
+                                                    "professionals"
+                                                        ? reference !== "campus"
+                                                            ? 4
+                                                            : 6
+                                                        : 3
+                                                }
+                                                className="mb-3"
+                                            >
+                                                <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                        Ciudad
+                                                    </h6>
+                                                    <p className="border-bottom fw-light">
+                                                        {data.city &&
+                                                            getCities(
+                                                                data.state,
+                                                            ).find((value) =>
                                                                 findValue(
                                                                     value,
-                                                                    data.state,
+                                                                    data.city,
                                                                 ),
-                                                        )?.label}
-                                                </p>
-                                            </div>
-                                        </Col>
-                                        <Col
-                                            md={6}
-                                            lg={
-                                                reference !== "professionals"
-                                                    ? reference !== "campus"
-                                                        ? 4
-                                                        : 6
-                                                    : 3
-                                            }
-                                            className="mb-3"
-                                        >
-                                            <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold">
-                                                    Ciudad
-                                                </h6>
-                                                <p className="border-bottom fw-light">
-                                                    {data.city &&
-                                                        getCities(
-                                                            data.state,
-                                                        ).find((value) =>
-                                                            findValue(
-                                                                value,
-                                                                data.city,
-                                                            ),
-                                                        )?.label}
-                                                </p>
-                                            </div>
-                                        </Col>
+                                                            )?.label}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                        )}
                                     </>
                                 )}
 
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "agreements" && (
-                                    <Col
-                                        md={6}
-                                        lg={reference !== "campus" && 4}
-                                        className=""
-                                    >
-                                        <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">Email</h6>
-                                            <p className="border-bottom fw-light">
-                                                {data.email}
-                                            </p>
-                                        </div>
-                                    </Col>
+                                    <>
+                                        {data.email && (
+                                            <Col
+                                                md={6}
+                                                lg={reference !== "campus" && 4}
+                                                className=""
+                                            >
+                                                <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                        Email
+                                                    </h6>
+                                                    <p className="border-bottom fw-light">
+                                                        {data.email}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                        )}
+                                    </>
                                 )}
 
                             {reference !== "campus" &&
@@ -1438,7 +1511,7 @@ const MainFormModal = ({
                                     <>
                                         {/* <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">
+                                            <h6 className="fw-bold tw-text-[#e9a225]">
                                                 Contraseña
                                             </h6>
                                             <p className="border-bottom fw-light">
@@ -1448,7 +1521,7 @@ const MainFormModal = ({
                                     </Col>
                                     <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">
+                                            <h6 className="fw-bold tw-text-[#e9a225]">
                                                 Confirmar Contraseña
                                             </h6>
                                             <p className="border-bottom fw-light">
@@ -1463,7 +1536,7 @@ const MainFormModal = ({
                                 <>
                                     {/* <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">
+                                            <h6 className="fw-bold tw-text-[#e9a225]">
                                                 Número Tarjeta Profesional
                                             </h6>
                                             <p className="border-bottom fw-light">
@@ -1473,7 +1546,7 @@ const MainFormModal = ({
                                     </Col>
                                     <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">
+                                            <h6 className="fw-bold tw-text-[#e9a225]">
                                                 Registro Médico
                                             </h6>
                                             <p className="border-bottom fw-light">
@@ -1481,89 +1554,111 @@ const MainFormModal = ({
                                             </p>
                                         </div>
                                     </Col> */}
-                                    <Col md={6} lg={4} className="">
-                                        <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">
-                                                Especialidad
-                                            </h6>
-                                            <p className="border-bottom fw-light">
-                                                {data.specialty}
-                                            </p>
-                                        </div>
-                                    </Col>
-                                    <Col md={6} lg={4} className="">
-                                        <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">
-                                                Convenio
-                                            </h6>
-                                            <p className="border-bottom fw-light">
-                                                {data.contract}
-                                            </p>
-                                        </div>
-                                    </Col>
+                                    {data.specialty && (
+                                        <Col md={6} lg={4} className="">
+                                            <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    Especialidad
+                                                </h6>
+                                                <p className="border-bottom fw-light">
+                                                    {data.specialty}
+                                                </p>
+                                            </div>
+                                        </Col>
+                                    )}
+                                    {data.contract && (
+                                        <Col md={6} lg={4} className="">
+                                            <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    Convenio
+                                                </h6>
+                                                <p className="border-bottom fw-light">
+                                                    {data.contract}
+                                                </p>
+                                            </div>
+                                        </Col>
+                                    )}
                                 </>
                             )}
 
-                            <Col
-                                md={6}
-                                lg={
-                                    reference !== "campus" &&
-                                    reference !== "agreements"
-                                        ? 4
-                                        : 6
-                                }
-                                className=""
-                            >
-                                <div className="tw-flex-1 tw-text-star tw-text-base">
-                                    <h6 className="fw-bold">Estado</h6>
-                                    <p className="border-bottom fw-light">
-                                        {data.isActive ? "Activo":"Inactivo"}
-                                    </p>
-                                </div>
-                            </Col>
+                            {data.isActive && (
+                                <Col
+                                    md={6}
+                                    lg={
+                                        reference !== "campus" &&
+                                        reference !== "agreements"
+                                            ? 4
+                                            : 6
+                                    }
+                                    className=""
+                                >
+                                    <div className="tw-flex-1 tw-text-star tw-text-base">
+                                        <h6 className="fw-bold tw-text-[#e9a225]">
+                                            Estado
+                                        </h6>
+                                        <p className="border-bottom fw-light">
+                                            {data.isActive
+                                                ? "Activo"
+                                                : "Inactivo"}
+                                        </p>
+                                    </div>
+                                </Col>
+                            )}
 
                             {reference !== "specialties" &&
                                 reference !== "agreements" &&
                                 reference !== "diagnostician" && (
-                                    <Col md={6} lg={4} className="">
-                                        <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">
-                                                Fecha Registro
-                                            </h6>
-                                            <p className="border-bottom fw-light">
-                                                {`${data.timestamp}`}
-                                            </p>
-                                        </div>
-                                    </Col>
+                                    <>
+                                        {data.timestamp && (
+                                            <Col md={6} lg={4} className="">
+                                                <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                    <h6 className="fw-bold tw-text-[#e9a225]">
+                                                        Fecha Registro
+                                                    </h6>
+                                                    <p className="border-bottom fw-light">
+                                                        {`${data.timestamp}`}
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                        )}
+                                    </>
                                 )}
 
                             {reference === "functionary" && (
                                 <>
                                     {/* <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">Rol</h6>
+                                            <h6 className="fw-bold tw-text-[#e9a225]">Rol</h6>
                                             <p className="border-bottom fw-light">
                                                 {data.rol}
                                             </p>
                                         </div>
                                     </Col> */}
 
-                                    <Col md={6} lg={4} className="">
-                                        <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">Sede</h6>
-                                            <p className="border-bottom fw-light">
-                                                {data.campus}
-                                            </p>
-                                        </div>
-                                    </Col>
-                                    <Col md={6} lg={4} className="">
-                                        <div className="tw-flex-1 tw-text-star tw-text-base">
-                                            <h6 className="fw-bold">Área</h6>
-                                            <p className="border-bottom fw-light">
-                                                {data.area}
-                                            </p>
-                                        </div>
-                                    </Col>
+                                    {data.campus && (
+                                        <Col md={6} lg={4} className="">
+                                            <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    Sede
+                                                </h6>
+                                                <p className="border-bottom fw-light">
+                                                    {data.campus}
+                                                </p>
+                                            </div>
+                                        </Col>
+                                    )}
+                                    {data.area && (
+                                        <Col md={6} lg={4} className="">
+                                            <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                <h6 className="fw-bold tw-text-[#e9a225]">
+                                                    Área
+                                                </h6>
+                                                <p className="border-bottom fw-light">
+                                                    {data.area}
+                                                </p>
+                                            </div>
+                                        </Col>
+                                    )}
                                 </>
                             )}
 
