@@ -8,7 +8,7 @@ import {
     query,
     setDoc,
     updateDoc,
-    where,
+    where
 } from "firebase/firestore";
 import moment from "moment";
 import { db } from "shared/firebase/firebase";
@@ -129,4 +129,31 @@ export const updateDocumentsByIdFb = async (
         ...newData,
         timestamp: currentDate,
     });
+};
+
+export const updateCampusByIdFb = async (
+    id: string,
+    refArea: string,
+    reference: string,
+    data: any,
+    refExist?: boolean,
+) => {
+    const document = docRef({ ref: reference, collection: id });
+
+    return await updateDoc(
+        document,
+        refExist
+            ? {
+                  availableAreas: data.includes(refArea)
+                      ? data.filter((item: string) => item !== refArea)
+                      : [...data],
+                  timestamp: currentDate,
+              }
+            : {
+                  availableAreas: !data.includes(refArea)
+                      ? [...data, refArea]
+                      : [...data],
+                  timestamp: currentDate,
+              },
+    );
 };

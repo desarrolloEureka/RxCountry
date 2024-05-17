@@ -26,7 +26,9 @@ export interface DataMainFormObject {
     contract: string;
     rol: string;
     campus: string;
+    availableCampus: string[];
     area: string;
+    availableAreas: string[];
     urlPhoto: string;
     timestamp: Date;
     isActive: boolean;
@@ -117,6 +119,7 @@ export type DataCampusObject = {
     country: string;
     state: any;
     city: string;
+    availableAreas: string[];
     timestamp: Date;
     isActive: boolean;
     isDeleted: boolean;
@@ -136,6 +139,15 @@ export type DataAgreementsObject = {
     name: string;
     personType: string;
     discount: string;
+    isActive: boolean;
+    isDeleted: boolean;
+};
+
+export type DataAreasObject = {
+    uid: string;
+    name: string;
+    description: string;
+    availableCampus: string[];
     isActive: boolean;
     isDeleted: boolean;
 };

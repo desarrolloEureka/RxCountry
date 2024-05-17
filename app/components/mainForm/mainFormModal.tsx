@@ -1,5 +1,5 @@
 import {
-    areas,
+    // areas,
     // campus,
     ColombianStates,
     // contracts,
@@ -28,6 +28,9 @@ import MainFormHook from "./hook/mainFormHook";
 const Select = dynamic(() => import("react-select"), { ssr: false });
 import { components } from "react-select";
 import { showPasswordParams } from "@/types/mainForm";
+import makeAnimated from "react-select/animated";
+
+const animatedComponents = makeAnimated();
 
 const { Option } = components;
 
@@ -98,7 +101,6 @@ const MainFormModal = ({
         show,
         errorForm,
         showPassword,
-        files,
         isLoading,
         data,
         selectedIdType,
@@ -108,14 +110,15 @@ const MainFormModal = ({
         selectedSpecialty,
         selectedContract,
         selectedStatus,
-        // selectedRol,
         selectedCampus,
+        selectedAvailableCampus,
         selectedArea,
         isEdit,
         errorPass,
         campus,
         specialties,
         contracts,
+        areas,
         theme,
         setErrorPass,
         handleSendForm,
@@ -124,14 +127,11 @@ const MainFormModal = ({
         setErrorForm,
         changeHandler,
         clearSelectFields,
-        calculateAge,
-        handleGetBirthDate,
         dateChangeHandler,
         selectChangeHandlerIdType,
         setShowPassword,
-        setFiles,
-        // selectChangeHandlerRol,
         selectChangeHandlerCampus,
+        selectChangeHandlerAvailableCampus,
         selectChangeHandlerArea,
         selectChangeHandlerStatus,
         selectChangeHandlerContract,
@@ -144,6 +144,7 @@ const MainFormModal = ({
         handleMultipleChange,
         urlFile,
         selectChangeHandlerPersonType,
+        areasByCampus,
     } = MainFormHook({
         handleShowMainForm,
         setHandleShowMainForm,
@@ -173,7 +174,8 @@ const MainFormModal = ({
                         <Row>
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
-                                reference !== "agreements" && (
+                                reference !== "agreements" &&
+                                reference !== "areas" && (
                                     <>
                                         <Col md={6} lg={4} className="mb-3">
                                             <Form.Group controlId="idType">
@@ -244,6 +246,8 @@ const MainFormModal = ({
                                 md={6}
                                 lg={
                                     reference !== "agreements" &&
+                                    reference !== "areas" &&
+                                    reference !== "specialties" &&
                                     reference !== "campus"
                                         ? 4
                                         : 6
@@ -269,7 +273,8 @@ const MainFormModal = ({
                             </Col>
 
                             {(reference === "campus" ||
-                                reference === "specialties") && (
+                                reference === "specialties" ||
+                                reference === "areas") && (
                                 <Col md={6} className="mb-3">
                                     <Form.Label className="">
                                         Descripción (opcional)
@@ -380,7 +385,8 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "diagnostician" &&
-                                reference !== "agreements" && (
+                                reference !== "agreements" &&
+                                reference !== "areas" && (
                                     <Col md={6} lg={4} className="mb-3">
                                         <Form.Label className="">
                                             Apellido/s
@@ -428,11 +434,7 @@ const MainFormModal = ({
                                             Edad
                                         </Form.Label>
                                         <Form.Control
-                                            // value={data.age}
-                                            value={
-                                                data.birthDate &&
-                                                calculateAge(data.birthDate)
-                                            }
+                                            value={data.age}
                                             disabled
                                             type="number"
                                             min={0}
@@ -448,7 +450,8 @@ const MainFormModal = ({
                             )}
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
-                                reference !== "agreements" && (
+                                reference !== "agreements" &&
+                                reference !== "areas" && (
                                     <Col
                                         md={6}
                                         lg={reference !== "campus" && 4}
@@ -477,7 +480,8 @@ const MainFormModal = ({
                                 )}
 
                             {reference !== "specialties" &&
-                                reference !== "agreements" && (
+                                reference !== "agreements" &&
+                                reference !== "areas" && (
                                     <>
                                         <Col
                                             md={6}
@@ -683,7 +687,8 @@ const MainFormModal = ({
 
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
-                                reference !== "agreements" && (
+                                reference !== "agreements" &&
+                                reference !== "areas" && (
                                     <Col
                                         md={6}
                                         lg={reference !== "campus" && 4}
@@ -712,7 +717,8 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "diagnostician" &&
-                                reference !== "agreements" && (
+                                reference !== "agreements" &&
+                                reference !== "areas" && (
                                     <>
                                         {handleShowMainForm && (
                                             <>
@@ -924,6 +930,8 @@ const MainFormModal = ({
                                 md={6}
                                 lg={
                                     reference !== "campus" &&
+                                    reference !== "areas" &&
+                                    reference !== "specialties" &&
                                     reference !== "agreements"
                                         ? 4
                                         : 6
@@ -1045,48 +1053,91 @@ const MainFormModal = ({
                                             onChange={selectChangeHandlerCampus}
                                         />
                                     </Col>
-                                    <Col md={6} lg={4} className="mb-3">
-                                        <Form.Label className="">
-                                            Área
-                                            <span className="tw-text-red-500">
-                                                *
-                                            </span>
-                                        </Form.Label>
-                                        <Select
-                                            required
-                                            noOptionsMessage={({
-                                                inputValue,
-                                            }) =>
-                                                `No hay resultados para "${inputValue}"`
-                                            }
-                                            value={
-                                                data.area
-                                                    ? areas.find((value) =>
-                                                          findValue(
-                                                              value,
-                                                              data.area,
-                                                          ),
-                                                      )
-                                                    : []
-                                            }
-                                            defaultValue={selectedArea}
-                                            placeholder="Área"
-                                            isClearable
-                                            name="area"
-                                            options={areas}
-                                            id="area"
-                                            className="basic-multi-select"
-                                            classNamePrefix="Select2"
-                                            onChange={selectChangeHandlerArea}
-                                        />
-                                    </Col>
                                 </>
+                            )}
+
+                            {reference === "areas" && (
+                                <Col md={6} className="mb-3">
+                                    <Form.Label className="">
+                                        Sedes
+                                        <span className="tw-text-red-500">
+                                            *
+                                        </span>
+                                    </Form.Label>
+                                    <Select
+                                        required
+                                        noOptionsMessage={({ inputValue }) =>
+                                            `No hay resultados para "${inputValue}"`
+                                        }
+                                        value={
+                                            data.availableCampus
+                                                ? campus?.filter((item) =>
+                                                      data.availableCampus.includes(
+                                                          item.value,
+                                                      ),
+                                                  )
+                                                : []
+                                        }
+                                        defaultValue={selectedAvailableCampus}
+                                        placeholder="Sedes Disponibles"
+                                        name="availableCampus"
+                                        id="availableCampus"
+                                        closeMenuOnSelect={false}
+                                        components={animatedComponents}
+                                        isMulti
+                                        options={campus}
+                                        className="basic-multi-select"
+                                        classNamePrefix="Select2"
+                                        onChange={
+                                            selectChangeHandlerAvailableCampus
+                                        }
+                                    />
+                                </Col>
+                            )}
+
+                            {reference === "functionary" && (
+                                <Col md={6} lg={4} className="mb-3">
+                                    <Form.Label className="">
+                                        Área
+                                        <span className="tw-text-red-500">
+                                            *
+                                        </span>
+                                    </Form.Label>
+                                    <Select
+                                        required
+                                        isDisabled={!data.campus}
+                                        styles={customStyles(theme)}
+                                        noOptionsMessage={({ inputValue }) =>
+                                            `No hay resultados para "${inputValue}"`
+                                        }
+                                        value={
+                                            data.area
+                                                ? areas?.find((value) =>
+                                                      findValue(
+                                                          value,
+                                                          data.area,
+                                                      ),
+                                                  )
+                                                : []
+                                        }
+                                        defaultValue={selectedArea}
+                                        placeholder="Área"
+                                        isClearable
+                                        name="area"
+                                        options={areasByCampus(data.campus)}
+                                        id="area"
+                                        className="basic-multi-select"
+                                        classNamePrefix="Select2"
+                                        onChange={selectChangeHandlerArea}
+                                    />
+                                </Col>
                             )}
 
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "diagnostician" &&
-                                reference !== "agreements" && (
+                                reference !== "agreements" &&
+                                reference !== "areas" && (
                                     <Col className="mb-3">
                                         {/* <FilePond
                                             className="multiple-filepond single-fileupload"
@@ -1178,7 +1229,8 @@ const MainFormModal = ({
                         <Row>
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
-                                reference !== "agreements" && (
+                                reference !== "agreements" &&
+                                reference !== "areas" && (
                                     <>
                                         {data.idType && (
                                             <Col md={6} lg={4} className="">
@@ -1211,6 +1263,8 @@ const MainFormModal = ({
                                     md={6}
                                     lg={
                                         reference !== "agreements" &&
+                                        reference !== "areas" &&
+                                        reference !== "specialties" &&
                                         reference !== "campus"
                                             ? 4
                                             : 6
@@ -1218,9 +1272,7 @@ const MainFormModal = ({
                                     className=""
                                 >
                                     <div className="tw-flex-1 tw-text-star tw-text-base">
-                                        <h6 className="fw-bold">
-                                            Nombre/s
-                                        </h6>
+                                        <h6 className="fw-bold">Nombre/s</h6>
                                         <p className="border-bottom fw-light">
                                             {data.name}
                                         </p>
@@ -1229,7 +1281,8 @@ const MainFormModal = ({
                             )}
 
                             {(reference === "campus" ||
-                                reference === "specialties") && (
+                                reference === "specialties" ||
+                                reference === "areas") && (
                                 <>
                                     {data.description && (
                                         <Col md={6} className="">
@@ -1251,9 +1304,7 @@ const MainFormModal = ({
                                     {data.rut && (
                                         <Col md={6} lg={4} className="mb-3">
                                             <div className="tw-flex-1 tw-text-star tw-text-base">
-                                                <h6 className="fw-bold">
-                                                    Rut
-                                                </h6>
+                                                <h6 className="fw-bold">Rut</h6>
                                                 <p className="border-bottom">
                                                     {data.rut}
                                                 </p>
@@ -1295,7 +1346,8 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "diagnostician" &&
-                                reference !== "agreements" && (
+                                reference !== "agreements" &&
+                                reference !== "areas" && (
                                     <>
                                         {data.lastName && (
                                             <Col md={6} lg={4} className="">
@@ -1344,7 +1396,8 @@ const MainFormModal = ({
 
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
-                                reference !== "agreements" && (
+                                reference !== "agreements" &&
+                                reference !== "areas" && (
                                     <>
                                         {data.phone && (
                                             <Col
@@ -1365,9 +1418,9 @@ const MainFormModal = ({
                                     </>
                                 )}
 
-                            {reference !== "functionary" &&
-                                reference !== "specialties" &&
-                                reference !== "agreements" && (
+                            {reference !== "specialties" &&
+                                reference !== "agreements" &&
+                                reference !== "areas" && (
                                     <>
                                         {data.phone2 && (
                                             <Col
@@ -1486,7 +1539,8 @@ const MainFormModal = ({
 
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
-                                reference !== "agreements" && (
+                                reference !== "agreements" &&
+                                reference !== "areas" && (
                                     <>
                                         {data.email && (
                                             <Col
@@ -1510,7 +1564,8 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "diagnostician" &&
-                                reference !== "agreements" && (
+                                reference !== "agreements" &&
+                                reference !== "areas" && (
                                     <>
                                         {/* <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
@@ -1584,33 +1639,30 @@ const MainFormModal = ({
                                 </>
                             )}
 
-                            {data.isActive && (
-                                <Col
-                                    md={6}
-                                    lg={
-                                        reference !== "campus" &&
-                                        reference !== "agreements"
-                                            ? 4
-                                            : 6
-                                    }
-                                    className=""
-                                >
-                                    <div className="tw-flex-1 tw-text-star tw-text-base">
-                                        <h6 className="fw-bold">
-                                            Estado
-                                        </h6>
-                                        <p className="border-bottom fw-light">
-                                            {data.isActive
-                                                ? "Activo"
-                                                : "Inactivo"}
-                                        </p>
-                                    </div>
-                                </Col>
-                            )}
+                            <Col
+                                md={6}
+                                lg={
+                                    reference !== "agreements" &&
+                                    reference !== "areas" &&
+                                    reference !== "specialties" &&
+                                    reference !== "campus"
+                                        ? 4
+                                        : 6
+                                }
+                                className=""
+                            >
+                                <div className="tw-flex-1 tw-text-star tw-text-base">
+                                    <h6 className="fw-bold">Estado</h6>
+                                    <p className="border-bottom fw-light">
+                                        {data.isActive ? "Activo" : "Inactivo"}
+                                    </p>
+                                </div>
+                            </Col>
 
                             {reference !== "specialties" &&
                                 reference !== "agreements" &&
-                                reference !== "diagnostician" && (
+                                reference !== "diagnostician" &&
+                                reference !== "areas" && (
                                     <>
                                         {data.timestamp && (
                                             <Col md={6} lg={4} className="">
@@ -1645,11 +1697,57 @@ const MainFormModal = ({
                                                     Sede
                                                 </h6>
                                                 <p className="border-bottom fw-light">
-                                                    {data.campus}
+                                                    {data.campus &&
+                                                        campus?.find((value) =>
+                                                            findValue(
+                                                                value,
+                                                                data.campus,
+                                                            ),
+                                                        )?.label}
                                                 </p>
                                             </div>
                                         </Col>
                                     )}
+                                </>
+                            )}
+
+                            {reference === "areas" && (
+                                <>
+                                    {data.availableCampus && (
+                                        <Col md={6} lg={4} className="">
+                                            <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                <h6 className="fw-bold">
+                                                    Sedes
+                                                </h6>
+                                                <p className="border-bottom fw-light">
+                                                    {/* {data.campus &&
+                                                        campus?.find((value) =>
+                                                            findValue(
+                                                                value,
+                                                                data.campus,
+                                                            ),
+                                                            )?.label} */}
+                                                    {data.availableCampus &&
+                                                        campus
+                                                            ?.filter((item) =>
+                                                                data.availableCampus.includes(
+                                                                    item.value,
+                                                                ),
+                                                            )
+                                                            .map(
+                                                                (val) =>
+                                                                    val.label,
+                                                            )
+                                                            .join(", ")}
+                                                </p>
+                                            </div>
+                                        </Col>
+                                    )}
+                                </>
+                            )}
+
+                            {reference === "functionary" && (
+                                <>
                                     {data.area && (
                                         <Col md={6} lg={4} className="">
                                             <div className="tw-flex-1 tw-text-star tw-text-base">
@@ -1657,7 +1755,13 @@ const MainFormModal = ({
                                                     Área
                                                 </h6>
                                                 <p className="border-bottom fw-light">
-                                                    {data.area}
+                                                    {data.area &&
+                                                        areas?.find((value) =>
+                                                            findValue(
+                                                                value,
+                                                                data.area,
+                                                            ),
+                                                        )?.label}
                                                 </p>
                                             </div>
                                         </Col>
@@ -1668,7 +1772,8 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "diagnostician" &&
-                                reference !== "agreements" && (
+                                reference !== "agreements" &&
+                                reference !== "areas" && (
                                     <Col className="tw-text-center">
                                         <h6 className="pb-3">Foto</h6>
                                         <div className="tw-flex tw-justify-center tw-items-center">

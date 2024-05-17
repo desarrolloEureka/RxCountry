@@ -1,4 +1,5 @@
 import {
+    NoDataCardProps,
     ExportProps,
     // TableDataItemOld,
     UploadDataButtonModalProps,
@@ -87,8 +88,13 @@ const UploadDataCsvModal = ({
     <Button onClick={onUploadDataModalCsv}>Subir Csv</Button>
 );
 
-const MainFormModal = ({ onMainFormModal }: UploadDataButtonModalProps) => (
-    <Button onClick={onMainFormModal}>Nuevo</Button>
+const MainFormModal = ({
+    onMainFormModal,
+    campusIsEmpty,
+}: UploadDataButtonModalProps) => (
+    <Button disabled={campusIsEmpty} onClick={onMainFormModal}>
+        Nuevo
+    </Button>
 );
 
 const UploadDataPdfModal = ({
@@ -97,11 +103,15 @@ const UploadDataPdfModal = ({
     <Button onClick={onUploadDataModalPdf}>Subir multiples Pdf</Button>
 );
 
-const NoDataCard = () => (
+const NoDataCard = ({ emptyRef, reference }: NoDataCardProps) => (
     <div className="tw-flex-1 tw-p-10 tw-text-center tw-text-2xl bg-white">
         <div className="">
-            <p className="">No hay Datos Para Mostrar</p>
-            <i className="ti ti-folder-off tw-text-2xl"></i>
+            <p className="main-content-title tw-text-2xl">
+                {emptyRef && reference === "areas"
+                    ? "Agregue una Sede para Continuar"
+                    : "No hay Datos Para Mostrar"}
+            </p>
+            <i className="ti ti-folder-off main-content-title tw-text-2xl"></i>
         </div>
     </div>
 );
@@ -124,16 +134,22 @@ export const ExportCSV = ({
     // noHeader = false,
     tableTitle,
     reference,
+    isEmptyDataRef,
 }: UploadDataModalProps) => {
     // const [selectedRows, setSelectedRows] = React.useState([]);
     // const [toggleCleared, setToggleCleared] = React.useState(false);
     // const [dataTable, setDataTable] = React.useState(data);
 
+    const campusIsEmpty = isEmptyDataRef && reference === "areas";
+
     const actionsMemo = React.useMemo(() => {
         return (
             <>
                 {onMainFormModal && (
-                    <MainFormModal onMainFormModal={onMainFormModal} />
+                    <MainFormModal
+                        campusIsEmpty={campusIsEmpty}
+                        onMainFormModal={onMainFormModal}
+                    />
                 )}
                 {refToShowButtonCsv.includes(reference) &&
                     onUploadDataModalCsv && (
@@ -146,13 +162,14 @@ export const ExportCSV = ({
                         onUploadDataModalPdf={onUploadDataModalPdf}
                     />
                 )}
-                {data.length !== 0 && (
+                {data.length > 0 && (
                     <Export onExport={() => downloadCSV(data, tableTitle)} />
                 )}
             </>
         );
     }, [
         onMainFormModal,
+        campusIsEmpty,
         reference,
         onUploadDataModalCsv,
         onUploadDataModalPdf,
@@ -176,6 +193,13 @@ export const ExportCSV = ({
             },
         },
     ];
+
+    const paginationComponentOptions = {
+        rowsPerPageText: "Filas por página",
+        rangeSeparatorText: "de",
+        selectAllRowsItem: true,
+        selectAllRowsItemText: "Todos",
+    };
 
     // const contextActionsMemo = React.useMemo(() => {
     //     const handleDelete = () => {
@@ -211,11 +235,18 @@ export const ExportCSV = ({
     //     );
     // }, [dataTable, selectedRows, toggleCleared]);
 
+    const tableDatas = campusIsEmpty
+        ? {
+              columns: [],
+              data: [],
+          }
+        : tableData;
+
     return (
         <DataTableExtensions
             export={false}
             print={false}
-            {...tableData}
+            {...tableDatas}
             filterPlaceholder="Buscar"
         >
             <DataTable
@@ -225,7 +256,12 @@ export const ExportCSV = ({
                 // onRowClicked={handleRowEdit}
                 // onSelectedRowsChange={handleRowSelected}
                 // conditionalRowStyles={conditionalRowStyles}
-                noDataComponent={<NoDataCard />}
+                noDataComponent={
+                    <NoDataCard
+                        emptyRef={isEmptyDataRef}
+                        reference={reference}
+                    />
+                }
                 onRowClicked={(row: any, event) => {
                     !row.isDeleted && onMainFormModalEdit(row);
                 }}
@@ -237,6 +273,7 @@ export const ExportCSV = ({
                 // data={dataTable}
                 actions={actionsMemo}
                 pagination
+                paginationComponentOptions={paginationComponentOptions}
                 highlightOnHover
                 // title={tableTitle}
                 // progressPending={dataTable ? false : true}

@@ -8,8 +8,10 @@ export const getAllCampusQuery = async () => {
         querySnapshot.forEach((doc: any) => {
             const data = doc.data() as CampusBd;
             const dataSelector = {
-                value: data.name,
+                value: data.uid,
                 label: data.name,
+                areas: data.availableAreas
+
             };
             dataResult.push(dataSelector);
         });

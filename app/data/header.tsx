@@ -10,6 +10,7 @@ export interface HeaderDropDownProps {
   multiLingual?: boolean;
   notifications?: boolean;
   logOut?: () => void;
+  data: any;
 }
 
 export default function SelectOptions() {
