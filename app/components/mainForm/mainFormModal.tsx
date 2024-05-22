@@ -29,6 +29,8 @@ const Select = dynamic(() => import("react-select"), { ssr: false });
 import { components } from "react-select";
 import { showPasswordParams } from "@/types/mainForm";
 import makeAnimated from "react-select/animated";
+import PhoneInput from "react-phone-input-2";
+// import "react-phone-input-2/lib/style.css";
 
 const animatedComponents = makeAnimated();
 
@@ -139,6 +141,8 @@ const MainFormModal = ({
         selectChangeHandlerCity,
         selectChangeHandlerCountry,
         selectChangeHandlerState,
+        phoneChangeHandler,
+        phoneTwoChangeHandler,
         findValue,
         handleEditForm,
         handleMultipleChange,
@@ -463,7 +467,27 @@ const MainFormModal = ({
                                                 *
                                             </span>
                                         </Form.Label>
-                                        <Form.Control
+                                        <PhoneInput
+                                            autoFormat={false}
+                                            inputProps={{
+                                                name: "phone",
+                                                required: true,
+                                                pattern:
+                                                    "^(\\+?\\d{1,4})?\\s?\\d{10,15}$",
+                                                title: "Por favor, ingrese un número de teléfono válido",
+                                            }}
+                                            country={"co"}
+                                            specialLabel=""
+                                            placeholder=""
+                                            prefix="+"
+                                            dropdownStyle={{
+                                                color: "black",
+                                                borderRadius: 12,
+                                            }}
+                                            value={data.phone}
+                                            onChange={phoneChangeHandler}
+                                        />
+                                        {/* <Form.Control
                                             required
                                             value={data.phone}
                                             type="tel"
@@ -475,7 +499,7 @@ const MainFormModal = ({
                                             onChange={changeHandler}
                                             title="Deben ser números o caracteres telefónicos"
                                             pattern="^(\+?)?[0-9\s]+$"
-                                        />
+                                        /> */}
                                     </Col>
                                 )}
 
@@ -491,7 +515,27 @@ const MainFormModal = ({
                                             <Form.Label className="">
                                                 Teléfono fijo (opcional)
                                             </Form.Label>
-                                            <Form.Control
+                                            <PhoneInput
+                                                autoFormat={false}
+                                                inputProps={{
+                                                    name: "phone2",
+                                                    required: true,
+                                                    pattern:
+                                                        "^(\\+?\\d{1,4})?\\s?\\d{10,15}$",
+                                                    title: "Por favor, ingrese un número de teléfono válido",
+                                                }}
+                                                country={"co"}
+                                                specialLabel=""
+                                                placeholder=""
+                                                prefix="+"
+                                                dropdownStyle={{
+                                                    color: "black",
+                                                    borderRadius: 12,
+                                                }}
+                                                value={data.phone2}
+                                                onChange={phoneTwoChangeHandler}
+                                            />
+                                            {/* <Form.Control
                                                 value={data.phone2}
                                                 type="tel"
                                                 min={0}
@@ -501,7 +545,7 @@ const MainFormModal = ({
                                                 placeholder="Número"
                                                 aria-label="Phone number"
                                                 onChange={changeHandler}
-                                            />
+                                            /> */}
                                         </Col>
                                         <Col md={6} className="mb-3">
                                             <Form.Label className="">

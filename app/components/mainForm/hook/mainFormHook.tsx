@@ -205,6 +205,12 @@ const MainFormHook = ({
     const handleMultipleChange = (event: { target: any }) => {
         event.target.files && setFiles([...event.target.files]);
     };
+    const phoneChangeHandler = (e: any) => {
+        setData({ ...data, ["phone"]: e });
+    };
+    const phoneTwoChangeHandler = (e: any) => {
+        setData({ ...data, ["phone2"]: e });
+    };
 
     const uploadHandle = async () => {
         let newData = {};
@@ -756,6 +762,8 @@ const MainFormHook = ({
         selectChangeHandlerCity,
         selectChangeHandlerCountry,
         selectChangeHandlerState,
+        phoneChangeHandler,
+        phoneTwoChangeHandler,
         findValue,
         handleEditForm,
         handleMultipleChange,
