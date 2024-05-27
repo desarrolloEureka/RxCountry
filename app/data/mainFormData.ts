@@ -43,7 +43,7 @@ export const dataMainFormObject = {
     availableAreas: [],
     urlPhoto: "",
     timestamp: new Date(),
-    isActive: false,
+    isActive: true,
     isDeleted: false,
 } as DataMainFormObject;
 
@@ -67,7 +67,7 @@ export const dataFunctionaryObject = {
     area: "",
     urlPhoto: "",
     timestamp: new Date(),
-    isActive: false,
+    isActive: true,
     isDeleted: false,
 } as DataFunctionaryObject;
 
@@ -91,7 +91,7 @@ export const dataPatientObject = {
     rol: "Paciente",
     urlPhoto: "",
     timestamp: new Date(),
-    isActive: false,
+    isActive: true,
     isDeleted: false,
 } as DataPatientObject;
 
@@ -117,7 +117,7 @@ export const dataProfessionalObject = {
     rol: "Profesional",
     urlPhoto: "",
     timestamp: new Date(),
-    isActive: false,
+    isActive: true,
     isDeleted: false,
 } as DataProfessionalObject;
 

@@ -74,15 +74,15 @@ const dot = (color = "transparent") => ({
 });
 
 const ShowPasswordButton = ({
-    showPassword,
-    setShowPassword,
+    show,
+    setShow,
 }: showPasswordParams) => (
     <Button
         variant="outline-primary"
         className="btn btn-icon btn-wave"
-        onClick={() => setShowPassword(!showPassword)}
+        onClick={() => setShow(!show)}
     >
-        {showPassword ? (
+        {show ? (
             <i className="fe fe-eye-off"></i>
         ) : (
             <i className="fe fe-eye"></i>
@@ -423,7 +423,7 @@ const MainFormModal = ({
                                             </span>
                                         </Form.Label>
                                         <Form.Control
-                                            required
+                                            // required
                                             value={data.birthDate}
                                             type="date"
                                             name="birthDate"
@@ -517,13 +517,6 @@ const MainFormModal = ({
                                             </Form.Label>
                                             <PhoneInput
                                                 autoFormat={false}
-                                                inputProps={{
-                                                    name: "phone2",
-                                                    required: true,
-                                                    pattern:
-                                                        "^(\\+?\\d{1,4})?\\s?\\d{10,15}$",
-                                                    title: "Por favor, ingrese un número de teléfono válido",
-                                                }}
                                                 country={"co"}
                                                 specialLabel=""
                                                 placeholder=""
@@ -791,7 +784,7 @@ const MainFormModal = ({
                                                             minLength={8}
                                                             maxLength={16}
                                                             name="password"
-                                                            className=""
+                                                            className="form-control"
                                                             placeholder="Contraseña"
                                                             aria-label="password"
                                                             onChange={
@@ -801,12 +794,10 @@ const MainFormModal = ({
                                                             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                                         />
                                                         <ShowPasswordButton
-                                                            setShowPassword={
+                                                            setShow={
                                                                 setShowPassword
                                                             }
-                                                            showPassword={
-                                                                showPassword
-                                                            }
+                                                            show={showPassword}
                                                         />
                                                     </InputGroup>
                                                 </Col>
@@ -835,7 +826,7 @@ const MainFormModal = ({
                                                             minLength={8}
                                                             maxLength={16}
                                                             name="confirmPassword"
-                                                            className=""
+                                                            className="form-control"
                                                             placeholder="Confirmar"
                                                             aria-label="passwordConfirm"
                                                             onChange={
@@ -845,10 +836,8 @@ const MainFormModal = ({
                                                             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                                         />
                                                         <ShowPasswordButton
-                                                            showPassword={
-                                                                showPassword
-                                                            }
-                                                            setShowPassword={
+                                                            show={showPassword}
+                                                            setShow={
                                                                 setShowPassword
                                                             }
                                                         />

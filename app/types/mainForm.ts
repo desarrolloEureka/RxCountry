@@ -171,6 +171,6 @@ export type DataDiagnosticianObject = {
 };
 
 export interface showPasswordParams {
-    showPassword: boolean;
-    setShowPassword: (e: boolean) => void;
+    show: boolean;
+    setShow: (e: boolean) => void;
 }

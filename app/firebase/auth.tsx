@@ -12,6 +12,8 @@ const useAuth = () => {
     const [user, setUser] = useState<User | null>();
     const [role, setRole] = useState<Role | null>();
     const [error, setError] = useState<string>();
+    const [accessTokenUser, setAccessTokenUser] = useState<string>("");
+
     //   const getRole = useCallback(async () => {
     //     if (user) {
     //       const document = await getDoc(doc(db, 'usersData', user.uid));
@@ -51,13 +53,16 @@ const useAuth = () => {
         console.log("user", user);
         if (user !== undefined) {
             setIsLoading(false);
+            user?.getIdToken().then((token) => setAccessTokenUser(token));
+            // console.log(accessTokenUser);
         }
-    }, [user]);
+    }, [user, accessTokenUser]);
 
     return {
         isLoading,
         user,
         error,
+        accessTokenUser,
     };
 };
 export default useAuth;

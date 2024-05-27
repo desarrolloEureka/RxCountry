@@ -35,6 +35,8 @@ import Swal from "sweetalert2";
 import _ from "lodash";
 import { getAllAreasQuery } from "@/queries/AreasQueries";
 import { AreasSelector } from "@/types/areas";
+import useAuth from "@/firebase/auth";
+import { addUser } from "@/firebase/user";
 
 const MainFormHook = ({
     handleShowMainForm,
@@ -45,6 +47,8 @@ const MainFormHook = ({
     title,
     reference,
 }: ModalParamsMainForm) => {
+    const { accessTokenUser } = useAuth();
+
     const [show, setShow] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
@@ -220,9 +224,8 @@ const MainFormHook = ({
         if (reference === "functionary") {
             const currentDataObject = { ...dataFunctionaryObject };
 
-            editData
-                ? (currentDataObject.uid = data.uid)
-                : (currentDataObject.uid = documentRef.id);
+            editData && (currentDataObject.uid = data.uid);
+            // : (currentDataObject.uid = documentRef.id);
             currentDataObject.idType = data.idType;
             currentDataObject.id = data.id;
             currentDataObject.name = data.name;
@@ -234,8 +237,8 @@ const MainFormHook = ({
             currentDataObject.country = data.country;
             currentDataObject.state = data.state;
             currentDataObject.city = data.city;
-            currentDataObject.password = data.password;
-            currentDataObject.confirmPassword = data.confirmPassword;
+            // currentDataObject.password = data.password;
+            // currentDataObject.confirmPassword = data.confirmPassword;
             currentDataObject.campus = data.campus;
             currentDataObject.area = data.area;
             currentDataObject.isActive = data.isActive;
@@ -280,8 +283,8 @@ const MainFormHook = ({
             currentDataObject.state = data.state;
             currentDataObject.city = data.city;
             currentDataObject.email = data.email;
-            currentDataObject.password = data.password;
-            currentDataObject.confirmPassword = data.confirmPassword;
+            // currentDataObject.password = data.password;
+            // currentDataObject.confirmPassword = data.confirmPassword;
             currentDataObject.isActive = data.isActive;
 
             for (const record of files) {
@@ -322,8 +325,8 @@ const MainFormHook = ({
             currentDataObject.state = data.state;
             currentDataObject.city = data.city;
             currentDataObject.email = data.email;
-            currentDataObject.password = data.password;
-            currentDataObject.confirmPassword = data.confirmPassword;
+            // currentDataObject.password = data.password;
+            // currentDataObject.confirmPassword = data.confirmPassword;
             currentDataObject.specialty = data.specialty;
             currentDataObject.contract = data.contract;
             currentDataObject.isActive = data.isActive;
@@ -349,26 +352,6 @@ const MainFormHook = ({
 
             newData = { ...currentDataObject };
         }
-
-        // !editData &&
-        //     !handleShowMainFormEdit &&
-        //     (await registerFirebase(data.email, data.password)
-        //         .then((result: any) => {
-        //             const newUser = result.user;
-        //             if (newUser !== null) {
-        //                 const newDocumentRef: any = getDocumentRefById(
-        //                     reference,
-        //                     newUser.uid,
-        //                 );
-
-        //                 currentDataObject.uid = newDocumentRef.id;
-        //                 documentRef = newDocumentRef;
-
-        //             }
-        //         })
-        //         .catch((err) => {
-        //             console.log(err);
-        //         }));
 
         if (reference === "campus") {
             const currentDataObject = { ...dataCampusObject };
@@ -527,6 +510,20 @@ const MainFormHook = ({
                       }
                   })
                   .then(confirmAlert)
+            : reference === "professionals" ||
+              reference === "patients" ||
+              reference === "functionary"
+            ? await addUser({
+                  email: data.email,
+                  password: data.password,
+                  accessTokenUser,
+                  uid: documentRef.id,
+              }).then(async () => {
+                  await saveDataDocumentsQuery({
+                      documentRef,
+                      data: newData,
+                  }).then(confirmAlert);
+              })
             : await saveDataDocumentsQuery({
                   documentRef,
                   data: newData,
@@ -563,7 +560,7 @@ const MainFormHook = ({
         data.campus &&
         data.area;
 
-    const campusVal = data.name;
+    const campusVal = reference === "areas" && data.name;
 
     const diagnosticianVal =
         data.idType &&
@@ -577,7 +574,7 @@ const MainFormHook = ({
 
     const areasVal = data.name && data.availableCampus;
 
-    const specialtyVal = data.name;
+    const specialtyVal = reference === "specialties" && data.name;
 
     const professionalsVal =
         data.idType &&
@@ -587,15 +584,14 @@ const MainFormHook = ({
         data.phone &&
         data.email &&
         data.password &&
-        data.confirmPassword &&
-        data.isActive;
+        data.confirmPassword;
 
     const patientVal =
         data.idType &&
         data.id &&
         data.name &&
         data.lastName &&
-        data.birthDate &&
+        // data.birthDate &&
         data.age &&
         data.phone &&
         data.email &&
@@ -618,7 +614,7 @@ const MainFormHook = ({
         ) {
             e.preventDefault();
             e.stopPropagation();
-            // console.log("Entró");
+            console.log("Entró");
             setIsLoading(true);
             const dataUpload = await uploadHandle();
             setErrorDataUpload(dataUpload);
@@ -629,6 +625,7 @@ const MainFormHook = ({
             e.preventDefault();
             e.stopPropagation();
             // setErrorForm(true);
+            console.log(passValidation);
             !passValidation && setErrorPass(true);
             console.log("Falló");
         }
