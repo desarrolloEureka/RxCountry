@@ -11,11 +11,13 @@ export interface UploadDataModalProps {
     noHeader?: boolean;
     tableTitle: string;
     reference: string;
+    isEmptyDataRef: boolean;
 }
 export interface UploadDataButtonModalProps {
     onUploadDataModalPdf?: () => void;
     onUploadDataModalCsv?: () => void;
     onMainFormModal?: () => void;
+    campusIsEmpty?: boolean;
 }
 export interface TableDataItemOld {
     id: string;
@@ -94,6 +96,11 @@ export interface CSVRow {
 
 export interface ExportProps {
     onExport: (value: string) => void;
+}
+
+export interface NoDataCardProps {
+    emptyRef: boolean;
+    reference: string;
 }
 
 export interface setDataTable {

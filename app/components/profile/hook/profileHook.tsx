@@ -4,6 +4,7 @@ import { getProfileDataByIdFb, saveUserById } from "@/firebase/user";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Swal from "sweetalert2";
 import _ from "lodash";
+import { useRouter } from "next/navigation";
 
 type Props = {
     // sendData: (e: any) => void;
@@ -11,6 +12,8 @@ type Props = {
 
 const ProfileHook = (props?: Props) => {
     const { user } = useAuth();
+
+    const router = useRouter();
 
     const [key, setKey] = useState<any>("first");
     const [data, setData] = useState<any>(ProfileData);
@@ -79,6 +82,7 @@ const ProfileHook = (props?: Props) => {
         data,
         isDisabled,
         key,
+        router,
         setKey,
         changeHandler,
         handleUpdateProfile,

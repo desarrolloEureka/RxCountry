@@ -7,6 +7,7 @@ import {
     DataSpecialtyObject,
     DataDiagnosticianObject,
     DataAgreementsObject,
+    DataAreasObject,
 } from "@/types/mainForm";
 
 export const dataMainFormObject = {
@@ -37,7 +38,9 @@ export const dataMainFormObject = {
     contract: "",
     rol: "",
     campus: "",
+    availableCampus: [],
     area: "",
+    availableAreas: [],
     urlPhoto: "",
     timestamp: new Date(),
     isActive: false,
@@ -128,6 +131,7 @@ export const dataCampusObject = {
     country: "",
     state: "",
     city: "",
+    availableAreas: [],
     timestamp: new Date(),
     isActive: false,
     isDeleted: false,
@@ -150,6 +154,15 @@ export const dataAgreementsObject = {
     isActive: false,
     isDeleted: false,
 } as DataAgreementsObject;
+
+export const dataAreasObject = {
+    uid: "",
+    name: "",
+    description: "",
+    availableCampus: [],
+    isActive: false,
+    isDeleted: false,
+} as DataAreasObject;
 
 export const dataDiagnosticianObject = {
     uid: "",

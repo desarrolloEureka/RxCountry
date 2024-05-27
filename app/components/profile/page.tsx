@@ -18,6 +18,7 @@ const Profile = () => {
         data,
         isDisabled,
         key,
+        router,
         setKey,
         changeHandler,
         handleUpdateProfile,
@@ -90,127 +91,138 @@ const Profile = () => {
                                     <Tab.Pane eventKey="first">
                                         <div className="main-content-body tab-pane p-sm-4 p-0 border-top-0">
                                             <div className="card-body border">
-                                                <div className="mb-4 tw-font-bold tw-text-xl text-capitalize tw-text-[#E9A225]">
-                                                    Información Personal
+                                                <div className="border p-3">
+                                                    <div className="mb-4 tw-font-bold tw-text-xl text-capitalize tw-text-[#E9A225]">
+                                                        Información Personal
+                                                    </div>
+                                                    <div className="mb-4 tw-text-xl text-capitalize">
+                                                        Nombre
+                                                    </div>
+                                                    <Row className="tw-mb-4 row-sm">
+                                                        <Col md={3}>
+                                                            <h4 className="fs-15 tw-py-[0.14rem] mb-3">
+                                                                Nombre de
+                                                                Usuario
+                                                            </h4>
+                                                        </Col>
+                                                        <Col md={9}>
+                                                            <p className="fs-15">
+                                                                {
+                                                                    data?.displayName
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="tw-mb-4 row-sm">
+                                                        <Col md={3}>
+                                                            <h4 className="fs-15 text-capitalize mb-3">
+                                                                Nombre/s
+                                                            </h4>
+                                                        </Col>
+                                                        <Col md={9}>
+                                                            <p className="fs-15">
+                                                                {data?.name}
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="tw-mb-4 row-sm">
+                                                        <Col md={3}>
+                                                            <h4 className="fs-15 text-capitalize mb-3">
+                                                                Apellido/s
+                                                            </h4>
+                                                        </Col>
+                                                        <Col md={9}>
+                                                            <p className="fs-15">
+                                                                {data?.lastName}
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="tw-mb-4 row-sm">
+                                                        <Col md={3}>
+                                                            <h4 className="fs-15 text-capitalize mb-3">
+                                                                Rol
+                                                            </h4>
+                                                        </Col>
+                                                        <Col md={9}>
+                                                            <p className="fs-15">
+                                                                {data?.rol}
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="tw-mb-4 row-sm">
+                                                        <Col md={3}>
+                                                            <h4 className="fs-15 text-capitalize mb-3">
+                                                                Cargo
+                                                            </h4>
+                                                        </Col>
+                                                        <Col md={9}>
+                                                            <p className="fs-15">
+                                                                {data?.position}
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
                                                 </div>
-                                                <div className="mb-4 tw-text-xl text-capitalize">
-                                                    Nombre
+                                                <div className="border p-3 mt-2">
+                                                    <div className="mb-4 tw-font-bold tw-text-xl tw-text-[#E9A225]">
+                                                        Información de Contacto
+                                                    </div>
+                                                    <Row className="tw-mb-4 row-sm">
+                                                        <Col md={3}>
+                                                            <h4 className="fs-15 text-capitalize mb-3">
+                                                                Email
+                                                                <i>
+                                                                    (requerido)
+                                                                </i>
+                                                            </h4>
+                                                        </Col>
+                                                        <Col md={9}>
+                                                            <p className="fs-15">
+                                                                {data?.email}
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="tw-mb-4 row-sm">
+                                                        <Col md={3}>
+                                                            <h4 className="fs-15 text-capitalize mb-3">
+                                                                Teléfono
+                                                            </h4>
+                                                        </Col>
+                                                        <Col md={9}>
+                                                            <p className="fs-15">
+                                                                {data?.phone}
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="tw-mb-4 row-sm">
+                                                        <Col md={3}>
+                                                            <h4 className="fs-15 text-capitalize mb-3">
+                                                                Dirección
+                                                            </h4>
+                                                        </Col>
+                                                        <Col md={9}>
+                                                            <p className="fs-15">
+                                                                {data?.address}
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
                                                 </div>
-                                                <Row className=" row-sm">
-                                                    <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize mb-3">
-                                                            Nombre de Usuario
-                                                        </h4>
-                                                    </Col>
-                                                    <Col md={9}>
-                                                        <p className="m-b-5">
-                                                            {data?.displayName}
-                                                        </p>
-                                                    </Col>
-                                                </Row>
-                                                <Row className=" row-sm">
-                                                    <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize mb-3">
-                                                            Nombre/s
-                                                        </h4>
-                                                    </Col>
-                                                    <Col md={9}>
-                                                        <p className="m-b-5">
-                                                            {data?.name}
-                                                        </p>
-                                                    </Col>
-                                                </Row>
-                                                <Row className="row-sm">
-                                                    <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize mb-3">
-                                                            Apellido/s
-                                                        </h4>
-                                                    </Col>
-                                                    <Col md={9}>
-                                                        <p className="m-b-5 ">
-                                                            {data?.lastName}
-                                                        </p>
-                                                    </Col>
-                                                </Row>
-                                                <Row className=" row-sm">
-                                                    <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize mb-3">
-                                                            Rol
-                                                        </h4>
-                                                    </Col>
-                                                    <Col md={9}>
-                                                        <p className="m-b-5">
-                                                            {data?.rol}
-                                                        </p>
-                                                    </Col>
-                                                </Row>
-                                                <Row className="row-sm">
-                                                    <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize mb-3">
-                                                            Cargo
-                                                        </h4>
-                                                    </Col>
-                                                    <Col md={9}>
-                                                        <p className="m-b-5">
-                                                            {data?.position}
-                                                        </p>
-                                                    </Col>
-                                                </Row>
-                                                <div className="mb-4 tw-font-bold tw-text-xl text-capitalize tw-text-[#E9A225]">
-                                                    Información de Contacto
+                                                <div className="border p-3 mt-2">
+                                                    <div className="mb-4 tw-font-bold tw-text-xl text-capitalize tw-text-[#E9A225]">
+                                                        Algo Sobre Ti
+                                                    </div>
+                                                    <Row className=" row-sm">
+                                                        <Col md={3}>
+                                                            <h4 className="fs-15 text-capitalize mb-3">
+                                                                Biografía
+                                                            </h4>
+                                                        </Col>
+                                                        <Col md={9}>
+                                                            <p className="fs-15 tw-text-justify">
+                                                                {data?.aboutMe}
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
                                                 </div>
-                                                <Row className=" row-sm">
-                                                    <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize mb-3">
-                                                            Email
-                                                            <i>(requerido)</i>
-                                                        </h4>
-                                                    </Col>
-                                                    <Col md={9}>
-                                                        <p className="m-b-5">
-                                                            {data?.email}
-                                                        </p>
-                                                    </Col>
-                                                </Row>
-                                                <Row className=" row-sm">
-                                                    <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize mb-3">
-                                                            Teléfono
-                                                        </h4>
-                                                    </Col>
-                                                    <Col md={9}>
-                                                        <p className="m-b-5 ">
-                                                            {data?.phone}
-                                                        </p>
-                                                    </Col>
-                                                </Row>
-                                                <Row className=" row-sm">
-                                                    <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize mb-3">
-                                                            Dirección
-                                                        </h4>
-                                                    </Col>
-                                                    <Col md={9}>
-                                                        <p className="m-b-5 ">
-                                                            {data?.address}
-                                                        </p>
-                                                    </Col>
-                                                </Row>
-                                                <div className="mb-4 tw-font-bold tw-text-xl text-capitalize tw-text-[#E9A225]">
-                                                    Algo Sobre Ti
-                                                </div>
-                                                <Row className=" row-sm">
-                                                    <Col md={3}>
-                                                        <h4 className="fs-15 text-capitalize mb-3">
-                                                            Biografía
-                                                        </h4>
-                                                    </Col>
-                                                    <Col md={9}>
-                                                        <p className="m-b-5 tw-text-justify">
-                                                            {data?.aboutMe}
-                                                        </p>
-                                                    </Col>
-                                                </Row>
                                                 <div className="tw-flex tw-justify-end tw-items-center">
                                                     <Button
                                                         onClick={() =>
@@ -229,236 +241,254 @@ const Profile = () => {
                                     <Tab.Pane eventKey="editProfile">
                                         <div className="main-content-body tab-pane p-sm-4 p-0 border-top-0">
                                             <div className="card-body border">
-                                                <div className="mb-4 tw-font-bold tw-text-xl tw-text-[#E9A225]">
-                                                    Información Personal
-                                                </div>
                                                 <Form className="form-horizontal">
-                                                    <div className="mb-4 tw-text-xl">
-                                                        Nombre
+                                                    <div className="border p-3">
+                                                        <div className="mb-4 tw-font-bold tw-text-xl tw-text-[#E9A225]">
+                                                            Información Personal
+                                                        </div>
+                                                        <div className="mb-4 tw-text-xl">
+                                                            Nombre
+                                                        </div>
+                                                        <FormGroup className="form-group">
+                                                            <Row className=" row-sm">
+                                                                <Col md={3}>
+                                                                    <Form.Label className="fs-15 mb-3">
+                                                                        Nombre
+                                                                        de
+                                                                        Usuario
+                                                                    </Form.Label>
+                                                                </Col>
+                                                                <Col md={9}>
+                                                                    <Form.Control
+                                                                        value={
+                                                                            data?.displayName
+                                                                        }
+                                                                        type="text"
+                                                                        name="displayName"
+                                                                        placeholder="User Name"
+                                                                        // defaultValue="Mack Adamia"
+                                                                        onChange={
+                                                                            changeHandler
+                                                                        }
+                                                                    />
+                                                                </Col>
+                                                            </Row>
+                                                        </FormGroup>
+                                                        <FormGroup className="form-group">
+                                                            <Row className=" row-sm">
+                                                                <Col md={3}>
+                                                                    <Form.Label className="fs-15 text-capitalize mb-3">
+                                                                        Nombre/s
+                                                                    </Form.Label>
+                                                                </Col>
+                                                                <Col md={9}>
+                                                                    <Form.Control
+                                                                        value={
+                                                                            data?.name
+                                                                        }
+                                                                        type="text"
+                                                                        name="name"
+                                                                        placeholder="First Name"
+                                                                        // defaultValue="Mack Adamia"
+                                                                        onChange={
+                                                                            changeHandler
+                                                                        }
+                                                                    />
+                                                                </Col>
+                                                            </Row>
+                                                        </FormGroup>
+                                                        <FormGroup className="form-group">
+                                                            <Row className="row-sm">
+                                                                <Col md={3}>
+                                                                    <Form.Label className="fs-15 text-capitalize mb-3">
+                                                                        Apellido/s
+                                                                    </Form.Label>
+                                                                </Col>
+                                                                <Col md={9}>
+                                                                    <Form.Control
+                                                                        value={
+                                                                            data?.lastName
+                                                                        }
+                                                                        type="text"
+                                                                        name="lastName"
+                                                                        placeholder="Last Name"
+                                                                        // defaultValue="Mack Adamia"
+                                                                        onChange={
+                                                                            changeHandler
+                                                                        }
+                                                                    />
+                                                                </Col>
+                                                            </Row>
+                                                        </FormGroup>
+                                                        <FormGroup className="form-group">
+                                                            <Row className="row-sm">
+                                                                <Col md={3}>
+                                                                    <Form.Label className="fs-15 text-capitalize mb-3">
+                                                                        Rol
+                                                                    </Form.Label>
+                                                                </Col>
+                                                                <Col md={9}>
+                                                                    <Form.Control
+                                                                        value={
+                                                                            data?.rol
+                                                                        }
+                                                                        type="text"
+                                                                        name="rol"
+                                                                        placeholder="Rol"
+                                                                        // defaultValue="Admin"
+                                                                        onChange={
+                                                                            changeHandler
+                                                                        }
+                                                                    />
+                                                                </Col>
+                                                            </Row>
+                                                        </FormGroup>
+                                                        <FormGroup className="form-group">
+                                                            <Row className=" row-sm">
+                                                                <Col md={3}>
+                                                                    <Form.Label className="fs-15 text-capitalize mb-3">
+                                                                        Cargo
+                                                                    </Form.Label>
+                                                                </Col>
+                                                                <Col md={9}>
+                                                                    <Form.Control
+                                                                        value={
+                                                                            data?.position
+                                                                        }
+                                                                        type="text"
+                                                                        name="position"
+                                                                        placeholder="Designation"
+                                                                        // defaultValue="Web Designer"
+                                                                        onChange={
+                                                                            changeHandler
+                                                                        }
+                                                                    />
+                                                                </Col>
+                                                            </Row>
+                                                        </FormGroup>
                                                     </div>
-                                                    <FormGroup className="form-group">
-                                                        <Row className=" row-sm">
-                                                            <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize mb-3">
-                                                                    Nombre de
-                                                                    Usuario
-                                                                </Form.Label>
-                                                            </Col>
-                                                            <Col md={9}>
-                                                                <Form.Control
-                                                                    value={
-                                                                        data?.displayName
-                                                                    }
-                                                                    type="text"
-                                                                    name="displayName"
-                                                                    placeholder="User Name"
-                                                                    // defaultValue="Mack Adamia"
-                                                                    onChange={
-                                                                        changeHandler
-                                                                    }
-                                                                />
-                                                            </Col>
-                                                        </Row>
-                                                    </FormGroup>
-                                                    <FormGroup className="form-group">
-                                                        <Row className=" row-sm">
-                                                            <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize mb-3">
-                                                                    Nombre/s
-                                                                </Form.Label>
-                                                            </Col>
-                                                            <Col md={9}>
-                                                                <Form.Control
-                                                                    value={
-                                                                        data?.name
-                                                                    }
-                                                                    type="text"
-                                                                    name="name"
-                                                                    placeholder="First Name"
-                                                                    // defaultValue="Mack Adamia"
-                                                                    onChange={
-                                                                        changeHandler
-                                                                    }
-                                                                />
-                                                            </Col>
-                                                        </Row>
-                                                    </FormGroup>
-                                                    <FormGroup className="form-group">
-                                                        <Row className="row-sm">
-                                                            <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize mb-3">
-                                                                    Apellido/s
-                                                                </Form.Label>
-                                                            </Col>
-                                                            <Col md={9}>
-                                                                <Form.Control
-                                                                    value={
-                                                                        data?.lastName
-                                                                    }
-                                                                    type="text"
-                                                                    name="lastName"
-                                                                    placeholder="Last Name"
-                                                                    // defaultValue="Mack Adamia"
-                                                                    onChange={
-                                                                        changeHandler
-                                                                    }
-                                                                />
-                                                            </Col>
-                                                        </Row>
-                                                    </FormGroup>
-                                                    <FormGroup className="form-group">
-                                                        <Row className="row-sm">
-                                                            <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize mb-3">
-                                                                    Rol
-                                                                </Form.Label>
-                                                            </Col>
-                                                            <Col md={9}>
-                                                                <Form.Control
-                                                                    value={
-                                                                        data?.rol
-                                                                    }
-                                                                    type="text"
-                                                                    name="rol"
-                                                                    placeholder="Rol"
-                                                                    // defaultValue="Admin"
-                                                                    onChange={
-                                                                        changeHandler
-                                                                    }
-                                                                />
-                                                            </Col>
-                                                        </Row>
-                                                    </FormGroup>
-                                                    <FormGroup className="form-group">
-                                                        <Row className=" row-sm">
-                                                            <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize mb-3">
-                                                                    Cargo
-                                                                </Form.Label>
-                                                            </Col>
-                                                            <Col md={9}>
-                                                                <Form.Control
-                                                                    value={
-                                                                        data?.position
-                                                                    }
-                                                                    type="text"
-                                                                    name="position"
-                                                                    placeholder="Designation"
-                                                                    // defaultValue="Web Designer"
-                                                                    onChange={
-                                                                        changeHandler
-                                                                    }
-                                                                />
-                                                            </Col>
-                                                        </Row>
-                                                    </FormGroup>
-                                                    <div className="mb-4 tw-font-bold tw-text-xl tw-text-[#E9A225]">
-                                                        Información de Contacto
+                                                    <div className="border p-3 mt-2">
+                                                        <div className="mb-4 tw-font-bold tw-text-xl tw-text-[#E9A225]">
+                                                            Información de
+                                                            Contacto
+                                                        </div>
+                                                        <FormGroup className="form-group">
+                                                            <Row className=" row-sm">
+                                                                <Col md={3}>
+                                                                    <Form.Label className="fs-15 text-capitalize mb-3">
+                                                                        Email
+                                                                        <i>
+                                                                            (requerido)
+                                                                        </i>
+                                                                    </Form.Label>
+                                                                </Col>
+                                                                <Col md={9}>
+                                                                    <Form.Control
+                                                                        disabled
+                                                                        value={
+                                                                            data?.email
+                                                                        }
+                                                                        type="text"
+                                                                        name="email"
+                                                                        placeholder="email"
+                                                                        // defaultValue="info@Spruha.in"
+                                                                        onChange={
+                                                                            changeHandler
+                                                                        }
+                                                                    />
+                                                                </Col>
+                                                            </Row>
+                                                        </FormGroup>
+                                                        <FormGroup className="form-group">
+                                                            <Row className=" row-sm">
+                                                                <Col md={3}>
+                                                                    <Form.Label className="fs-15 text-capitalize mb-3">
+                                                                        Teléfono
+                                                                    </Form.Label>
+                                                                </Col>
+                                                                <Col md={9}>
+                                                                    <Form.Control
+                                                                        value={
+                                                                            data?.phone
+                                                                        }
+                                                                        type="text"
+                                                                        name="phone"
+                                                                        placeholder="phone number"
+                                                                        // defaultValue="+245 354 654"
+                                                                        onChange={
+                                                                            changeHandler
+                                                                        }
+                                                                    />
+                                                                </Col>
+                                                            </Row>
+                                                        </FormGroup>
+                                                        <FormGroup className="form-group">
+                                                            <Row className=" row-sm">
+                                                                <Col md={3}>
+                                                                    <Form.Label className="fs-15 text-capitalize mb-3">
+                                                                        Dirección
+                                                                    </Form.Label>
+                                                                </Col>
+                                                                <Col md={9}>
+                                                                    <Form.Control
+                                                                        aria-label="Comments"
+                                                                        value={
+                                                                            data?.address
+                                                                        }
+                                                                        as="textarea"
+                                                                        name="address"
+                                                                        rows={2}
+                                                                        placeholder="Address"
+                                                                        // defaultValue="San Francisco, CA"
+                                                                        onChange={
+                                                                            changeHandler
+                                                                        }
+                                                                    ></Form.Control>
+                                                                </Col>
+                                                            </Row>
+                                                        </FormGroup>
                                                     </div>
-                                                    <FormGroup className="form-group">
-                                                        <Row className=" row-sm">
-                                                            <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize mb-3">
-                                                                    Email
-                                                                    <i>
-                                                                        (requerido)
-                                                                    </i>
-                                                                </Form.Label>
-                                                            </Col>
-                                                            <Col md={9}>
-                                                                <Form.Control
-                                                                    disabled
-                                                                    value={
-                                                                        data?.email
-                                                                    }
-                                                                    type="text"
-                                                                    name="email"
-                                                                    placeholder="email"
-                                                                    // defaultValue="info@Spruha.in"
-                                                                    onChange={
-                                                                        changeHandler
-                                                                    }
-                                                                />
-                                                            </Col>
-                                                        </Row>
-                                                    </FormGroup>
-                                                    <FormGroup className="form-group">
-                                                        <Row className=" row-sm">
-                                                            <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize mb-3">
-                                                                    Teléfono
-                                                                </Form.Label>
-                                                            </Col>
-                                                            <Col md={9}>
-                                                                <Form.Control
-                                                                    value={
-                                                                        data?.phone
-                                                                    }
-                                                                    type="text"
-                                                                    name="phone"
-                                                                    placeholder="phone number"
-                                                                    // defaultValue="+245 354 654"
-                                                                    onChange={
-                                                                        changeHandler
-                                                                    }
-                                                                />
-                                                            </Col>
-                                                        </Row>
-                                                    </FormGroup>
-                                                    <FormGroup className="form-group">
-                                                        <Row className=" row-sm">
-                                                            <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize mb-3">
-                                                                    Dirección
-                                                                </Form.Label>
-                                                            </Col>
-                                                            <Col md={9}>
-                                                                <Form.Control
-                                                                    aria-label="Comments"
-                                                                    value={
-                                                                        data?.address
-                                                                    }
-                                                                    as="textarea"
-                                                                    name="address"
-                                                                    rows={2}
-                                                                    placeholder="Address"
-                                                                    // defaultValue="San Francisco, CA"
-                                                                    onChange={
-                                                                        changeHandler
-                                                                    }
-                                                                ></Form.Control>
-                                                            </Col>
-                                                        </Row>
-                                                    </FormGroup>
-                                                    <div className="mb-4 tw-font-bold tw-text-xl tw-text-[#E9A225]">
-                                                        Algo Sobre Ti
+                                                    <div className="border p-3 mt-2">
+                                                        <div className="mb-4 tw-font-bold tw-text-xl tw-text-[#E9A225]">
+                                                            Algo Sobre Ti
+                                                        </div>
+                                                        <FormGroup className="form-group">
+                                                            <Row className=" row-sm">
+                                                                <Col md={3}>
+                                                                    <Form.Label className="fs-15 text-capitalize mb-3">
+                                                                        Biografía
+                                                                    </Form.Label>
+                                                                </Col>
+                                                                <Col md={9}>
+                                                                    <Form.Control
+                                                                        value={
+                                                                            data?.aboutMe
+                                                                        }
+                                                                        name="aboutMe"
+                                                                        rows={4}
+                                                                        as="textarea"
+                                                                        // aria-label="pleasure rationally encounter but because pursue consequences that are extremely painful.occur in which toil and pain can procure him some great pleasure.."
+                                                                        placeholder="About you"
+                                                                        // defaultValue="John Doe es un administrador experimentado en laboratorios de radiografías orales, con más de una década de experiencia. Es reconocido por su habilidad para garantizar la precisión y seguridad en todas las operaciones del laboratorio, así como por su enfoque proactivo en la actualización de equipos y tecnologías. Su dedicación a la excelencia en la salud bucal lo convierte en un líder valorado en su campo."
+                                                                        onChange={
+                                                                            changeHandler
+                                                                        }
+                                                                    ></Form.Control>
+                                                                </Col>
+                                                            </Row>
+                                                        </FormGroup>
                                                     </div>
-                                                    <FormGroup className="form-group">
-                                                        <Row className=" row-sm">
-                                                            <Col md={3}>
-                                                                <Form.Label className="fs-15 text-capitalize mb-3">
-                                                                    Biography
-                                                                </Form.Label>
-                                                            </Col>
-                                                            <Col md={9}>
-                                                                <Form.Control
-                                                                    value={
-                                                                        data?.aboutMe
-                                                                    }
-                                                                    name="aboutMe"
-                                                                    rows={4}
-                                                                    as="textarea"
-                                                                    // aria-label="pleasure rationally encounter but because pursue consequences that are extremely painful.occur in which toil and pain can procure him some great pleasure.."
-                                                                    placeholder="About you"
-                                                                    // defaultValue="John Doe es un administrador experimentado en laboratorios de radiografías orales, con más de una década de experiencia. Es reconocido por su habilidad para garantizar la precisión y seguridad en todas las operaciones del laboratorio, así como por su enfoque proactivo en la actualización de equipos y tecnologías. Su dedicación a la excelencia en la salud bucal lo convierte en un líder valorado en su campo."
-                                                                    onChange={
-                                                                        changeHandler
-                                                                    }
-                                                                ></Form.Control>
-                                                            </Col>
-                                                        </Row>
-                                                    </FormGroup>
                                                     <div className="tw-flex tw-justify-end tw-items-center">
+                                                        <Button
+                                                            onClick={() =>
+                                                                router.replace(
+                                                                    "/",
+                                                                )
+                                                            }
+                                                            className="btn ripple btn-main-primary btn-block mt-2 tw-mx-5"
+                                                        >
+                                                            Cancelar
+                                                        </Button>
                                                         <Button
                                                             // disabled={
                                                             //     isDisabled
@@ -466,7 +496,7 @@ const Profile = () => {
                                                             onClick={
                                                                 handleUpdateProfile
                                                             }
-                                                            className="btn ripple btn-main-primary btn-block mt-2"
+                                                            className="btn ripple btn-main-primary btn-block mt-2 tw-mx-5"
                                                         >
                                                             Guardar
                                                         </Button>
