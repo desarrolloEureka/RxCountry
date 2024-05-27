@@ -82,11 +82,11 @@ const SingIn = () => {
                                                 className=" d-lg-none header-brand-img text-start float-start mb-4 auth-light-logo"
                                                 alt="logo"
                                             />
-                                            <img
+                                            {/* <img
                                                 src={logo_light.src}
                                                 className=" d-lg-none header-brand-img text-start float-start mb-4 auth-dark-logo"
                                                 alt="logo"
-                                            />
+                                            /> */}
                                             <div className="clearfix"></div>
                                             {error != "" && (
                                                 <Alert variant="danger">

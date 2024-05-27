@@ -1,21 +1,30 @@
 import { ProfileData } from "@/data/user";
 import useAuth from "@/firebase/auth";
-import { getProfileDataByIdFb, saveUserById } from "@/firebase/user";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import Swal from "sweetalert2";
+import {
+    getProfileDataByIdFb,
+    saveUserById,
+    updateUserPassword,
+} from "@/firebase/user";
 import _ from "lodash";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 type Props = {
     // sendData: (e: any) => void;
 };
 
 const ProfileHook = (props?: Props) => {
-    const { user } = useAuth();
+    const { user, accessTokenUser } = useAuth();
+
+    const router = useRouter();
 
     const [key, setKey] = useState<any>("first");
     const [data, setData] = useState<any>(ProfileData);
-    const [editData, setEditData] = useState<any>();
+    // const [editData, setEditData] = useState<any>();
     const [isDisabled, setIsDisabled] = useState(true);
+    const [showPassword, setShowPassword] = useState(false);
+    const [errorPass, setErrorPass] = useState(false);
 
     const changeHandler = (e: any) => {
         setData({ ...data, [e.target.name]: e.target.value });
@@ -44,23 +53,48 @@ const ProfileHook = (props?: Props) => {
         });
     };
 
-    const handleUpdateProfile = async () => {
-        await saveUserById({
-            ...data,
-            uid: user?.uid,
-            emailVerified: user?.emailVerified,
-        })
-            .then(ConfirmAlert)
-            .catch(ErrorAlert);
+    const passValidation = data.confirmPassword === data.password;
+
+    const handleUpdateProfile = async (e: any) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const { password, confirmPassword, ...rest } = data;
+
+        if (password && confirmPassword) {
+            passValidation
+                ? await updateUserPassword({
+                      uid: data.uid,
+                      password,
+                      accessTokenUser,
+                  }).then(async () => {
+                      await saveUserById({
+                          ...rest,
+                          uid: user?.uid,
+                          emailVerified: user?.emailVerified,
+                      })
+                          .then(ConfirmAlert)
+                          .catch(ErrorAlert);
+                  })
+                : setErrorPass(true);
+        } else {
+            await saveUserById({
+                ...rest,
+                uid: user?.uid,
+                emailVerified: user?.emailVerified,
+            })
+                .then(ConfirmAlert)
+                .catch(ErrorAlert);
+        }
     };
 
     const getUserProfileData = useCallback(async () => {
-        if (user) {
-            const userData: any = await getProfileDataByIdFb(user?.uid);
-            setData(userData);
-            setEditData(userData);
-            // console.log({ ...userData });
-        }
+        user &&
+            (await getProfileDataByIdFb(user?.uid).then((res) => {
+                setData(!_.isEmpty(res) ? res : ProfileData);
+            }));
+        // setEditData(userData);
+        // console.log({ ...userData });
     }, [user]);
 
     useEffect(() => {
@@ -79,9 +113,14 @@ const ProfileHook = (props?: Props) => {
         data,
         isDisabled,
         key,
+        router,
         setKey,
         changeHandler,
         handleUpdateProfile,
+        showPassword,
+        setShowPassword,
+        errorPass,
+        setErrorPass,
     };
 };
 

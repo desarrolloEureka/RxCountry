@@ -52,7 +52,7 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                 </Nav.Link>
                             </Nav.Item>
                             <NavDropdown
-                                title="Gestión de Usuarios"
+                                title="Usuarios"
                                 id="nav-dropdown"
                                 className="nav-item dropdown"
                             >
@@ -75,83 +75,61 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                     Profesionales
                                 </NavDropdown.Item>
                             </NavDropdown>
-                            <Nav.Item>
-                                <Nav.Link href="#campus" eventKey="fifth">
+                            <NavDropdown
+                                title="Locaciones"
+                                id="nav-dropdown"
+                                className="nav-item dropdown"
+                            >
+                                <NavDropdown.Item
+                                    href="#campus"
+                                    eventKey="fifth"
+                                >
                                     Sedes
-                                </Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link href="#specialties" eventKey="sixth">
-                                    Especialidades
-                                </Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
+                                </NavDropdown.Item>
+                                <NavDropdown.Item
+                                    href="#areas"
+                                    eventKey="ninth"
+                                >
+                                    Áreas
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                            {/* <Nav.Item>
                                 <Nav.Link
+                                    href="#campus"
+                                    eventKey="fifth"
+                                ></Nav.Link>
+                            </Nav.Item> */}
+                            <NavDropdown
+                                title="General"
+                                id="nav-dropdown"
+                                className="nav-item dropdown"
+                            >
+                                <NavDropdown.Item
+                                    href="#specialties"
+                                    eventKey="sixth"
+                                >
+                                    Especialidades
+                                </NavDropdown.Item>
+                                <NavDropdown.Item
                                     href="#diagnostician"
                                     eventKey="seventh"
                                 >
                                     Diagnosticadores
-                                </Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link href="#agreements" eventKey="eighth">
+                                </NavDropdown.Item>
+                                <NavDropdown.Item
+                                    href="#agreements"
+                                    eventKey="eighth"
+                                >
                                     Convenios
-                                </Nav.Link>
-                            </Nav.Item>
-
-                            <Dropdown>
-                                <Dropdown.Toggle
-                                    id="mainHeaderProfile"
-                                    aria-expanded="false"
-                                    className="nav-link show"
-                                    variant=""
-                                    role="button"
-                                >
-                                    <i className="fe fe-user header-link-icon"></i>
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu
-                                    className="main-header-dropdown dropdown-menu pt-0 overflow-hidden dropdown-menu-end"
-                                    aria-labelledby="mainHeaderProfile"
-                                >
-                                    <div className="header-navheading border-bottom">
-                                        <div className="tw-pb-5">
-                                            <img
-                                                src={`https://ui-avatars.com/api/?name=${data?.displayName}?size=150?bold=true`}
-                                                alt="img"
-                                                width="32"
-                                                height="32"
-                                                className="rounded-circle"
-                                            />
-                                        </div>
-                                        <h6 className="main-notification-title">
-                                            {data?.displayName
-                                                ? data?.displayName
-                                                : "John Doe"}
-                                        </h6>
-                                        <p className="main-notification-text mb-0">
-                                            {data?.rol
-                                                ? data?.rol
-                                                : "Super Admin"}
-                                        </p>
-                                    </div>
-                                    <Dropdown.Item
-                                        href="#profile"
-                                        eventKey="profile"
-                                    >
-                                        <i className="fe fe-user fs-16 align-middle me-2"></i>
-                                        Perfil
-                                    </Dropdown.Item>
-                                    <li>
-                                        <hr className="dropdown-divider" />
-                                    </li>
-                                    <Dropdown.Item onClick={logOut}>
-                                        <i className="fe fe-power fs-16 align-middle me-2"></i>
-                                        Cerrar sesión
-                                    </Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
+                                </NavDropdown.Item>
+                            </NavDropdown>
                         </Nav>
-                        <HeadDropDown notifications dark />
+                        <HeadDropDown
+                            notifications
+                            dark
+                            data={data}
+                            logOut={logOut}
+                        />
                     </div>
                 </div>
             </Container>

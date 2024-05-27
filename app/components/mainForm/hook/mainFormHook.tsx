@@ -1,6 +1,7 @@
 "use client";
 import {
     dataAgreementsObject,
+    dataAreasObject,
     dataCampusObject,
     dataDiagnosticianObject,
     dataFunctionaryObject,
@@ -9,13 +10,14 @@ import {
     dataProfessionalObject,
     dataSpecialtyObject,
 } from "@/data/mainFormData";
-import { getDocumentRefById } from "@/firebase/Documents";
-import { registerFirebase } from "@/firebase/user";
+// import { getDocumentRefById } from "@/firebase/Documents";
+// import { registerFirebase } from "@/firebase/user";
 import { getAllAgreementsQuery } from "@/queries/AgreementsQueries";
 import { getAllCampusQuery } from "@/queries/campusQueries";
 import {
     getDocumentReference,
     getUrlFile,
+    saveAreasOnCampusQuery,
     saveDataDocumentsQuery,
     saveEditDataDocumentsQuery,
     saveFilesDocuments,
@@ -30,6 +32,11 @@ import { SpecialtySelector } from "@/types/specialty";
 import moment from "moment";
 import { SetStateAction, useCallback, useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import _ from "lodash";
+import { getAllAreasQuery } from "@/queries/AreasQueries";
+import { AreasSelector } from "@/types/areas";
+import useAuth from "@/firebase/auth";
+import { addUser } from "@/firebase/user";
 
 const MainFormHook = ({
     handleShowMainForm,
@@ -40,6 +47,8 @@ const MainFormHook = ({
     title,
     reference,
 }: ModalParamsMainForm) => {
+    const { accessTokenUser } = useAuth();
+
     const [show, setShow] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
@@ -54,6 +63,7 @@ const MainFormHook = ({
     const [campus, setCampus] = useState<CampusSelector[]>();
     const [specialties, setSpecialties] = useState<SpecialtySelector[]>();
     const [contracts, setContract] = useState<AgreementSelector[]>();
+    const [areas, setAreas] = useState<AreasSelector[]>();
 
     const [selectedIdType, setSelectedIdType] = useState<any>(null);
     const [selectedState, setSelectedState] = useState<any>(null);
@@ -65,6 +75,8 @@ const MainFormHook = ({
     const [selectedStatus, setSelectedStatus] = useState<any>(null);
     const [selectedRol, setSelectedRol] = useState<any>(null);
     const [selectedCampus, setSelectedCampus] = useState<any>(null);
+    const [selectedAvailableCampus, setSelectedAvailableCampus] =
+        useState<any>(null);
     const [selectedArea, setSelectedArea] = useState<any>(null);
 
     const theme = localStorage.getItem("@theme");
@@ -118,6 +130,17 @@ const MainFormHook = ({
 
     const findValue = (item: any, dataValue: any) => item.value === dataValue;
 
+    const areasByCampus = (idCampus: string) => {
+        const filteredIdAreas = campus?.find(
+            (item) => item.value === idCampus,
+        )?.areas;
+
+        const result = areas?.filter((area) =>
+            filteredIdAreas?.includes(area.value),
+        );
+        return result;
+    };
+
     const changeHandler = (e: any) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
@@ -163,6 +186,14 @@ const MainFormHook = ({
         setData({ ...data, ["campus"]: e?.value });
         setSelectedCampus(e);
     };
+
+    const selectChangeHandlerAvailableCampus = (e: any) => {
+        setData({
+            ...data,
+            ["availableCampus"]: e?.map((item: any) => item.value),
+        });
+        setSelectedAvailableCampus(e);
+    };
     const selectChangeHandlerArea = (e: any) => {
         setData({ ...data, ["area"]: e?.value });
         setSelectedArea(e);
@@ -178,6 +209,12 @@ const MainFormHook = ({
     const handleMultipleChange = (event: { target: any }) => {
         event.target.files && setFiles([...event.target.files]);
     };
+    const phoneChangeHandler = (e: any) => {
+        setData({ ...data, ["phone"]: e });
+    };
+    const phoneTwoChangeHandler = (e: any) => {
+        setData({ ...data, ["phone2"]: e });
+    };
 
     const uploadHandle = async () => {
         let newData = {};
@@ -187,9 +224,8 @@ const MainFormHook = ({
         if (reference === "functionary") {
             const currentDataObject = { ...dataFunctionaryObject };
 
-            editData
-                ? (currentDataObject.uid = data.uid)
-                : (currentDataObject.uid = documentRef.id);
+            editData && (currentDataObject.uid = data.uid);
+            // : (currentDataObject.uid = documentRef.id);
             currentDataObject.idType = data.idType;
             currentDataObject.id = data.id;
             currentDataObject.name = data.name;
@@ -201,8 +237,8 @@ const MainFormHook = ({
             currentDataObject.country = data.country;
             currentDataObject.state = data.state;
             currentDataObject.city = data.city;
-            currentDataObject.password = data.password;
-            currentDataObject.confirmPassword = data.confirmPassword;
+            // currentDataObject.password = data.password;
+            // currentDataObject.confirmPassword = data.confirmPassword;
             currentDataObject.campus = data.campus;
             currentDataObject.area = data.area;
             currentDataObject.isActive = data.isActive;
@@ -247,8 +283,8 @@ const MainFormHook = ({
             currentDataObject.state = data.state;
             currentDataObject.city = data.city;
             currentDataObject.email = data.email;
-            currentDataObject.password = data.password;
-            currentDataObject.confirmPassword = data.confirmPassword;
+            // currentDataObject.password = data.password;
+            // currentDataObject.confirmPassword = data.confirmPassword;
             currentDataObject.isActive = data.isActive;
 
             for (const record of files) {
@@ -289,8 +325,8 @@ const MainFormHook = ({
             currentDataObject.state = data.state;
             currentDataObject.city = data.city;
             currentDataObject.email = data.email;
-            currentDataObject.password = data.password;
-            currentDataObject.confirmPassword = data.confirmPassword;
+            // currentDataObject.password = data.password;
+            // currentDataObject.confirmPassword = data.confirmPassword;
             currentDataObject.specialty = data.specialty;
             currentDataObject.contract = data.contract;
             currentDataObject.isActive = data.isActive;
@@ -317,26 +353,6 @@ const MainFormHook = ({
             newData = { ...currentDataObject };
         }
 
-        // !editData &&
-        //     !handleShowMainFormEdit &&
-        //     (await registerFirebase(data.email, data.password)
-        //         .then((result: any) => {
-        //             const newUser = result.user;
-        //             if (newUser !== null) {
-        //                 const newDocumentRef: any = getDocumentRefById(
-        //                     reference,
-        //                     newUser.uid,
-        //                 );
-
-        //                 currentDataObject.uid = newDocumentRef.id;
-        //                 documentRef = newDocumentRef;
-
-        //             }
-        //         })
-        //         .catch((err) => {
-        //             console.log(err);
-        //         }));
-
         if (reference === "campus") {
             const currentDataObject = { ...dataCampusObject };
 
@@ -350,6 +366,7 @@ const MainFormHook = ({
             currentDataObject.country = data.country;
             currentDataObject.state = data.state;
             currentDataObject.city = data.city;
+            currentDataObject.availableAreas = data.availableAreas;
             currentDataObject.isActive = data.isActive;
 
             newData = { ...currentDataObject };
@@ -405,6 +422,20 @@ const MainFormHook = ({
             newData = { ...currentDataObject };
         }
 
+        if (reference === "areas") {
+            const currentDataObject = { ...dataAreasObject };
+
+            editData
+                ? (currentDataObject.uid = data.uid)
+                : (currentDataObject.uid = documentRef.id);
+            currentDataObject.name = data.name;
+            currentDataObject.description = data.description;
+            currentDataObject.availableCampus = data.availableCampus;
+            currentDataObject.isActive = data.isActive;
+
+            newData = { ...currentDataObject };
+        }
+
         // console.log("newData", newData);
         // console.log("reference", reference);
 
@@ -413,11 +444,107 @@ const MainFormHook = ({
                   id: data.uid,
                   data: newData,
                   reference,
-              }).then(confirmAlert)
+              })
+                  .then(() => {
+                      if (reference === "areas") {
+                          if (
+                              editData.availableCampus.length >
+                                  data.availableCampus.length ||
+                              !_.isEqual(
+                                  editData.availableCampus,
+                                  data.availableCampus.length,
+                              )
+                          ) {
+                              const currentData = _.difference(
+                                  editData.availableCampus,
+                                  data.availableCampus,
+                              );
+                              console.log("currentData", currentData);
+
+                              currentData.forEach(async (itemData: string) => {
+                                  await saveAreasOnCampusQuery({
+                                      id: itemData,
+                                      refArea: data.uid,
+                                      data:
+                                          campus &&
+                                          campus.find(
+                                              (item) => item.value === itemData,
+                                          )?.areas,
+                                      reference: "campus",
+                                      refExist: true,
+                                  });
+                              });
+
+                              data.availableCampus.forEach(
+                                  async (itemData: string) => {
+                                      await saveAreasOnCampusQuery({
+                                          id: itemData,
+                                          refArea: data.uid,
+                                          data:
+                                              campus &&
+                                              campus.find(
+                                                  (item) =>
+                                                      item.value === itemData,
+                                              )?.areas,
+                                          reference: "campus",
+                                      });
+                                  },
+                              );
+                          } else {
+                              data.availableCampus.forEach(
+                                  async (itemData: string) => {
+                                      await saveAreasOnCampusQuery({
+                                          id: itemData,
+                                          refArea: data.uid,
+                                          data:
+                                              campus &&
+                                              campus.find(
+                                                  (item) =>
+                                                      item.value === itemData,
+                                              )?.areas,
+                                          reference: "campus",
+                                      });
+                                  },
+                              );
+                          }
+                      }
+                  })
+                  .then(confirmAlert)
+            : reference === "professionals" ||
+              reference === "patients" ||
+              reference === "functionary"
+            ? await addUser({
+                  email: data.email,
+                  password: data.password,
+                  accessTokenUser,
+                  uid: documentRef.id,
+              }).then(async () => {
+                  await saveDataDocumentsQuery({
+                      documentRef,
+                      data: newData,
+                  }).then(confirmAlert);
+              })
             : await saveDataDocumentsQuery({
                   documentRef,
                   data: newData,
-              }).then(confirmAlert);
+              })
+                  .then(() => {
+                      if (reference === "areas") {
+                          data.availableCampus.forEach(async (element) => {
+                              await saveAreasOnCampusQuery({
+                                  id: element,
+                                  refArea: documentRef.id,
+                                  data:
+                                      campus &&
+                                      campus.find(
+                                          (item) => item.value === element,
+                                      )?.areas,
+                                  reference: "campus",
+                              });
+                          });
+                      }
+                  })
+                  .then(confirmAlert);
         return [...error];
     };
 
@@ -428,23 +555,12 @@ const MainFormHook = ({
         data.lastName &&
         data.phone &&
         data.email &&
-        // data.phone2 &&
-        // data.address &&
-        // data.country &&
-        // data.state &&
-        // data.city &&
         data.password &&
         data.confirmPassword &&
-        // data.rol &&
         data.campus &&
         data.area;
-    // data.isActive;
-    // files.length > 0;
 
-    const campusVal =
-        data.name;
-        // && data.address && data.country && data.state && data.city;
-    // data.isActive;
+    const campusVal = reference === "areas" && data.name;
 
     const diagnosticianVal =
         data.idType &&
@@ -453,17 +569,12 @@ const MainFormHook = ({
         data.rut &&
         data.phone &&
         data.email;
-        // data.address &&
-        // data.country &&
-        // data.state &&
-        // data.city;
-    // data.isActive;
 
     const agreementsVal = data.name && data.personType;
-    // && data.isActive;
 
-    const specialtyVal = data.name;
-    // && data.isActive;
+    const areasVal = data.name && data.availableCampus;
+
+    const specialtyVal = reference === "specialties" && data.name;
 
     const professionalsVal =
         data.idType &&
@@ -471,48 +582,29 @@ const MainFormHook = ({
         data.name &&
         data.lastName &&
         data.phone &&
-        // data.phone2 &&
-        // data.address &&
-        // data.country &&
-        // data.state &&
-        // data.city &&
         data.email &&
         data.password &&
-        data.confirmPassword &&
-        // data.cardNumber &&
-        // data.medicalRecord &&
-        // data.specialty &&
-        // data.contract;
-        data.isActive;
-    // data.rol &&
-    // files.length > 0;
+        data.confirmPassword;
 
     const patientVal =
         data.idType &&
         data.id &&
         data.name &&
         data.lastName &&
-        data.birthDate &&
+        // data.birthDate &&
         data.age &&
         data.phone &&
-        // data.phone2 &&
-        // data.address &&
-        // data.country &&
-        // data.state &&
-        // data.city &&
         data.email &&
         data.password &&
         data.confirmPassword;
-    // data.isActive;
-    // data.rol &&
-    // files.length > 0;
 
     const passValidation = data.confirmPassword === data.password;
+    // console.log("data", data);
+    // console.log("editData", editData);
 
     const handleSendForm = async (e?: any) => {
-        console.log("data", data);
-
         if (
+            areasVal ||
             campusVal ||
             specialtyVal ||
             diagnosticianVal ||
@@ -533,6 +625,7 @@ const MainFormHook = ({
             e.preventDefault();
             e.stopPropagation();
             // setErrorForm(true);
+            console.log(passValidation);
             !passValidation && setErrorPass(true);
             console.log("Falló");
         }
@@ -599,6 +692,8 @@ const MainFormHook = ({
             specialtyResult && setSpecialties(specialtyResult);
             const AgreementResult = await getAllAgreementsQuery();
             AgreementResult && setContract(AgreementResult);
+            const AreasResult = await getAllAreasQuery();
+            AreasResult && setAreas(AreasResult);
         }
     }, [handleShowMainForm, handleShowMainFormEdit]);
 
@@ -630,6 +725,7 @@ const MainFormHook = ({
         selectedStatus,
         selectedRol,
         selectedCampus,
+        selectedAvailableCampus,
         selectedArea,
         files,
         showPassword,
@@ -638,6 +734,7 @@ const MainFormHook = ({
         campus,
         specialties,
         contracts,
+        areas,
         theme: themeParsed?.dataThemeMode,
         setErrorPass,
         changeHandler,
@@ -654,6 +751,7 @@ const MainFormHook = ({
         setFiles,
         // selectChangeHandlerRol,
         selectChangeHandlerCampus,
+        selectChangeHandlerAvailableCampus,
         selectChangeHandlerArea,
         selectChangeHandlerStatus,
         selectChangeHandlerContract,
@@ -661,11 +759,14 @@ const MainFormHook = ({
         selectChangeHandlerCity,
         selectChangeHandlerCountry,
         selectChangeHandlerState,
+        phoneChangeHandler,
+        phoneTwoChangeHandler,
         findValue,
         handleEditForm,
         handleMultipleChange,
         urlFile,
         selectChangeHandlerPersonType,
+        areasByCampus,
     };
 };
 

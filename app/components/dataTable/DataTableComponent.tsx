@@ -30,6 +30,7 @@ const DataTableComponent = ({
         handleShowMainForm,
         handleShowMainFormEdit,
         editData,
+        isEmptyDataRef,
     } = DataTablesHook(reference);
 
     return (
@@ -58,6 +59,7 @@ const DataTableComponent = ({
                                     columns={columns}
                                     tableTitle={tableTitle}
                                     reference={reference}
+                                    isEmptyDataRef={isEmptyDataRef}
                                 />
                             </div>
                         </Card.Body>

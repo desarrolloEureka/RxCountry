@@ -1,8 +1,11 @@
 "use client";
-import { exportTableData, basicTableData } from "@/data/tables";
+import { allRef } from "@/firebase/campus";
+import { getAllCampusQuery } from "@/queries/campusQueries";
 import { getAllDocumentsQuery } from "@/queries/documentsQueries";
-import { DataObject } from "@/types/documents";
+import { DataMainFormObject } from "@/types/mainForm";
 import { setDataTable } from "@/types/tables";
+import { onSnapshot } from "firebase/firestore";
+import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
 
 const CustomTitle = ({ row }: any) => (
@@ -21,29 +24,19 @@ interface ColumnNamesToDisplay {
 const DataTablesHook = (reference: string) => {
     const [handleShowCsv, setHandleShowCsv] = useState(false);
     const [handleShowPdf, setHandleShowPdf] = useState(false);
+    const [isEmptyDataRef, setIsEmptyDataRef] = useState(true);
     const [handleShowMainForm, setHandleShowMainForm] = useState(false);
     const [handleShowMainFormEdit, setHandleShowMainFormEdit] = useState(false);
-    const [getDocuments, setGetDocuments] = useState<DataObject[] | any[]>();
+    const [getDocuments, setGetDocuments] = useState<
+        DataMainFormObject[] | any[]
+    >();
     const [dataTable, setDataTable] = useState<setDataTable>();
     const [columns, setColumns] = useState<any[]>();
     const [editData, setEditData] = useState<any>();
+    const [campusData, setCampusData] = useState<any>();
 
     const formatearFecha = (fechaISO: string): string => {
-        // Crear un objeto Date con la fecha
-        const fecha = new Date(fechaISO);
-
-        // Obtener los componentes de la fecha
-        const dia: number = fecha.getDate();
-        const mes: number = fecha.getMonth() + 1; // Los meses van de 0 a 11, por lo que se suma 1
-        const año: number = fecha.getFullYear();
-        const hora: number = fecha.getHours();
-        const minutos: number = fecha.getMinutes();
-        const segundos: number = fecha.getSeconds();
-
-        // Formatear la fecha según el formato deseado (por ejemplo, DD/MM/YYYY HH:mm:ss)
-        const fechaFormateada: string = `${dia}/${mes}/${año} ${hora}:${minutos}:${segundos}`;
-
-        return fechaFormateada;
+        return moment(fechaISO).format("DD/MM/YYYY HH:mm:ss");
     };
 
     const getAllDocuments = useCallback(async () => {
@@ -51,7 +44,6 @@ const DataTablesHook = (reference: string) => {
 
         if (documents.length > 0) {
             const cols: any[] = [];
-
             const entries = Object.keys(documents[0]);
 
             const columnNamesToDisplay: ColumnNamesToDisplay = {
@@ -78,6 +70,7 @@ const DataTablesHook = (reference: string) => {
                 contract: "Convenio",
                 // rol: "Rol",
                 campus: "Sede",
+                availableCampus: "Sedes",
                 // "area",
                 // urlPhoto: "urlPhoto",
                 isActive: "Estado",
@@ -92,6 +85,8 @@ const DataTablesHook = (reference: string) => {
                 return omittedColumns.indexOf(a) - omittedColumns.indexOf(b);
             });
 
+            const campusResult = await getAllCampusQuery();
+
             // entries.forEach((val, key) => {
             entries.forEach((val) => {
                 const columnsData = {
@@ -101,17 +96,35 @@ const DataTablesHook = (reference: string) => {
                             <CustomTitle row={row} />
                         ) : val === "timestamp" ? (
                             formatearFecha(row[val])
+                        ) : val === "campus" ? (
+                            [
+                                campusResult.find(
+                                    (item) => item.value === row[val],
+                                )?.label,
+                            ]
+                        ) : val === "availableCampus" ? (
+                            [
+                                campusResult
+                                    .filter((item) =>
+                                        row[val].includes(item.value),
+                                    )
+                                    .map((campus) => campus.label)
+                                    .join(", "),
+                            ]
                         ) : (
                             [row[val]]
                         ),
                     sortable: true,
-                    // grow: val === "email" || val === "address" ? 2 : 1,
                     width:
                         val === "email" ||
                         val === "address" ||
-                        val === "timestamp"
-                            ? "240px"
-                            : val === "id" || val === "phone" || val === "phone2"
+                        val === "timestamp" ||
+                        val === "name" ||
+                        val === "lastName"
+                            ? "200px"
+                            : val === "id" ||
+                              val === "phone" ||
+                              val === "phone2"
                             ? "150px"
                             : undefined,
                     omit: !omittedColumns.includes(val),
@@ -155,23 +168,31 @@ const DataTablesHook = (reference: string) => {
         // console.log(row);
     };
 
-    // console.log("Rendering");
-
     useEffect(() => {
         getAllDocuments();
     }, [getAllDocuments]);
 
     useEffect(() => {
-        if (!handleShowMainForm || !handleShowMainFormEdit) {
+        const unSubCampus = onSnapshot(allRef({ ref: "campus" }), (doc) => {
+            setIsEmptyDataRef(doc.empty);
+        });
+        return () => {
+            unSubCampus();
+        };
+    }, []);
+
+    useEffect(() => {
+        if (!handleShowMainForm || !handleShowMainFormEdit || !isEmptyDataRef) {
             getAllDocuments();
         }
-    }, [getAllDocuments, handleShowMainForm, handleShowMainFormEdit]);
+    }, [
+        getAllDocuments,
+        handleShowMainForm,
+        handleShowMainFormEdit,
+        isEmptyDataRef,
+    ]);
 
-    // useEffect(() => {
-    //     if (!handleShowMainFormEdit) {
-    //         getAllDocuments();
-    //     }
-    // }, [getAllDocuments, handleShowMainFormEdit]);
+    // console.log(!isEmptyDataRef);
 
     return {
         columns,
@@ -190,6 +211,7 @@ const DataTablesHook = (reference: string) => {
         dataTable,
         handleShowMainFormEdit,
         editData,
+        isEmptyDataRef,
     };
 };
 

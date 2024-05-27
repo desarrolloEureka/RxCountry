@@ -1,8 +1,11 @@
 export interface CampusBd {
-  name: string;
+    name: string;
+    uid: string;
+    availableAreas?: string[];
 }
 
 export interface CampusSelector {
-  value: string;
-  label: string;
+    value: string;
+    label: string;
+    areas?: string[];
 }

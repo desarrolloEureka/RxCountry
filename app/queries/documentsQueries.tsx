@@ -4,6 +4,7 @@ import {
     getReference,
     saveDocumentsFb,
     saveOneDocumentFb,
+    updateCampusByIdFb,
     updateDocumentsByIdFb,
 } from "@/firebase/Documents";
 import { uploadFile, uploadFiles, urlFile } from "@/firebase/files";
@@ -140,14 +141,14 @@ export const getDocumentReference = (ref: string) => {
 export const saveDataDocumentsQuery = async ({
     documentRef,
     data,
-}: // reference,
-{
+    // accessTokenUser,
+}: {
     documentRef: any;
     data: any;
-    // reference: string;
+    // accessTokenUser: string;
 }) => {
     const queryResult = await saveOneDocumentFb(documentRef, data);
-    console.log("Nuevo");
+    // console.log("Nuevo");
     return queryResult;
     // return;
 };
@@ -162,7 +163,32 @@ export const saveEditDataDocumentsQuery = async ({
     reference: string;
 }) => {
     const queryResult = await updateDocumentsByIdFb(id, data, reference);
-    console.log("Editado");
+    // console.log("Editado");
+    return queryResult;
+    // return;
+};
+
+export const saveAreasOnCampusQuery = async ({
+    id,
+    refArea,
+    reference,
+    data,
+    refExist = false,
+}: {
+    id: string;
+    refArea: string;
+    reference: string;
+    data: any;
+    refExist?: boolean;
+}) => {
+    const queryResult = await updateCampusByIdFb(
+        id,
+        refArea,
+        reference,
+        data,
+        refExist,
+    );
+    console.log("Guardó área");
     return queryResult;
     // return;
 };

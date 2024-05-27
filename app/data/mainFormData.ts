@@ -7,6 +7,7 @@ import {
     DataSpecialtyObject,
     DataDiagnosticianObject,
     DataAgreementsObject,
+    DataAreasObject,
 } from "@/types/mainForm";
 
 export const dataMainFormObject = {
@@ -37,10 +38,12 @@ export const dataMainFormObject = {
     contract: "",
     rol: "",
     campus: "",
+    availableCampus: [],
     area: "",
+    availableAreas: [],
     urlPhoto: "",
     timestamp: new Date(),
-    isActive: false,
+    isActive: true,
     isDeleted: false,
 } as DataMainFormObject;
 
@@ -64,7 +67,7 @@ export const dataFunctionaryObject = {
     area: "",
     urlPhoto: "",
     timestamp: new Date(),
-    isActive: false,
+    isActive: true,
     isDeleted: false,
 } as DataFunctionaryObject;
 
@@ -88,7 +91,7 @@ export const dataPatientObject = {
     rol: "Paciente",
     urlPhoto: "",
     timestamp: new Date(),
-    isActive: false,
+    isActive: true,
     isDeleted: false,
 } as DataPatientObject;
 
@@ -114,7 +117,7 @@ export const dataProfessionalObject = {
     rol: "Profesional",
     urlPhoto: "",
     timestamp: new Date(),
-    isActive: false,
+    isActive: true,
     isDeleted: false,
 } as DataProfessionalObject;
 
@@ -128,6 +131,7 @@ export const dataCampusObject = {
     country: "",
     state: "",
     city: "",
+    availableAreas: [],
     timestamp: new Date(),
     isActive: false,
     isDeleted: false,
@@ -150,6 +154,15 @@ export const dataAgreementsObject = {
     isActive: false,
     isDeleted: false,
 } as DataAgreementsObject;
+
+export const dataAreasObject = {
+    uid: "",
+    name: "",
+    description: "",
+    availableCampus: [],
+    isActive: false,
+    isDeleted: false,
+} as DataAreasObject;
 
 export const dataDiagnosticianObject = {
     uid: "",
