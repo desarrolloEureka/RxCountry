@@ -224,8 +224,9 @@ const MainFormHook = ({
         if (reference === "functionary") {
             const currentDataObject = { ...dataFunctionaryObject };
 
-            editData && (currentDataObject.uid = data.uid);
-            // : (currentDataObject.uid = documentRef.id);
+            editData
+                ? (currentDataObject.uid = data.uid)
+                : (currentDataObject.uid = documentRef.id);
             currentDataObject.idType = data.idType;
             currentDataObject.id = data.id;
             currentDataObject.name = data.name;
