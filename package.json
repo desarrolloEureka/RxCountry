@@ -12,6 +12,7 @@
   "dependencies": {
     "add": "^2.0.6",
     "apexcharts": "^3.47.0",
+    "axios": "^1.7.2",
     "chart": "^0.1.2",
     "filepond": "^4.30.6",
     "firebase": "^10.8.1",
@@ -27,6 +28,7 @@
     "react-filepond": "^7.1.2",
     "react-hook-form": "^7.50.1",
     "react-papaparse": "^4.4.0",
+    "react-phone-input-2": "^2.15.1",
     "react-range": "^1.8.14",
     "react-select": "^5.8.0",
     "react-slick": "^0.30.2",

@@ -1,17 +1,34 @@
 "use client";
+import { showPasswordParams } from "@/types/mainForm";
 import {
     Button,
     Card,
     Col,
     Form,
     FormGroup,
+    InputGroup,
     Nav,
     Row,
     Tab,
 } from "react-bootstrap";
+import Alert from "react-bootstrap/Alert";
 import Seo from "shared/layout-components/seo/seo";
 import PageHeader from "../page-header";
 import ProfileHook from "./hook/profileHook";
+
+const ShowPasswordButton = ({ show, setShow }: showPasswordParams) => (
+    <Button
+        variant="outline-primary"
+        className="btn btn-icon btn-wave tw-h-[38.5px]"
+        onClick={() => setShow(!show)}
+    >
+        {show ? (
+            <i className="fe fe-eye-off"></i>
+        ) : (
+            <i className="fe fe-eye"></i>
+        )}
+    </Button>
+);
 
 const Profile = () => {
     const {
@@ -22,6 +39,10 @@ const Profile = () => {
         setKey,
         changeHandler,
         handleUpdateProfile,
+        showPassword,
+        setShowPassword,
+        errorPass,
+        setErrorPass,
     } = ProfileHook();
 
     return (
@@ -70,12 +91,23 @@ const Profile = () => {
                                             <Nav.Item>
                                                 <Nav.Link
                                                     className={`hover:tw-text-[#E9A225] focus:tw-text-[#E9A225] active:tw-text-[#E9A225] ${
-                                                        key !== "first" &&
+                                                        key === "editProfile" &&
                                                         "tw-text-[#E9A225]"
                                                     }`}
                                                     eventKey="editProfile"
                                                 >
                                                     Editar perfil
+                                                </Nav.Link>
+                                            </Nav.Item>
+                                            <Nav.Item>
+                                                <Nav.Link
+                                                    className={`hover:tw-text-[#E9A225] focus:tw-text-[#E9A225] active:tw-text-[#E9A225] ${
+                                                        key === "settings" &&
+                                                        "tw-text-[#E9A225]"
+                                                    }`}
+                                                    eventKey="settings"
+                                                >
+                                                    Configuración
                                                 </Nav.Link>
                                             </Nav.Item>
                                         </Nav>
@@ -261,6 +293,7 @@ const Profile = () => {
                                                                 <Col md={9}>
                                                                     <Form.Control
                                                                         value={
+                                                                            data &&
                                                                             data?.displayName
                                                                         }
                                                                         type="text"
@@ -284,6 +317,7 @@ const Profile = () => {
                                                                 <Col md={9}>
                                                                     <Form.Control
                                                                         value={
+                                                                            data &&
                                                                             data?.name
                                                                         }
                                                                         type="text"
@@ -307,6 +341,7 @@ const Profile = () => {
                                                                 <Col md={9}>
                                                                     <Form.Control
                                                                         value={
+                                                                            data &&
                                                                             data?.lastName
                                                                         }
                                                                         type="text"
@@ -330,6 +365,7 @@ const Profile = () => {
                                                                 <Col md={9}>
                                                                     <Form.Control
                                                                         value={
+                                                                            data &&
                                                                             data?.rol
                                                                         }
                                                                         type="text"
@@ -353,6 +389,7 @@ const Profile = () => {
                                                                 <Col md={9}>
                                                                     <Form.Control
                                                                         value={
+                                                                            data &&
                                                                             data?.position
                                                                         }
                                                                         type="text"
@@ -386,6 +423,7 @@ const Profile = () => {
                                                                     <Form.Control
                                                                         disabled
                                                                         value={
+                                                                            data &&
                                                                             data?.email
                                                                         }
                                                                         type="text"
@@ -409,6 +447,7 @@ const Profile = () => {
                                                                 <Col md={9}>
                                                                     <Form.Control
                                                                         value={
+                                                                            data &&
                                                                             data?.phone
                                                                         }
                                                                         type="text"
@@ -433,6 +472,7 @@ const Profile = () => {
                                                                     <Form.Control
                                                                         aria-label="Comments"
                                                                         value={
+                                                                            data &&
                                                                             data?.address
                                                                         }
                                                                         as="textarea"
@@ -443,7 +483,7 @@ const Profile = () => {
                                                                         onChange={
                                                                             changeHandler
                                                                         }
-                                                                    ></Form.Control>
+                                                                    />
                                                                 </Col>
                                                             </Row>
                                                         </FormGroup>
@@ -462,6 +502,7 @@ const Profile = () => {
                                                                 <Col md={9}>
                                                                     <Form.Control
                                                                         value={
+                                                                            data &&
                                                                             data?.aboutMe
                                                                         }
                                                                         name="aboutMe"
@@ -473,7 +514,7 @@ const Profile = () => {
                                                                         onChange={
                                                                             changeHandler
                                                                         }
-                                                                    ></Form.Control>
+                                                                    />
                                                                 </Col>
                                                             </Row>
                                                         </FormGroup>
@@ -496,6 +537,226 @@ const Profile = () => {
                                                             onClick={
                                                                 handleUpdateProfile
                                                             }
+                                                            className="btn ripple btn-main-primary btn-block mt-2 tw-mx-5"
+                                                        >
+                                                            Guardar
+                                                        </Button>
+                                                    </div>
+                                                </Form>
+                                            </div>
+                                        </div>
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="settings">
+                                        <div className="main-content-body tab-pane p-sm-4 p-0 border-top-0">
+                                            <div className="card-body border">
+                                                <Form
+                                                    className="form-horizontal"
+                                                    onSubmit={
+                                                        handleUpdateProfile
+                                                    }
+                                                >
+                                                    <div className="border p-3 mt-2">
+                                                        <div className="mb-4 tw-font-bold tw-text-xl tw-text-[#E9A225]">
+                                                            Cambio Contraseña
+                                                        </div>
+                                                        {/* <FormGroup className="form-group tw-mb-10">
+                                                            <Row className=" row-sm">
+                                                                <Col md={3}>
+                                                                    <Form.Label className="fs-15 text-capitalize mb-3">
+                                                                        Contraseña
+                                                                        anterior
+                                                                        <span className="tw-text-red-500">
+                                                                            *
+                                                                        </span>
+                                                                    </Form.Label>
+                                                                </Col>
+                                                                <Col md={9}>
+                                                                    <InputGroup className="">
+                                                                        <Form.Control
+                                                                            required
+                                                                            type={
+                                                                                showPassword
+                                                                                    ? "text"
+                                                                                    : "password"
+                                                                            }
+                                                                            minLength={
+                                                                                8
+                                                                            }
+                                                                            maxLength={
+                                                                                16
+                                                                            }
+                                                                            name="password"
+                                                                            className=""
+                                                                            placeholder="Anterior"
+                                                                            aria-label="password"
+                                                                            onChange={
+                                                                                changeHandler
+                                                                            }
+                                                                            title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres"
+                                                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                                                        />
+                                                                        <ShowPasswordButton
+                                                                            setShow={
+                                                                                setShowPassword
+                                                                            }
+                                                                            show={
+                                                                                showPassword
+                                                                            }
+                                                                        />
+                                                                    </InputGroup>
+                                                                </Col>
+                                                            </Row>
+                                                        </FormGroup> */}
+                                                        <FormGroup className="form-group">
+                                                            <Row className=" row-sm">
+                                                                <Col md={3}>
+                                                                    <Form.Label className="fs-15 text-capitalize mb-3">
+                                                                        Nueva
+                                                                        Contraseña
+                                                                        <span className="tw-text-red-500">
+                                                                            *
+                                                                        </span>
+                                                                    </Form.Label>
+                                                                </Col>
+                                                                <Col md={9}>
+                                                                    <InputGroup>
+                                                                        <Form.Control
+                                                                            required
+                                                                            type={
+                                                                                showPassword
+                                                                                    ? "text"
+                                                                                    : "password"
+                                                                            }
+                                                                            minLength={
+                                                                                8
+                                                                            }
+                                                                            maxLength={
+                                                                                16
+                                                                            }
+                                                                            name="password"
+                                                                            className="form-control"
+                                                                            placeholder="Nueva"
+                                                                            aria-label="password"
+                                                                            onChange={
+                                                                                changeHandler
+                                                                            }
+                                                                            title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres"
+                                                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                                                        />
+                                                                        <ShowPasswordButton
+                                                                            setShow={
+                                                                                setShowPassword
+                                                                            }
+                                                                            show={
+                                                                                showPassword
+                                                                            }
+                                                                        />
+                                                                    </InputGroup>
+                                                                </Col>
+                                                            </Row>
+                                                        </FormGroup>
+                                                        <FormGroup className="form-group">
+                                                            <Row className=" row-sm">
+                                                                <Col md={3}>
+                                                                    <Form.Label className="fs-15 text-capitalize mb-3">
+                                                                        Confirmar
+                                                                        Contraseña
+                                                                        <span className="tw-text-red-500">
+                                                                            *
+                                                                        </span>
+                                                                    </Form.Label>
+                                                                </Col>
+                                                                <Col md={9}>
+                                                                    <InputGroup>
+                                                                        <Form.Control
+                                                                            required
+                                                                            type={
+                                                                                showPassword
+                                                                                    ? "text"
+                                                                                    : "password"
+                                                                            }
+                                                                            minLength={
+                                                                                8
+                                                                            }
+                                                                            maxLength={
+                                                                                16
+                                                                            }
+                                                                            name="confirmPassword"
+                                                                            className="form-control"
+                                                                            placeholder="Confirmar"
+                                                                            aria-label="confirmPassword"
+                                                                            onChange={
+                                                                                changeHandler
+                                                                            }
+                                                                            title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres"
+                                                                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                                                        />
+                                                                        <ShowPasswordButton
+                                                                            setShow={
+                                                                                setShowPassword
+                                                                            }
+                                                                            show={
+                                                                                showPassword
+                                                                            }
+                                                                        />
+                                                                    </InputGroup>
+                                                                </Col>
+                                                            </Row>
+                                                        </FormGroup>
+                                                        {errorPass && (
+                                                            <Row className=" row-sm">
+                                                                <Col md={12}>
+                                                                    <Alert
+                                                                        variant="info"
+                                                                        className="alert alert-info alert-dismissible fade show"
+                                                                        role="alert"
+                                                                    >
+                                                                        <strong>
+                                                                            Contraseñas
+                                                                            no
+                                                                            coinciden!.
+                                                                        </strong>
+                                                                        Vuelva a
+                                                                        intentar!
+                                                                        <Button
+                                                                            variant=""
+                                                                            type="button"
+                                                                            className="btn-close"
+                                                                            data-bs-dismiss="alert"
+                                                                            aria-label="Close"
+                                                                            onClick={() =>
+                                                                                setErrorPass(
+                                                                                    false,
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            <i className="bi bi-x"></i>
+                                                                        </Button>
+                                                                    </Alert>
+                                                                </Col>
+                                                            </Row>
+                                                        )}
+                                                    </div>
+
+                                                    <div className="tw-flex tw-justify-end tw-items-center">
+                                                        <Button
+                                                            onClick={() =>
+                                                                router.replace(
+                                                                    "/",
+                                                                )
+                                                            }
+                                                            className="btn ripple btn-main-primary btn-block mt-2 tw-mx-5"
+                                                        >
+                                                            Cancelar
+                                                        </Button>
+                                                        <Button
+                                                            // disabled={
+                                                            //     isDisabled
+                                                            // }
+                                                            type="submit"
+                                                            // onClick={
+                                                            //     handleUpdateProfile
+                                                            // }
                                                             className="btn ripple btn-main-primary btn-block mt-2 tw-mx-5"
                                                         >
                                                             Guardar

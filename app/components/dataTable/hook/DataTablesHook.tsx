@@ -5,8 +5,8 @@ import { getAllDocumentsQuery } from "@/queries/documentsQueries";
 import { DataMainFormObject } from "@/types/mainForm";
 import { setDataTable } from "@/types/tables";
 import { onSnapshot } from "firebase/firestore";
-import { useCallback, useEffect, useState } from "react";
 import moment from "moment";
+import { useCallback, useEffect, useState } from "react";
 
 const CustomTitle = ({ row }: any) => (
     <div data-tag="allowRowEvents">
@@ -70,6 +70,7 @@ const DataTablesHook = (reference: string) => {
                 contract: "Convenio",
                 // rol: "Rol",
                 campus: "Sede",
+                availableCampus: "Sedes",
                 // "area",
                 // urlPhoto: "urlPhoto",
                 isActive: "Estado",
@@ -100,6 +101,15 @@ const DataTablesHook = (reference: string) => {
                                 campusResult.find(
                                     (item) => item.value === row[val],
                                 )?.label,
+                            ]
+                        ) : val === "availableCampus" ? (
+                            [
+                                campusResult
+                                    .filter((item) =>
+                                        row[val].includes(item.value),
+                                    )
+                                    .map((campus) => campus.label)
+                                    .join(", "),
                             ]
                         ) : (
                             [row[val]]

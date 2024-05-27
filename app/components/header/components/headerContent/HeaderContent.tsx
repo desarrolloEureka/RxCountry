@@ -86,6 +86,12 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                 >
                                     Sedes
                                 </NavDropdown.Item>
+                                <NavDropdown.Item
+                                    href="#areas"
+                                    eventKey="ninth"
+                                >
+                                    Áreas
+                                </NavDropdown.Item>
                             </NavDropdown>
                             {/* <Nav.Item>
                                 <Nav.Link
@@ -115,12 +121,6 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                     eventKey="eighth"
                                 >
                                     Convenios
-                                </NavDropdown.Item>
-                                <NavDropdown.Item
-                                    href="#areas"
-                                    eventKey="ninth"
-                                >
-                                    Áreas
                                 </NavDropdown.Item>
                             </NavDropdown>
                         </Nav>

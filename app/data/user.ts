@@ -16,4 +16,7 @@ export const ProfileData = {
     phone: "",
     position: "",
     aboutMe: "",
+    password: "",
+    // newPassword: "",
+    confirmPassword: "",
 };

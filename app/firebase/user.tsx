@@ -3,11 +3,75 @@ import {
     createUserWithEmailAndPassword,
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
+    updatePassword,
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db, auth } from "shared/firebase/firebase";
+import { db, auth, firebaseConfig } from "shared/firebase/firebase";
+import axios from "axios";
 
 const user = auth.currentUser;
+
+const backendClient = async (accessTokenUser: string) => {
+    return axios.create({
+        baseURL: firebaseConfig.backendBaseUrl,
+        headers: {
+            Authorization: `Bearer ${accessTokenUser}`,
+        },
+    });
+};
+
+export const addUser = async ({
+    email,
+    password,
+    accessTokenUser,
+    uid,
+}: {
+    email: string;
+    password: string;
+    accessTokenUser: string;
+    uid: string;
+}) => {
+    return new Promise((resolve, reject) => {
+        backendClient(accessTokenUser).then(async (client) => {
+            const data = await client.post(`auth/createUser`, {
+                uid,
+                email,
+                password,
+            });
+            console.log(data.status);
+            if (data.status === 200) {
+                resolve(data);
+            } else {
+                reject(data);
+            }
+        });
+    });
+};
+
+export const updateUserPassword = async ({
+    uid,
+    password,
+    accessTokenUser,
+}: {
+    uid: string;
+    password: string;
+    accessTokenUser: string;
+}) => {
+    return new Promise((resolve, reject) => {
+        backendClient(accessTokenUser).then(async (client) => {
+            const data = await client.post(`auth/updatePassword`, {
+                uid,
+                password,
+            });
+            console.log(data.status);
+            if (data.status === 200) {
+                resolve(data);
+            } else {
+                reject(data);
+            }
+        });
+    });
+};
 
 export const saveUserById = async (data: any) => {
     const docRef = await setDoc(doc(db, "users", data.uid), data);
@@ -27,6 +91,16 @@ export const getProfileDataByIdFb = async (uid: any) => {
     }
     return userData;
 };
+
+// export const updatePass = async (user: any, newPassword: string) => {
+//     await updatePassword(user, newPassword)
+//         .then(() => {
+//             console.log("Actualizado");
+//         })
+//         .catch((error) => {
+//             console.log(error);
+//         });
+// };
 
 export const registerFirebase = async (user: string, password: string) =>
     await createUserWithEmailAndPassword(auth, user, password);

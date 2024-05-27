@@ -141,11 +141,11 @@ export const getDocumentReference = (ref: string) => {
 export const saveDataDocumentsQuery = async ({
     documentRef,
     data,
-}: // reference,
-{
+    // accessTokenUser,
+}: {
     documentRef: any;
     data: any;
-    // reference: string;
+    // accessTokenUser: string;
 }) => {
     const queryResult = await saveOneDocumentFb(documentRef, data);
     // console.log("Nuevo");
