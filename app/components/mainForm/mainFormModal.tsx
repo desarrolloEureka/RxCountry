@@ -30,7 +30,7 @@ import { components } from "react-select";
 import { showPasswordParams } from "@/types/mainForm";
 import makeAnimated from "react-select/animated";
 import PhoneInput from "react-phone-input-2";
-// import "react-phone-input-2/lib/style.css";
+import moment from "moment";
 
 const animatedComponents = makeAnimated();
 
@@ -73,10 +73,7 @@ const dot = (color = "transparent") => ({
     },
 });
 
-const ShowPasswordButton = ({
-    show,
-    setShow,
-}: showPasswordParams) => (
+const ShowPasswordButton = ({ show, setShow }: showPasswordParams) => (
     <Button
         variant="outline-primary"
         className="btn btn-icon btn-wave"
@@ -259,7 +256,11 @@ const MainFormModal = ({
                                 className="mb-3"
                             >
                                 <Form.Label className="">
-                                    Nombre/s
+                                    {reference === "functionary" ||
+                                    reference === "professionals" ||
+                                    reference === "patients"
+                                        ? "Nombre/s"
+                                        : "Nombre"}
                                     <span className="tw-text-red-500">*</span>
                                 </Form.Label>
                                 <Form.Control
@@ -418,9 +419,9 @@ const MainFormModal = ({
                                     <Col md={6} lg={4} className="mb-3">
                                         <Form.Label className="">
                                             Fecha Nacimiento
-                                            <span className="tw-text-red-500">
+                                            {/* <span className="tw-text-red-500">
                                                 *
-                                            </span>
+                                            </span> */}
                                         </Form.Label>
                                         <Form.Control
                                             // required
@@ -1079,7 +1080,9 @@ const MainFormModal = ({
                                             placeholder="Sede"
                                             isClearable
                                             name="campus"
-                                            options={campus}
+                                            options={_.sortBy(campus, [
+                                                "label",
+                                            ])}
                                             id="campus"
                                             className="basic-multi-select"
                                             classNamePrefix="Select2"
@@ -1115,10 +1118,10 @@ const MainFormModal = ({
                                         placeholder="Sedes Disponibles"
                                         name="availableCampus"
                                         id="availableCampus"
-                                        closeMenuOnSelect={false}
+                                        // closeMenuOnSelect={false}
                                         components={animatedComponents}
                                         isMulti
-                                        options={campus}
+                                        options={_.sortBy(campus, ["label"])}
                                         className="basic-multi-select"
                                         classNamePrefix="Select2"
                                         onChange={
@@ -1157,7 +1160,10 @@ const MainFormModal = ({
                                         placeholder="Área"
                                         isClearable
                                         name="area"
-                                        options={areasByCampus(data.campus)}
+                                        options={_.sortBy(
+                                            areasByCampus(data.campus),
+                                            ["label"],
+                                        )}
                                         id="area"
                                         className="basic-multi-select"
                                         classNamePrefix="Select2"
@@ -1305,7 +1311,13 @@ const MainFormModal = ({
                                     className=""
                                 >
                                     <div className="tw-flex-1 tw-text-star tw-text-base">
-                                        <h6 className="fw-bold">Nombre/s</h6>
+                                        <h6 className="fw-bold">
+                                            {reference === "functionary" ||
+                                            reference === "professionals" ||
+                                            reference === "patients"
+                                                ? "Nombre/s"
+                                                : "Nombre"}
+                                        </h6>
                                         <p className="border-bottom fw-light">
                                             {data.name}
                                         </p>
@@ -1704,7 +1716,11 @@ const MainFormModal = ({
                                                         Fecha Registro
                                                     </h6>
                                                     <p className="border-bottom fw-light">
-                                                        {`${data.timestamp}`}
+                                                        {moment(
+                                                            data.timestamp,
+                                                        ).format(
+                                                            "DD/MM/YYYY HH:mm:ss",
+                                                        )}
                                                     </p>
                                                 </div>
                                             </Col>
