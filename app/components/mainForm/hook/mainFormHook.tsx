@@ -224,7 +224,7 @@ const MainFormHook = ({
         if (reference === "functionary") {
             const currentDataObject = { ...dataFunctionaryObject };
 
-            editData
+            handleShowMainFormEdit
                 ? (currentDataObject.uid = data.uid)
                 : (currentDataObject.uid = documentRef.id);
             currentDataObject.idType = data.idType;
@@ -249,7 +249,7 @@ const MainFormHook = ({
                 await saveFilesDocuments({
                     urlName,
                     record,
-                    uid: editData ? data.uid : documentRef.id,
+                    uid: handleShowMainFormEdit ? data.uid : documentRef.id,
                     reference,
                 })
                     .then((result) => {
@@ -268,7 +268,7 @@ const MainFormHook = ({
         if (reference === "patients") {
             const currentDataObject = { ...dataPatientObject };
 
-            editData
+            handleShowMainFormEdit
                 ? (currentDataObject.uid = data.uid)
                 : (currentDataObject.uid = documentRef.id);
             currentDataObject.idType = data.idType;
@@ -293,7 +293,7 @@ const MainFormHook = ({
                 await saveFilesDocuments({
                     urlName,
                     record,
-                    uid: editData ? data.uid : documentRef.id,
+                    uid: handleShowMainFormEdit ? data.uid : documentRef.id,
                     reference,
                 })
                     .then((result) => {
@@ -312,7 +312,7 @@ const MainFormHook = ({
         if (reference === "professionals") {
             const currentDataObject = { ...dataProfessionalObject };
 
-            editData
+            handleShowMainFormEdit
                 ? (currentDataObject.uid = data.uid)
                 : (currentDataObject.uid = documentRef.id);
             currentDataObject.idType = data.idType;
@@ -338,7 +338,7 @@ const MainFormHook = ({
                 await saveFilesDocuments({
                     urlName,
                     record,
-                    uid: editData ? data.uid : documentRef.id,
+                    uid: handleShowMainFormEdit ? data.uid : documentRef.id,
                     reference,
                 })
                     .then((result) => {
@@ -357,7 +357,7 @@ const MainFormHook = ({
         if (reference === "campus") {
             const currentDataObject = { ...dataCampusObject };
 
-            editData
+            handleShowMainFormEdit
                 ? (currentDataObject.uid = data.uid)
                 : (currentDataObject.uid = documentRef.id);
             currentDataObject.name = data.name;
@@ -376,7 +376,7 @@ const MainFormHook = ({
         if (reference === "specialties") {
             const currentDataObject = { ...dataSpecialtyObject };
 
-            editData
+            handleShowMainFormEdit
                 ? (currentDataObject.uid = data.uid)
                 : (currentDataObject.uid = documentRef.id);
             currentDataObject.name = data.name;
@@ -390,7 +390,7 @@ const MainFormHook = ({
         if (reference === "diagnostician") {
             const currentDataObject = { ...dataDiagnosticianObject };
 
-            editData
+            handleShowMainFormEdit
                 ? (currentDataObject.uid = data.uid)
                 : (currentDataObject.uid = documentRef.id);
             currentDataObject.idType = data.idType;
@@ -412,7 +412,7 @@ const MainFormHook = ({
         if (reference === "agreements") {
             const currentDataObject = { ...dataAgreementsObject };
 
-            editData
+            handleShowMainFormEdit
                 ? (currentDataObject.uid = data.uid)
                 : (currentDataObject.uid = documentRef.id);
             currentDataObject.name = data.name;
@@ -426,7 +426,7 @@ const MainFormHook = ({
         if (reference === "areas") {
             const currentDataObject = { ...dataAreasObject };
 
-            editData
+            handleShowMainFormEdit
                 ? (currentDataObject.uid = data.uid)
                 : (currentDataObject.uid = documentRef.id);
             currentDataObject.name = data.name;
@@ -550,20 +550,22 @@ const MainFormHook = ({
     };
 
     const functionaryVal =
+        reference === "functionary" &&
         data.idType &&
         data.id &&
         data.name &&
         data.lastName &&
         data.phone &&
         data.email &&
-        data.password &&
-        data.confirmPassword &&
+        // data.password &&
+        // data.confirmPassword &&
         data.campus &&
         data.area;
 
-    const campusVal = reference === "areas" && data.name;
+    const campusVal = reference === "campus" && data.name;
 
     const diagnosticianVal =
+        reference === "diagnostician" &&
         data.idType &&
         data.id &&
         data.name &&
@@ -571,39 +573,49 @@ const MainFormHook = ({
         data.phone &&
         data.email;
 
-    const agreementsVal = data.name && data.personType;
+    const agreementsVal =
+        reference === "agreements" && data.name && data.personType;
 
-    const areasVal = data.name && data.availableCampus;
+    const areasVal =
+        reference === "areas" && data.name && data.availableCampus.length > 0;
 
-    const specialtyVal = reference === "specialties" && data.name;
+    const specialtyVal = reference === "specialties" && data.name.length > 1;
 
     const professionalsVal =
+        reference === "professionals" &&
         data.idType &&
         data.id &&
         data.name &&
         data.lastName &&
         data.phone &&
-        data.email &&
-        data.password &&
-        data.confirmPassword;
+        data.email;
+    // data.password &&
+    // data.confirmPassword;
 
     const patientVal =
+        reference === "patient" &&
         data.idType &&
         data.id &&
         data.name &&
         data.lastName &&
         // data.birthDate &&
-        data.age &&
+        // data.age &&
         data.phone &&
-        data.email &&
-        data.password &&
-        data.confirmPassword;
+        data.email;
+    // data.password &&
+    // data.confirmPassword;
 
-    const passValidation = data.confirmPassword === data.password;
+    const passValidation = handleShowMainFormEdit
+        ? data.confirmPassword === data.password
+        : data.confirmPassword === data.password &&
+          data.password &&
+          data.confirmPassword;
+
     // console.log("data", data);
     // console.log("editData", editData);
 
     const handleSendForm = async (e?: any) => {
+        console.log(data);
         if (
             areasVal ||
             campusVal ||
