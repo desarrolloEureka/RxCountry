@@ -37,6 +37,8 @@ import { getAllAreasQuery } from "@/queries/AreasQueries";
 import { AreasSelector } from "@/types/areas";
 import useAuth from "@/firebase/auth";
 import { addUser } from "@/firebase/user";
+import { getAllRolesQuery } from "@/queries/RolesQueries";
+import { RolesSelector } from "@/types/roles";
 
 const MainFormHook = ({
     handleShowMainForm,
@@ -64,6 +66,7 @@ const MainFormHook = ({
     const [specialties, setSpecialties] = useState<SpecialtySelector[]>();
     const [contracts, setContract] = useState<AgreementSelector[]>();
     const [areas, setAreas] = useState<AreasSelector[]>();
+    const [roles, setRoles] = useState<RolesSelector[]>();
 
     const [selectedIdType, setSelectedIdType] = useState<any>(null);
     const [selectedState, setSelectedState] = useState<any>(null);
@@ -108,26 +111,6 @@ const MainFormHook = ({
         });
     };
 
-    const urlFile = (): string => {
-        if (editData && editData.urlPhoto) {
-            getUrlFile({
-                folder: editData.uid,
-                fileName: editData.urlPhoto,
-                reference,
-            })
-                .then((res) => {
-                    setUrlPhoto(res);
-                    // console.log(res);
-                })
-                .catch(() => {
-                    setUrlPhoto("");
-                });
-        }
-        return urlPhoto;
-    };
-
-    // console.log(editData);
-
     const findValue = (item: any, dataValue: any) => item.value === dataValue;
 
     const areasByCampus = (idCampus: string) => {
@@ -139,6 +122,28 @@ const MainFormHook = ({
             filteredIdAreas?.includes(area.value),
         );
         return result;
+    };
+
+    const getRolesByReference = () => {
+        const noFunctionaryRolesIds: string[] = [
+            "1cxJ0a8uCX7OTesEHT2G",
+            "FHSly0jguw1lwYSj8EHV",
+            "ShHQKRuKJfxHcV70XSvC",
+            "ZWb0Zs42lnKOjetXH5lq",
+        ];
+        // const referenceList: string[] = ["","",""]
+        if (reference === "functionary") {
+            const rolesFiltered = roles?.filter(
+                (rol) => !noFunctionaryRolesIds.includes(rol.value),
+            );
+            return rolesFiltered;
+        }
+        // else {
+        //     const rolesFiltered = roles?.filter(
+        //         (rol) => !noFunctionaryRolesIds.includes(rol.value),
+        //     );
+        // }
+        return roles;
     };
 
     const changeHandler = (e: any) => {
@@ -178,10 +183,10 @@ const MainFormHook = ({
         setData({ ...data, ["contract"]: e?.value });
         setSelectedContract(e);
     };
-    // const selectChangeHandlerRol = (e: any) => {
-    //     setData({ ...data, ["rol"]: e?.value });
-    //     setSelectedRol(e);
-    // };
+    const selectChangeHandlerRol = (e: any) => {
+        setData({ ...data, ["rol"]: e?.value });
+        setSelectedRol(e);
+    };
     const selectChangeHandlerCampus = (e: any) => {
         setData({ ...data, ["campus"]: e?.value });
         setSelectedCampus(e);
@@ -238,6 +243,7 @@ const MainFormHook = ({
             currentDataObject.country = data.country;
             currentDataObject.state = data.state;
             currentDataObject.city = data.city;
+            currentDataObject.rol = data.rol;
             // currentDataObject.password = data.password;
             // currentDataObject.confirmPassword = data.confirmPassword;
             currentDataObject.campus = data.campus;
@@ -253,8 +259,8 @@ const MainFormHook = ({
                     reference,
                 })
                     .then((result) => {
-                        currentDataObject.urlPhoto = urlName;
-                        error.push(...result);
+                        currentDataObject.urlPhoto = result;
+                        // error.push(...result);
                     })
                     .catch((err) => {
                         error.push({ success: false, urlName });
@@ -297,8 +303,8 @@ const MainFormHook = ({
                     reference,
                 })
                     .then((result) => {
-                        currentDataObject.urlPhoto = urlName;
-                        error.push(...result);
+                        currentDataObject.urlPhoto = result;
+                        // error.push(...result);
                     })
                     .catch((err) => {
                         error.push({ success: false, urlName });
@@ -342,8 +348,8 @@ const MainFormHook = ({
                     reference,
                 })
                     .then((result) => {
-                        currentDataObject.urlPhoto = urlName;
-                        error.push(...result);
+                        currentDataObject.urlPhoto = result;
+                        // error.push(...result);
                     })
                     .catch((err) => {
                         error.push({ success: false, urlName });
@@ -557,6 +563,7 @@ const MainFormHook = ({
         data.lastName &&
         data.phone &&
         data.email &&
+        data.rol &&
         // data.password &&
         // data.confirmPassword &&
         data.campus &&
@@ -593,7 +600,7 @@ const MainFormHook = ({
     // data.confirmPassword;
 
     const patientVal =
-        reference === "patient" &&
+        reference === "patients" &&
         data.idType &&
         data.id &&
         data.name &&
@@ -615,7 +622,7 @@ const MainFormHook = ({
     // console.log("editData", editData);
 
     const handleSendForm = async (e?: any) => {
-        console.log(data);
+        // console.log(data);
         if (
             areasVal ||
             campusVal ||
@@ -703,10 +710,12 @@ const MainFormHook = ({
             campusResult && setCampus(campusResult);
             const specialtyResult = await getAllSpecialtiesQuery();
             specialtyResult && setSpecialties(specialtyResult);
-            const AgreementResult = await getAllAgreementsQuery();
-            AgreementResult && setContract(AgreementResult);
-            const AreasResult = await getAllAreasQuery();
-            AreasResult && setAreas(AreasResult);
+            const agreementResult = await getAllAgreementsQuery();
+            agreementResult && setContract(agreementResult);
+            const areasResult = await getAllAreasQuery();
+            areasResult && setAreas(areasResult);
+            const rolesResult = await getAllRolesQuery();
+            rolesResult && setRoles(rolesResult);
         }
     }, [handleShowMainForm, handleShowMainFormEdit]);
 
@@ -748,6 +757,7 @@ const MainFormHook = ({
         specialties,
         contracts,
         areas,
+        roles: getRolesByReference(),
         theme: themeParsed?.dataThemeMode,
         setErrorPass,
         changeHandler,
@@ -762,7 +772,7 @@ const MainFormHook = ({
         selectChangeHandlerIdType,
         setShowPassword,
         setFiles,
-        // selectChangeHandlerRol,
+        selectChangeHandlerRol,
         selectChangeHandlerCampus,
         selectChangeHandlerAvailableCampus,
         selectChangeHandlerArea,
@@ -777,7 +787,6 @@ const MainFormHook = ({
         findValue,
         handleEditForm,
         handleMultipleChange,
-        urlFile,
         selectChangeHandlerPersonType,
         areasByCampus,
     };
