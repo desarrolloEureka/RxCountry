@@ -66,19 +66,20 @@ export const saveFilesDocuments = async ({
     uid,
     reference,
 }: saveFilesDocumentsProps) => {
-    let dataError: ErrorDataForm[] = [];
+    // let dataError: ErrorDataForm[] = [];
     const queryResult = await uploadFile({
         folder: uid,
         fileName: urlName,
         file: record,
         reference,
     });
-    if (queryResult) {
-        dataError.push({ success: true, urlName });
-    } else {
-        dataError.push({ success: false, urlName });
-    }
-    return dataError;
+    // if (queryResult) {
+    //     dataError.push({ success: true, urlName });
+    // } else {
+    //     dataError.push({ success: false, urlName });
+    // }
+    // return dataError;
+    return queryResult;
 };
 
 export const getAllDocumentsQuery = async (ref: string) => {

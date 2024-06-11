@@ -102,6 +102,7 @@ const MainFormModal = ({
         showPassword,
         isLoading,
         data,
+        selectedRol,
         selectedIdType,
         selectedState,
         selectedCountry,
@@ -118,6 +119,7 @@ const MainFormModal = ({
         specialties,
         contracts,
         areas,
+        roles,
         theme,
         setErrorPass,
         handleSendForm,
@@ -129,6 +131,7 @@ const MainFormModal = ({
         dateChangeHandler,
         selectChangeHandlerIdType,
         setShowPassword,
+        selectChangeHandlerRol,
         selectChangeHandlerCampus,
         selectChangeHandlerAvailableCampus,
         selectChangeHandlerArea,
@@ -143,7 +146,6 @@ const MainFormModal = ({
         findValue,
         handleEditForm,
         handleMultipleChange,
-        urlFile,
         selectChangeHandlerPersonType,
         areasByCampus,
     } = MainFormHook({
@@ -1024,33 +1026,41 @@ const MainFormModal = ({
 
                             {reference === "functionary" && (
                                 <>
-                                    {/* <Col md={6} lg={4} className="mb-3">
-                                    <Form.Label className="">Rol</Form.Label>
-                                    <Select
-                                        noOptionsMessage={({ inputValue }) =>
-                                            `No hay resultados para "${inputValue}"`
-                                        }
-                                        value={
-                                            data.rol
-                                                ? roles.find((value) =>
-                                                      findValue(
-                                                          value,
-                                                          data.rol,
-                                                      ),
-                                                  )
-                                                : []
-                                        }
-                                        defaultValue={selectedRol}
-                                        placeholder="Rol"
-                                        isClearable
-                                        name="rol"
-                                        options={roles}
-                                        id="rol"
-                                        className="basic-multi-select"
-                                        classNamePrefix="Select2"
-                                        onChange={selectChangeHandlerRol}
-                                    />
-                                </Col> */}
+                                    <Col md={6} lg={4} className="mb-3">
+                                        <Form.Label className="">
+                                            Rol
+                                            <span className="tw-text-red-500">
+                                                *
+                                            </span>
+                                        </Form.Label>
+                                        <Select
+                                            required
+                                            noOptionsMessage={({
+                                                inputValue,
+                                            }) =>
+                                                `No hay resultados para "${inputValue}"`
+                                            }
+                                            value={
+                                                data.rol
+                                                    ? roles?.find((value) =>
+                                                          findValue(
+                                                              value,
+                                                              data.rol,
+                                                          ),
+                                                      )
+                                                    : []
+                                            }
+                                            defaultValue={selectedRol}
+                                            placeholder="Rol"
+                                            isClearable
+                                            name="rol"
+                                            options={roles}
+                                            id="rol"
+                                            className="basic-multi-select"
+                                            classNamePrefix="Select2"
+                                            onChange={selectChangeHandlerRol}
+                                        />
+                                    </Col>
 
                                     <Col md={6} lg={4} className="mb-3">
                                         <Form.Label className="">
@@ -1730,14 +1740,21 @@ const MainFormModal = ({
 
                             {reference === "functionary" && (
                                 <>
-                                    {/* <Col md={6} lg={4} className="">
+                                    <Col md={6} lg={4} className="">
                                         <div className="tw-flex-1 tw-text-star tw-text-base">
                                             <h6 className="fw-bold">Rol</h6>
                                             <p className="border-bottom fw-light">
-                                                {data.rol}
+                                                {/* {data.rol} */}
+                                                {data.rol &&
+                                                    roles?.find((value) =>
+                                                        findValue(
+                                                            value,
+                                                            data.rol,
+                                                        ),
+                                                    )?.label}
                                             </p>
                                         </div>
-                                    </Col> */}
+                                    </Col>
 
                                     {data.campus && (
                                         <Col md={6} lg={4} className="">
@@ -1829,7 +1846,7 @@ const MainFormModal = ({
                                             <img
                                                 src={
                                                     data.urlPhoto
-                                                        ? urlFile()
+                                                        ? data.urlPhoto
                                                         : "http://via.placeholder.com/150x150"
                                                 }
                                                 alt="Profile Photo"
