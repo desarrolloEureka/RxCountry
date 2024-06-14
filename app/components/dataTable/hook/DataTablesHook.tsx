@@ -42,6 +42,8 @@ const DataTablesHook = (reference: string) => {
     const getAllDocuments = useCallback(async () => {
         const documents = await getAllDocumentsQuery(reference);
 
+        const labelToDisplay = ["professionals", "patients", "functionary"];
+
         if (documents.length > 0) {
             const cols: any[] = [];
             const entries = Object.keys(documents[0]);
@@ -51,8 +53,10 @@ const DataTablesHook = (reference: string) => {
                 timestamp: "Fecha Registro",
                 idType: "Tipo",
                 id: "Documento",
-                name: "Nombre",
-                lastName: "Apellido",
+                name: labelToDisplay.includes(reference) ? "Nombres" : "Nombre",
+                lastName: labelToDisplay.includes(reference)
+                    ? "Apellidos"
+                    : "Apellido",
                 email: "Correo",
                 phone: "Teléfono",
                 phone2: "Teléfono fijo",
