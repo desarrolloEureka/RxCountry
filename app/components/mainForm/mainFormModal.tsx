@@ -121,7 +121,9 @@ const MainFormModal = ({
         areas,
         roles,
         theme,
+        errorValid,
         setErrorPass,
+        setErrorValid,
         handleSendForm,
         handleClose,
         handleReset,
@@ -309,6 +311,7 @@ const MainFormModal = ({
                                         </span>
                                     </Form.Label>
                                     <Form.Control
+                                        required
                                         value={data.rut}
                                         type="text"
                                         minLength={2}
@@ -1267,6 +1270,37 @@ const MainFormModal = ({
                                     data-bs-dismiss="alert"
                                     aria-label="Close"
                                     onClick={() => setErrorPass(false)}
+                                >
+                                    <i className="bi bi-x"></i>
+                                </Button>
+                            </Alert>
+                        )}
+                        {errorValid && (
+                            <Alert
+                                variant="warning"
+                                className="alert alert-warning alert-dismissible fade show"
+                                role="alert"
+                                show={show}
+                                // onClick={() => setErrorForm(false)}
+                            >
+                                {errorValid.includes("->") ? (
+                                    <>
+                                        {errorValid.split("->")[0]}
+                                        <strong>
+                                            {errorValid.split("->")[1]}
+                                        </strong>
+                                    </>
+                                ) : (
+                                    <>{errorValid}</>
+                                )}
+                                {/* Vuelva a intentar! */}
+                                <Button
+                                    variant=""
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="alert"
+                                    aria-label="Close"
+                                    onClick={() => setErrorValid("")}
                                 >
                                     <i className="bi bi-x"></i>
                                 </Button>

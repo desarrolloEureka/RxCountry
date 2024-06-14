@@ -189,7 +189,7 @@ export const saveAreasOnCampusQuery = async ({
         data,
         refExist,
     );
-    console.log("Guardó área");
+    // console.log("Guardó área");
     return queryResult;
     // return;
 };

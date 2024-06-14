@@ -145,7 +145,7 @@ export const ExportCSV = ({
     const actionsMemo = React.useMemo(() => {
         return (
             <>
-                {onMainFormModal && (
+                {reference !== "roles" && onMainFormModal && (
                     <MainFormModal
                         campusIsEmpty={campusIsEmpty}
                         onMainFormModal={onMainFormModal}
@@ -263,10 +263,12 @@ export const ExportCSV = ({
                     />
                 }
                 onRowClicked={(row: any, event) => {
-                    !row.isDeleted && onMainFormModalEdit(row);
+                    reference !== "roles" &&
+                        !row.isDeleted &&
+                        onMainFormModalEdit(row);
                 }}
                 // onRowClicked={onMainFormModalEdit}
-                pointerOnHover
+                pointerOnHover={reference !== "roles"}
                 defaultSortFieldId={2}
                 columns={columns}
                 data={data}
