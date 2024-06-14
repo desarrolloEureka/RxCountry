@@ -15,6 +15,7 @@ import {
 import { getAllAgreementsQuery } from "@/queries/AgreementsQueries";
 import { getAllCampusQuery } from "@/queries/campusQueries";
 import {
+    getAllDocumentsQuery,
     getDocumentReference,
     getUrlFile,
     saveAreasOnCampusQuery,
@@ -58,15 +59,17 @@ const MainFormHook = ({
     const [errorValid, setErrorValid] = useState("");
     const [errorForm, setErrorForm] = useState(false);
     const [errorPass, setErrorPass] = useState(false);
+    const [itemExist, setItemExist] = useState(false);
     const [errorDataUpload, setErrorDataUpload] = useState<ErrorDataForm[]>();
     const [showPassword, setShowPassword] = useState(false);
     const [files, setFiles] = useState<SetStateAction<any>[]>([]);
-    const [urlPhoto, setUrlPhoto] = useState<string>("");
+    // const [urlPhoto, setUrlPhoto] = useState<string>("");
     const [campus, setCampus] = useState<CampusSelector[]>();
     const [specialties, setSpecialties] = useState<SpecialtySelector[]>();
     const [contracts, setContract] = useState<AgreementSelector[]>();
     const [areas, setAreas] = useState<AreasSelector[]>();
     const [roles, setRoles] = useState<RolesSelector[]>();
+    const [diagnostician, setDiagnostician] = useState<any[]>();
 
     const [selectedIdType, setSelectedIdType] = useState<any>(null);
     const [selectedState, setSelectedState] = useState<any>(null);
@@ -148,6 +151,40 @@ const MainFormHook = ({
 
     const changeHandler = (e: any) => {
         setData({ ...data, [e.target.name]: e.target.value });
+
+        const diagnosticianFound = diagnostician?.find(
+            (user) => user.id === e.target.value,
+        );
+
+        reference === "diagnostician" &&
+            e.target.name === "id" &&
+            diagnosticianFound &&
+            // console.log("Este usuario ya existe!!");
+            (setErrorValid(
+                "¡Este documento ya está vinculado con un usuario existente!",
+            ),
+            setItemExist(true));
+
+        const campusFound = campus?.find(
+            (item) =>
+                item.label.toLocaleLowerCase() ===
+                e.target.value.toLocaleLowerCase(),
+        );
+        const specialtiesFound = specialties?.find(
+            (item) =>
+                item.label.toLocaleLowerCase() ===
+                e.target.value.toLocaleLowerCase(),
+        );
+        const areasFound = areas?.find(
+            (item) =>
+                item.label.toLocaleLowerCase() ===
+                e.target.value.toLocaleLowerCase(),
+        );
+
+        e.target.name === "name" &&
+            (campusFound || specialtiesFound || areasFound) &&
+            (setErrorValid(`¡Este nombre ya existe: -> ${e.target.value} !`),
+            setItemExist(true));
     };
 
     const dateChangeHandler = (e: any) => {
@@ -466,7 +503,7 @@ const MainFormHook = ({
                                   editData.availableCampus,
                                   data.availableCampus,
                               );
-                              console.log("currentData", currentData);
+                              //   console.log("currentData", currentData);
 
                               currentData.forEach(async (itemData: string) => {
                                   await saveAreasOnCampusQuery({
@@ -569,7 +606,7 @@ const MainFormHook = ({
         data.campus &&
         data.area;
 
-    const campusVal = reference === "campus" && data.name;
+    const campusVal = !itemExist && reference === "campus" && data.name;
 
     const diagnosticianVal =
         reference === "diagnostician" &&
@@ -578,15 +615,20 @@ const MainFormHook = ({
         data.name &&
         data.rut &&
         data.phone &&
+        !itemExist &&
         data.email;
 
     const agreementsVal =
         reference === "agreements" && data.name && data.personType;
 
     const areasVal =
-        reference === "areas" && data.name && data.availableCampus.length > 0;
+        !itemExist &&
+        reference === "areas" &&
+        data.name &&
+        data.availableCampus.length > 0;
 
-    const specialtyVal = reference === "specialties" && data.name.length > 1;
+    const specialtyVal =
+        !itemExist && reference === "specialties" && data.name.length > 1;
 
     const professionalsVal =
         reference === "professionals" &&
@@ -645,9 +687,24 @@ const MainFormHook = ({
             e.preventDefault();
             e.stopPropagation();
             // setErrorForm(true);
-            console.log(passValidation);
-            !passValidation && setErrorPass(true);
+            (reference === "functionary" ||
+                reference === "professionals" ||
+                reference === "patients") &&
+                !passValidation &&
+                setErrorPass(true);
             console.log("Falló");
+            reference === "diagnostician" &&
+                itemExist &&
+                setErrorValid(
+                    `¡Ya existe un usuario con ese documento: -> ${data.id}!`,
+                );
+            (reference === "areas" ||
+                reference === "campus" ||
+                reference === "specialties") &&
+                itemExist &&
+                setErrorValid(
+                    `¡Ya existe un registro con ese nombre: -> ${data.name}!`,
+                );
         }
     };
 
@@ -660,8 +717,9 @@ const MainFormHook = ({
         setIsLoading(false);
         setIsEdit(false);
         setShowPassword(false);
-        setUrlPhoto("");
+        // setUrlPhoto("");
         clearSelectFields();
+        setItemExist(false);
     };
 
     const clearSelectFields = () => {
@@ -716,6 +774,10 @@ const MainFormHook = ({
             areasResult && setAreas(areasResult);
             const rolesResult = await getAllRolesQuery();
             rolesResult && setRoles(rolesResult);
+            const diagnosticianResult = await getAllDocumentsQuery(
+                "diagnostician",
+            );
+            diagnosticianResult && setDiagnostician(diagnosticianResult);
         }
     }, [handleShowMainForm, handleShowMainFormEdit]);
 
@@ -760,6 +822,7 @@ const MainFormHook = ({
         roles: getRolesByReference(),
         theme: themeParsed?.dataThemeMode,
         setErrorPass,
+        setErrorValid,
         changeHandler,
         handleSendForm,
         handleClose,
