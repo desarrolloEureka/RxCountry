@@ -181,7 +181,10 @@ const MainFormHook = ({
                 e.target.value.toLocaleLowerCase(),
         );
 
-        e.target.name === "name" &&
+        (reference === "areas" ||
+            reference === "campus" ||
+            reference === "specialties") &&
+            e.target.name === "name" &&
             (campusFound || specialtiesFound || areasFound) &&
             (setErrorValid(`¡Este nombre ya existe: -> ${e.target.value} !`),
             setItemExist(true));
