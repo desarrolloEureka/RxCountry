@@ -31,6 +31,9 @@ const DataTableComponent = ({
         handleShowMainFormEdit,
         editData,
         isEmptyDataRef,
+        handleSearch,
+        searchTerm,
+        clearSearch,
     } = DataTablesHook(reference);
 
     return (
@@ -60,6 +63,9 @@ const DataTableComponent = ({
                                     tableTitle={tableTitle}
                                     reference={reference}
                                     isEmptyDataRef={isEmptyDataRef}
+                                    handleSearch={handleSearch}
+                                    searchTerm={searchTerm}
+                                    clearSearch={clearSearch}
                                 />
                             </div>
                         </Card.Body>
