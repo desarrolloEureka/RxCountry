@@ -191,6 +191,25 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
                 </Tab.Pane>
                 <Tab.Pane
                     className="tab-pane text-muted"
+                    id="Diagnoses"
+                    role="tabpanel"
+                    eventKey="eleventh"
+                >
+                    <BannerMenu
+                        seoTitle="Diagnósticos"
+                        title="Diagnósticos"
+                        item="Dashboard"
+                        activeItem="Diagnósticos"
+                    />
+                    <DataTableComponent
+                        componentTitle="Tabla del Listado de Diagnósticos."
+                        componentDescription="En esta tabla se encuentran los Diagnósticos disponibles."
+                        tableTitle="Diagnósticos"
+                        reference="diagnoses"
+                    />
+                </Tab.Pane>
+                <Tab.Pane
+                    className="tab-pane text-muted"
                     id="profile"
                     role="tabpanel"
                     eventKey="profile"

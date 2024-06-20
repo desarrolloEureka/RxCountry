@@ -1,16 +1,20 @@
 import { DataObject } from "./documents";
+import { DataMainFormObject } from "./mainForm";
 
 export interface UploadDataModalProps {
     onUploadDataModalPdf?: () => void;
     onUploadDataModalCsv?: () => void;
     onMainFormModal?: () => void;
     onMainFormModalEdit: (e: any) => void;
+    handleSearch: (e: any) => void;
     data: any;
     tableData?: setDataTable;
     columns: any;
     noHeader?: boolean;
     tableTitle: string;
     reference: string;
+    searchTerm: string;
+    clearSearch: () => void;
     isEmptyDataRef: boolean;
 }
 export interface UploadDataButtonModalProps {
@@ -104,8 +108,9 @@ export interface NoDataCardProps {
 }
 
 export interface setDataTable {
-    columns: any;
-    data: DataObject[];
+    columns: any | undefined;
+    data: DataMainFormObject[] | undefined;
+    // data: DataObject[];
 }
 
 export interface ColumnsTable {

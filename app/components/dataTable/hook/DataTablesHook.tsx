@@ -5,6 +5,7 @@ import { getAllDocumentsQuery } from "@/queries/documentsQueries";
 import { DataMainFormObject } from "@/types/mainForm";
 import { setDataTable } from "@/types/tables";
 import { onSnapshot } from "firebase/firestore";
+import _ from "lodash";
 import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
 
@@ -33,7 +34,7 @@ const DataTablesHook = (reference: string) => {
     const [dataTable, setDataTable] = useState<setDataTable>();
     const [columns, setColumns] = useState<any[]>();
     const [editData, setEditData] = useState<any>();
-    const [campusData, setCampusData] = useState<any>();
+    const [searchTerm, setSearchTerm] = useState("");
 
     const formatearFecha = (fechaISO: string): string => {
         return moment(fechaISO).format("DD/MM/YYYY HH:mm:ss");
@@ -57,6 +58,7 @@ const DataTablesHook = (reference: string) => {
                 lastName: labelToDisplay.includes(reference)
                     ? "Apellidos"
                     : "Apellido",
+                code: "Código",
                 email: "Correo",
                 phone: "Teléfono",
                 phone2: "Teléfono fijo",
@@ -160,6 +162,44 @@ const DataTablesHook = (reference: string) => {
         }
     }, [reference]);
 
+    const handleSearch = async (e: any) => {
+        const value = e.target.value.toLowerCase();
+        setSearchTerm(value);
+        const campusResult = await getAllCampusQuery();
+
+        const filtered = getDocuments?.filter((item) => {
+            return _.some(item, (prop) => {
+                if (Array.isArray(prop)) {
+                    const dataFiltered =
+                        reference === "areas"
+                            ? campusResult
+                                  .filter((item) => prop.includes(item.value))
+                                  .map((campus) => campus.label)
+                            : prop;
+                    return dataFiltered.some((subProp) =>
+                        subProp.toString().toLowerCase().includes(value),
+                    );
+                }
+                return prop.toString().toLowerCase().includes(value);
+            });
+        });
+
+        const currentData = {
+            columns,
+            data: filtered,
+        };
+        setDataTable(currentData);
+    };
+
+    const clearSearch = () => {
+        setSearchTerm("");
+        const currentData = {
+            columns,
+            data: getDocuments,
+        };
+        setDataTable(currentData);
+    };
+
     const onUploadDataModalCsv = () => setHandleShowCsv(true);
 
     const onUploadDataModalPdf = () => setHandleShowPdf(true);
@@ -216,6 +256,9 @@ const DataTablesHook = (reference: string) => {
         handleShowMainFormEdit,
         editData,
         isEmptyDataRef,
+        handleSearch,
+        searchTerm,
+        clearSearch,
     };
 };
 

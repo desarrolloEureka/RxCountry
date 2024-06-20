@@ -180,6 +180,7 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "agreements" &&
+                                reference !== "diagnoses" &&
                                 reference !== "areas" && (
                                     <>
                                         <Col md={6} lg={4} className="mb-3">
@@ -302,6 +303,31 @@ const MainFormModal = ({
                                 </Col>
                             )}
 
+                            {reference === "diagnoses" && (
+                                <Col md={6} lg={4} className="mb-3">
+                                    <Form.Label className="">
+                                        Código
+                                        <span className="tw-text-red-500">
+                                            *
+                                        </span>
+                                    </Form.Label>
+                                    <Form.Control
+                                        required
+                                        value={data.code}
+                                        type="text"
+                                        minLength={2}
+                                        maxLength={250}
+                                        name="code"
+                                        className="form-control"
+                                        placeholder="Número"
+                                        aria-label="code"
+                                        onChange={changeHandler}
+                                        // title="Deben ser números del registro"
+                                        // pattern="^[0-9\s]+$"
+                                    />
+                                </Col>
+                            )}
+
                             {reference === "diagnostician" && (
                                 <Col md={6} lg={4} className="mb-3">
                                     <Form.Label className="">
@@ -395,6 +421,7 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "diagnostician" &&
+                                reference !== "diagnoses" &&
                                 reference !== "agreements" &&
                                 reference !== "areas" && (
                                     <Col md={6} lg={4} className="mb-3">
@@ -460,6 +487,7 @@ const MainFormModal = ({
                             )}
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
+                                reference !== "diagnoses" &&
                                 reference !== "agreements" &&
                                 reference !== "areas" && (
                                     <Col
@@ -511,6 +539,7 @@ const MainFormModal = ({
 
                             {reference !== "specialties" &&
                                 reference !== "agreements" &&
+                                reference !== "diagnoses" &&
                                 reference !== "areas" && (
                                     <>
                                         <Col
@@ -731,6 +760,7 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "agreements" &&
+                                reference !== "diagnoses" &&
                                 reference !== "areas" && (
                                     <Col
                                         md={6}
@@ -760,6 +790,7 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "diagnostician" &&
+                                reference !== "diagnoses" &&
                                 reference !== "agreements" &&
                                 reference !== "areas" && (
                                     <>
@@ -1188,6 +1219,7 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "diagnostician" &&
+                                reference !== "diagnoses" &&
                                 reference !== "agreements" &&
                                 reference !== "areas" && (
                                     <Col className="mb-3">
@@ -1313,6 +1345,7 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "agreements" &&
+                                reference !== "diagnoses" &&
                                 reference !== "areas" && (
                                     <>
                                         {data.idType && (
@@ -1388,6 +1421,23 @@ const MainFormModal = ({
                                 </>
                             )}
 
+                            {reference === "diagnoses" && (
+                                <>
+                                    {data.code && (
+                                        <Col md={6} lg={4} className="mb-3">
+                                            <div className="tw-flex-1 tw-text-star tw-text-base">
+                                                <h6 className="fw-bold">
+                                                    Código
+                                                </h6>
+                                                <p className="border-bottom">
+                                                    {data.code}
+                                                </p>
+                                            </div>
+                                        </Col>
+                                    )}
+                                </>
+                            )}
+
                             {reference === "diagnostician" && (
                                 <>
                                     {data.rut && (
@@ -1435,6 +1485,7 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "diagnostician" &&
+                                reference !== "diagnoses" &&
                                 reference !== "agreements" &&
                                 reference !== "areas" && (
                                     <>
@@ -1485,6 +1536,7 @@ const MainFormModal = ({
 
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
+                                reference !== "diagnoses" &&
                                 reference !== "agreements" &&
                                 reference !== "areas" && (
                                     <>
@@ -1509,6 +1561,7 @@ const MainFormModal = ({
 
                             {reference !== "specialties" &&
                                 reference !== "agreements" &&
+                                reference !== "diagnoses" &&
                                 reference !== "areas" && (
                                     <>
                                         {data.phone2 && (
@@ -1629,6 +1682,7 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "agreements" &&
+                                reference !== "diagnoses" &&
                                 reference !== "areas" && (
                                     <>
                                         {data.email && (
@@ -1872,6 +1926,7 @@ const MainFormModal = ({
                             {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "diagnostician" &&
+                                reference !== "diagnoses" &&
                                 reference !== "agreements" &&
                                 reference !== "areas" && (
                                     <Col className="tw-text-center">

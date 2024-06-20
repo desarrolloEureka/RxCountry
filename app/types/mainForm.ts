@@ -8,6 +8,7 @@ export interface DataMainFormObject {
     personType: string;
     discount: string;
     rut: string;
+    code: string;
     lastName: string;
     birthDate: string;
     age: string;
@@ -130,6 +131,14 @@ export type DataSpecialtyObject = {
     icon: string;
     name: string;
     description: string;
+    isActive: boolean;
+    isDeleted: boolean;
+};
+
+export type DataDiagnosesObject = {
+    uid: string;
+    name: string;
+    code: string;
     isActive: boolean;
     isDeleted: boolean;
 };
