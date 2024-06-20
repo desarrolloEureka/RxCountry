@@ -3,6 +3,7 @@ import {
     dataAgreementsObject,
     dataAreasObject,
     dataCampusObject,
+    dataDiagnosesObject,
     dataDiagnosticianObject,
     dataFunctionaryObject,
     dataMainFormObject,
@@ -433,6 +434,19 @@ const MainFormHook = ({
             newData = { ...currentDataObject };
         }
 
+        if (reference === "diagnoses") {
+            const currentDataObject = { ...dataDiagnosesObject };
+
+            handleShowMainFormEdit
+                ? (currentDataObject.uid = data.uid)
+                : (currentDataObject.uid = documentRef.id);
+            currentDataObject.name = data.name;
+            currentDataObject.code = data.code;
+            currentDataObject.isActive = data.isActive;
+
+            newData = { ...currentDataObject };
+        }
+
         if (reference === "diagnostician") {
             const currentDataObject = { ...dataDiagnosticianObject };
 
@@ -623,6 +637,9 @@ const MainFormHook = ({
 
     const agreementsVal =
         reference === "agreements" && data.name && data.personType;
+    
+    const diagnosesVal =
+        reference === "diagnoses" && data.name && data.code;
 
     const areasVal =
         !itemExist &&
@@ -673,6 +690,7 @@ const MainFormHook = ({
             campusVal ||
             specialtyVal ||
             diagnosticianVal ||
+            diagnosesVal ||
             agreementsVal ||
             ((functionaryVal || professionalsVal || patientVal) &&
                 passValidation)

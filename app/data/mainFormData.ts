@@ -8,6 +8,7 @@ import {
     DataDiagnosticianObject,
     DataAgreementsObject,
     DataAreasObject,
+    DataDiagnosesObject,
 } from "@/types/mainForm";
 
 export const dataMainFormObject = {
@@ -20,6 +21,7 @@ export const dataMainFormObject = {
     personType: "",
     discount: "",
     rut: "",
+    code: "",
     lastName: "",
     birthDate: "",
     age: "",
@@ -145,6 +147,14 @@ export const dataSpecialtyObject = {
     isActive: false,
     isDeleted: false,
 } as DataSpecialtyObject;
+
+export const dataDiagnosesObject = {
+    uid: "",
+    name: "",
+    code: "",
+    isActive: false,
+    isDeleted: false,
+} as DataDiagnosesObject;
 
 export const dataAgreementsObject = {
     uid: "",

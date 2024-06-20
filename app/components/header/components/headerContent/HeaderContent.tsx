@@ -117,6 +117,12 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                     Diagnosticadores
                                 </NavDropdown.Item>
                                 <NavDropdown.Item
+                                    href="#diagnoses"
+                                    eventKey="eleventh"
+                                >
+                                    Diagnósticos
+                                </NavDropdown.Item>
+                                <NavDropdown.Item
                                     href="#agreements"
                                     eventKey="eighth"
                                 >

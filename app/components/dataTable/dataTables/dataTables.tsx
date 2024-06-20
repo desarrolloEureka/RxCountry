@@ -1,14 +1,14 @@
 import {
-    NoDataCardProps,
     ExportProps,
+    NoDataCardProps,
     // TableDataItemOld,
     UploadDataButtonModalProps,
     UploadDataModalProps,
 } from "@/types/tables";
 // import differenceBy from "lodash/differenceBy";
 import dynamic from "next/dynamic";
-import React, { MouseEvent } from "react";
-import { Button } from "react-bootstrap";
+import { MouseEvent, useMemo } from "react";
+import { Button, Form } from "react-bootstrap";
 import DataTable, { createTheme } from "react-data-table-component";
 import "react-data-table-component-extensions/dist/index.css";
 // import Swal from "sweetalert2";
@@ -135,6 +135,9 @@ export const ExportCSV = ({
     tableTitle,
     reference,
     isEmptyDataRef,
+    handleSearch,
+    searchTerm,
+    clearSearch,
 }: UploadDataModalProps) => {
     // const [selectedRows, setSelectedRows] = React.useState([]);
     // const [toggleCleared, setToggleCleared] = React.useState(false);
@@ -142,9 +145,30 @@ export const ExportCSV = ({
 
     const campusIsEmpty = isEmptyDataRef && reference === "areas";
 
-    const actionsMemo = React.useMemo(() => {
+    const actionsMemo = useMemo(() => {
         return (
             <>
+                <div className="tw-flex tw-flex-1 tw-relative">
+                    <Form.Control
+                        value={searchTerm}
+                        name="search"
+                        type="text"
+                        minLength={2}
+                        maxLength={250}
+                        placeholder="Búsqueda"
+                        className="form-control tw-w-full"
+                        aria-label="search"
+                        onChange={handleSearch}
+                    />
+                    {searchTerm && (
+                        <Button
+                            className="tw-absolute tw-right-0 tw-bottom-0 text-gray-500 hover:text-gray-700"
+                            onClick={clearSearch}
+                        >
+                            Limpiar
+                        </Button>
+                    )}
+                </div>
                 {reference !== "roles" && onMainFormModal && (
                     <MainFormModal
                         campusIsEmpty={campusIsEmpty}
@@ -246,6 +270,7 @@ export const ExportCSV = ({
         <DataTableExtensions
             export={false}
             print={false}
+            filter={false}
             {...tableDatas}
             filterPlaceholder="Buscar"
         >
