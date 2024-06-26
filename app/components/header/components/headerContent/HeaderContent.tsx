@@ -93,12 +93,6 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                                     Áreas
                                 </NavDropdown.Item>
                             </NavDropdown>
-                            {/* <Nav.Item>
-                                <Nav.Link
-                                    href="#campus"
-                                    eventKey="fifth"
-                                ></Nav.Link>
-                            </Nav.Item> */}
                             <NavDropdown
                                 title="General"
                                 id="nav-dropdown"
@@ -137,7 +131,7 @@ const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
                             </NavDropdown>
                         </Nav>
                         <HeadDropDown
-                            notifications
+                            // notifications
                             dark
                             data={data}
                             logOut={logOut}
