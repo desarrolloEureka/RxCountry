@@ -57,7 +57,7 @@ const HeadDropDown = (params: HeaderDropDownProps) => {
                     </Nav.Link>
                 </Dropdown>
             )}
-            {!params.multiLingual && (
+            {params.multiLingual && (
                 <Dropdown className="header-element country-selector">
                     <Dropdown.Toggle
                         className="nav-link icon country-Flag p-0"

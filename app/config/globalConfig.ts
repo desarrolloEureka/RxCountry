@@ -1,8 +1,8 @@
 export const globalConfig = {
   primary: '0,0,0',
-  name: 'Ten',
+  name: 'Rx-Country-BackOffice',
   icon: './favicon.ico',
-  description: 'Descripcipon global de la aplicación',
+  description: 'Descripción global de la aplicación',
   login: {
     banner: {
       title: 'Ingresa a tu cuenta',
@@ -22,7 +22,7 @@ export const globalConfig = {
         'Crea tu cuenta y administra tu sistema de manera optima y eficiente.',
     },
     form: {
-      title: 'Registrate ahora',
+      title: 'Regístrate ahora',
       description: 'Crear una cuenta toma solo un minuto.',
     },
   },
@@ -34,7 +34,7 @@ export const globalConfig = {
     },
     form: {
       title: 'Recuperar contraseña',
-      description: 'Ingregsa tu correo electrónico y recupera tu contraseña.',
+      description: 'Ingresa tu correo electrónico y recupera tu contraseña.',
     },
   },
   resetPassword: {
@@ -45,7 +45,7 @@ export const globalConfig = {
     },
     form: {
       title: 'Cambiar contraseña',
-      description: 'Ingregsa los datos solicitados y cambia tus credenciales.',
+      description: 'Ingresa los datos solicitados y cambia tus credenciales.',
     },
   },
 };
