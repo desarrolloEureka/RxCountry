@@ -11,7 +11,7 @@ import {
     personTypes,
 } from "@/data/formConstant";
 import { ModalParamsMainForm } from "@/types/modals";
-import "filepond/dist/filepond.min.css";
+// import "filepond/dist/filepond.min.css";
 import _ from "lodash";
 import dynamic from "next/dynamic";
 import {
@@ -23,14 +23,14 @@ import {
     Modal,
     Row,
 } from "react-bootstrap";
-import { FilePond } from "react-filepond";
+// import { FilePond } from "react-filepond";
+import { showPasswordParams } from "@/types/mainForm";
+import moment from "moment";
+import PhoneInput from "react-phone-input-2";
+import { components } from "react-select";
+import makeAnimated from "react-select/animated";
 import MainFormHook from "./hook/mainFormHook";
 const Select = dynamic(() => import("react-select"), { ssr: false });
-import { components } from "react-select";
-import { showPasswordParams } from "@/types/mainForm";
-import makeAnimated from "react-select/animated";
-import PhoneInput from "react-phone-input-2";
-import moment from "moment";
 
 const animatedComponents = makeAnimated();
 
