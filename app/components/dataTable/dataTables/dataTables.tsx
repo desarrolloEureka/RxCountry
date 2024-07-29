@@ -192,9 +192,12 @@ export const ExportCSV = ({
             </>
         );
     }, [
+        searchTerm,
+        handleSearch,
+        clearSearch,
+        reference,
         onMainFormModal,
         campusIsEmpty,
-        reference,
         onUploadDataModalCsv,
         onUploadDataModalPdf,
         data,

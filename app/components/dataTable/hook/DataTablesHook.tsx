@@ -61,7 +61,7 @@ const DataTablesHook = (reference: string) => {
                 code: "Código",
                 email: "Correo",
                 phone: "Teléfono",
-                phone2: "Teléfono fijo",
+                phone2: "Teléfono Fijo",
                 address: "Dirección",
                 description: "Descripción",
                 age: "Edad",
