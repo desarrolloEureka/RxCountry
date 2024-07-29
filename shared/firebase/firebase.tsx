@@ -3,17 +3,18 @@ import firebase from 'firebase/compat/app';
 // Add the Firebase products that you want to use
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+
 const firebaseConfig = {
-    apiKey: "AIzaSyC2yJFccHS8v9EFAuhJNS3XT5kFY2znL38",
-    authDomain: "rxcountry-backoffice.firebaseapp.com",
-    projectId: "rxcountry-backoffice",
-    storageBucket: "rxcountry-backoffice.appspot.com",
-    messagingSenderId: "150291031577",
-    appId: "1:150291031577:web:0b17b2757cecf3f6a6ac88",
-    measurementId: "G-NVG2EXRMDV",
-    backendBaseUrl:
-        "https://us-central1-rxcountry-backoffice.cloudfunctions.net/backendApp",
+    apiKey: process.env.NEXT_PUBLIC_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_APP_ID,
+    measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
+    backendBaseUrl: process.env.NEXT_PUBLIC_BACKEND_BASE_URL,
 };
+
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const db = firebaseApp.firestore();
