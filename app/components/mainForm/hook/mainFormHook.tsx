@@ -606,6 +606,7 @@ const MainFormHook = ({
                       }
                   })
                   .then(confirmAlert);
+
         return [...error];
     };
 
@@ -637,9 +638,8 @@ const MainFormHook = ({
 
     const agreementsVal =
         reference === "agreements" && data.name && data.personType;
-    
-    const diagnosesVal =
-        reference === "diagnoses" && data.name && data.code;
+
+    const diagnosesVal = reference === "diagnoses" && data.name && data.code;
 
     const areasVal =
         !itemExist &&

@@ -8,7 +8,7 @@ import {
     query,
     setDoc,
     updateDoc,
-    where
+    where,
 } from "firebase/firestore";
 import moment from "moment";
 import { db } from "shared/firebase/firebase";
@@ -125,6 +125,12 @@ export const updateDocumentsByIdFb = async (
     reference: string,
 ) => {
     const document = docRef({ ref: reference, collection: id });
+
+    // console.log({
+    //     ...newData,
+    //     timestamp: currentDate,
+    // });
+
     return await updateDoc(document, {
         ...newData,
         timestamp: currentDate,

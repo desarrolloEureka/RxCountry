@@ -26,7 +26,7 @@ const HomeDash = () => {
     return (
         <div className="tw-flex tw-flex-col tw-items-center tw-justify-center tw-max-h-screen tw-h-[1440px]">
             {/* <img src={main_logo_dark.src} className="tw-h-1/4" alt="img" /> */}
-            <h3 className="tw-text-8xl tw-text-slate-500 text-center">
+            <h3 className="tw-text-8xl tw-text-[#5696d3] text-center">
                 {/* Mensaje de bienvenida */}
                 Bienvenidos al BackOffice
             </h3>
