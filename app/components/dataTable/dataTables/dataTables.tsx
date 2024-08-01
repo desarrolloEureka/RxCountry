@@ -303,6 +303,7 @@ export const ExportCSV = ({
                 // data={dataTable}
                 actions={actionsMemo}
                 pagination
+                paginationPerPage={30}
                 paginationComponentOptions={paginationComponentOptions}
                 highlightOnHover
                 // title={tableTitle}

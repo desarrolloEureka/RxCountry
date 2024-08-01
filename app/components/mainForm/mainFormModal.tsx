@@ -1088,7 +1088,7 @@ const MainFormModal = ({
                                             placeholder="Rol"
                                             isClearable
                                             name="rol"
-                                            options={roles}
+                                            options={_.sortBy(roles, "label")}
                                             id="rol"
                                             className="basic-multi-select"
                                             classNamePrefix="Select2"
@@ -1124,9 +1124,7 @@ const MainFormModal = ({
                                             placeholder="Sede"
                                             isClearable
                                             name="campus"
-                                            options={_.sortBy(campus, [
-                                                "label",
-                                            ])}
+                                            options={_.sortBy(campus, "label")}
                                             id="campus"
                                             className="basic-multi-select"
                                             classNamePrefix="Select2"
@@ -1165,7 +1163,7 @@ const MainFormModal = ({
                                         // closeMenuOnSelect={false}
                                         components={animatedComponents}
                                         isMulti
-                                        options={_.sortBy(campus, ["label"])}
+                                        options={_.sortBy(campus, "label")}
                                         className="basic-multi-select"
                                         classNamePrefix="Select2"
                                         onChange={
@@ -1936,7 +1934,7 @@ const MainFormModal = ({
                                                 src={
                                                     data.urlPhoto
                                                         ? data.urlPhoto
-                                                        : "http://via.placeholder.com/150x150"
+                                                        : "https://via.placeholder.com/150x150"
                                                 }
                                                 alt="Profile Photo"
                                                 width="150"
