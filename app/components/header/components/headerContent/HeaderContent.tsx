@@ -12,7 +12,7 @@ const HeadDropDown = dynamic(
 
 const HeaderContent = ({ hamburger }: { hamburger?: boolean }) => {
     const { logOut, main_logo, data } = HeaderHook();
-
+    
     return (
         <header className="app-header ">
             <img

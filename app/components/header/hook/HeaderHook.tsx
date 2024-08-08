@@ -6,6 +6,8 @@ import useAuth from "@/firebase/auth";
 import { getProfileDataByIdFb } from "@/firebase/user";
 import { useCallback, useEffect, useState } from "react";
 import { ProfileData } from "@/data/user";
+import { getAllRolesQuery } from "@/queries/RolesQueries";
+import { RolesSelector } from "@/types/roles";
 
 function HeaderHook() {
     const { logOut } = Logout();
@@ -23,8 +25,13 @@ function HeaderHook() {
     const getUserProfileData = useCallback(async () => {
         if (user) {
             const userData: any = await getProfileDataByIdFb(user?.uid);
-            setData(userData);
-            // console.log({ ...userData });
+            const allRolesData: RolesSelector[] = await getAllRolesQuery();
+            const rolNameFound: string | undefined =
+            userData &&
+            allRolesData &&
+            allRolesData.find((item: any) => item.value === userData.rol)
+            ?.label;
+            setData({ ...userData, rolName: rolNameFound });
         }
     }, [user]);
 
