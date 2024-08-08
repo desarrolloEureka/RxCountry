@@ -45,20 +45,20 @@ const SingIn = () => {
                             <Col
                                 lg={6}
                                 xl={5}
-                                className="d-none d-lg-block text-center bg-primary details custom-bg"
+                                className="d-none d-lg-block text-center bg-primary details custom-bg tw-flex tw-flex-col tw-justify-center tw-items-center"
                             >
-                                <div className="mt-5 pt-4 p-2 position-absolute">
+                                <div className="pt-4 p-2 position-absolute">
                                     <img
                                         src={main_logo_dark.src}
                                         className="header-brand-img mb-4"
                                         alt="logo-light"
                                     />
-                                    <div className="clearfix"></div>
-                                    <img
+                                    {/* <div className="clearfix"></div> */}
+                                    {/* <img
                                         src={user_logo.src}
                                         className="ht-100 mb-0"
                                         alt="user"
-                                    />
+                                    /> */}
                                     <h5 className="mt-4 text-white">
                                         {globalConfig.login.banner.title}
                                     </h5>
