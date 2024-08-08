@@ -320,7 +320,7 @@ const HeadDropDown = (params: HeaderDropDownProps) => {
                         </h6>
                         <p className="main-notification-text mb-0">
                             {params.data?.rol
-                                ? params.data?.rol
+                                ? params.data?.rolName
                                 : "Super Admin"}
                         </p>
                     </div>
