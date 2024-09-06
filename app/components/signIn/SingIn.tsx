@@ -53,7 +53,7 @@ const SingIn = () => {
                                         className="header-brand-img mb-4"
                                         alt="logo-light"
                                     />
-                                    {/* <div className="clearfix"></div> */}
+                                    <div className="clearfix"></div>
                                     {/* <img
                                         src={user_logo.src}
                                         className="ht-100 mb-0"
