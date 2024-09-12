@@ -19,9 +19,8 @@ import {
     Button,
     Col,
     Form,
-    InputGroup,
     Modal,
-    Row,
+    Row
 } from "react-bootstrap";
 // import { FilePond } from "react-filepond";
 import { showPasswordParams } from "@/types/mainForm";
@@ -114,7 +113,6 @@ const MainFormModal = ({
         selectedAvailableCampus,
         selectedArea,
         isEdit,
-        errorPass,
         campus,
         specialties,
         contracts,
@@ -122,7 +120,8 @@ const MainFormModal = ({
         roles,
         theme,
         errorValid,
-        setErrorPass,
+        errorEmail,
+        setErrorEmail,
         setErrorValid,
         handleSendForm,
         handleClose,
@@ -492,7 +491,15 @@ const MainFormModal = ({
                                 reference !== "areas" && (
                                     <Col
                                         md={6}
-                                        lg={reference !== "campus" && 4}
+                                        lg={
+                                            reference === "professionals" ||
+                                            reference === "diagnostician" ||
+                                            reference === "functionary"
+                                                ? 4
+                                                : reference === "patients"
+                                                ? 3
+                                                : 6
+                                        }
                                         className="mb-3"
                                     >
                                         <Form.Label className="">
@@ -544,7 +551,15 @@ const MainFormModal = ({
                                     <>
                                         <Col
                                             md={6}
-                                            lg={reference !== "campus" && 4}
+                                            lg={
+                                                reference === "professionals" ||
+                                                reference === "diagnostician" ||
+                                                reference === "functionary"
+                                                    ? 4
+                                                    : reference === "patients"
+                                                    ? 3
+                                                    : 6
+                                            }
                                             className="mb-3"
                                         >
                                             <Form.Label className="">
@@ -598,11 +613,11 @@ const MainFormModal = ({
                                         <Col
                                             md={6}
                                             lg={
-                                                reference !== "professionals"
-                                                    ? reference !== "campus"
-                                                        ? 4
-                                                        : 6
-                                                    : 3
+                                                reference === "professionals"
+                                                    ? 3
+                                                    : reference === "patients"
+                                                    ? 4
+                                                    : 6
                                             }
                                             className="mb-3"
                                         >
@@ -648,11 +663,11 @@ const MainFormModal = ({
                                         <Col
                                             md={6}
                                             lg={
-                                                reference !== "professionals"
-                                                    ? reference !== "campus"
-                                                        ? 4
-                                                        : 6
-                                                    : 3
+                                                reference === "professionals"
+                                                    ? 3
+                                                    : reference === "patients"
+                                                    ? 4
+                                                    : 6
                                             }
                                             className="mb-3"
                                         >
@@ -700,11 +715,10 @@ const MainFormModal = ({
                                         <Col
                                             md={6}
                                             lg={
-                                                reference !== "professionals"
-                                                    ? reference !== "campus"
-                                                        ? 4
-                                                        : 6
-                                                    : 3
+                                                reference === "professionals" ||
+                                                reference === "patients"
+                                                    ? 4
+                                                    : 6
                                             }
                                             className="mb-3"
                                         >
@@ -762,32 +776,61 @@ const MainFormModal = ({
                                 reference !== "agreements" &&
                                 reference !== "diagnoses" &&
                                 reference !== "areas" && (
-                                    <Col
-                                        md={6}
-                                        lg={reference !== "campus" && 4}
-                                        className="mb-3"
-                                    >
-                                        <Form.Label className="">
-                                            Email
-                                            <span className="tw-text-red-500">
-                                                *
-                                            </span>
-                                        </Form.Label>
-                                        <Form.Control
-                                            disabled={handleShowMainFormEdit}
-                                            required
-                                            value={data.email}
-                                            type="email"
-                                            name="email"
-                                            className=""
-                                            placeholder="Email"
-                                            aria-label="email"
-                                            onChange={changeHandler}
-                                        />
-                                    </Col>
+                                    <>
+                                        <Col
+                                            md={6}
+                                            lg={reference !== "campus" && 4}
+                                            className="mb-3"
+                                        >
+                                            <Form.Label className="">
+                                                Email
+                                                <span className="tw-text-red-500">
+                                                    *
+                                                </span>
+                                            </Form.Label>
+                                            <Form.Control
+                                                disabled={
+                                                    handleShowMainFormEdit
+                                                }
+                                                required
+                                                value={data.email}
+                                                type="email"
+                                                name="email"
+                                                className=""
+                                                placeholder="Email"
+                                                aria-label="email"
+                                                onChange={changeHandler}
+                                            />
+                                        </Col>
+                                        <Col
+                                            md={6}
+                                            lg={reference !== "campus" && 4}
+                                            className="mb-3"
+                                        >
+                                            <Form.Label className="">
+                                                Confirmar Email
+                                                <span className="tw-text-red-500">
+                                                    *
+                                                </span>
+                                            </Form.Label>
+                                            <Form.Control
+                                                disabled={
+                                                    handleShowMainFormEdit
+                                                }
+                                                required
+                                                value={data.confirmEmail}
+                                                type="email"
+                                                name="confirmEmail"
+                                                className=""
+                                                placeholder="Email"
+                                                aria-label="confirmEmail"
+                                                onChange={changeHandler}
+                                            />
+                                        </Col>
+                                    </>
                                 )}
 
-                            {reference !== "campus" &&
+                            {/* {reference !== "campus" &&
                                 reference !== "specialties" &&
                                 reference !== "diagnostician" &&
                                 reference !== "diagnoses" &&
@@ -883,7 +926,7 @@ const MainFormModal = ({
                                             </>
                                         )}
                                     </>
-                                )}
+                                )} */}
 
                             {reference === "professionals" && (
                                 <>
@@ -1283,7 +1326,7 @@ const MainFormModal = ({
                                 </Button>
                             </Alert>
                         )}
-                        {errorPass && (
+                        {errorEmail && (
                             <Alert
                                 variant="info"
                                 className="alert alert-info alert-dismissible fade show"
@@ -1291,7 +1334,7 @@ const MainFormModal = ({
                                 show={show}
                                 // onClick={() => setErrorForm(false)}
                             >
-                                <strong>Contraseñas no coinciden!.</strong>
+                                <strong>Los correos no coinciden!.</strong>
                                 Vuelva a intentar!
                                 <Button
                                     variant=""
@@ -1299,7 +1342,7 @@ const MainFormModal = ({
                                     className="btn-close"
                                     data-bs-dismiss="alert"
                                     aria-label="Close"
-                                    onClick={() => setErrorPass(false)}
+                                    onClick={() => setErrorEmail(false)}
                                 >
                                     <i className="bi bi-x"></i>
                                 </Button>

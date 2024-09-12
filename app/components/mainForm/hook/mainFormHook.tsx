@@ -13,34 +13,34 @@ import {
 } from "@/data/mainFormData";
 // import { getDocumentRefById } from "@/firebase/Documents";
 // import { registerFirebase } from "@/firebase/user";
+import useAuth from "@/firebase/auth";
+import { addUser } from "@/firebase/user";
 import { getAllAgreementsQuery } from "@/queries/AgreementsQueries";
+import { getAllAreasQuery } from "@/queries/AreasQueries";
 import { getAllCampusQuery } from "@/queries/campusQueries";
 import {
     getAllDocumentsQuery,
     getDocumentReference,
-    getUrlFile,
     saveAreasOnCampusQuery,
     saveDataDocumentsQuery,
     saveEditDataDocumentsQuery,
     saveFilesDocuments,
 } from "@/queries/documentsQueries";
+import { getAllRolesQuery } from "@/queries/RolesQueries";
 import { getAllSpecialtiesQuery } from "@/queries/SpecialtiesQueries";
 import { AgreementSelector } from "@/types/agreements";
+import { AreasSelector } from "@/types/areas";
 import { CampusSelector } from "@/types/campus";
 import { ErrorDataForm } from "@/types/documents";
 import { LocalVariable } from "@/types/global";
 import { ModalParamsMainForm } from "@/types/modals";
+import { RolesSelector } from "@/types/roles";
 import { SpecialtySelector } from "@/types/specialty";
+import { handleSendWelcomeEmail } from "lib/brevo/handlers/actions";
+import _ from "lodash";
 import moment from "moment";
 import { SetStateAction, useCallback, useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import _ from "lodash";
-import { getAllAreasQuery } from "@/queries/AreasQueries";
-import { AreasSelector } from "@/types/areas";
-import useAuth from "@/firebase/auth";
-import { addUser } from "@/firebase/user";
-import { getAllRolesQuery } from "@/queries/RolesQueries";
-import { RolesSelector } from "@/types/roles";
 
 const MainFormHook = ({
     handleShowMainForm,
@@ -59,7 +59,7 @@ const MainFormHook = ({
     const [data, setData] = useState(dataMainFormObject);
     const [errorValid, setErrorValid] = useState("");
     const [errorForm, setErrorForm] = useState(false);
-    const [errorPass, setErrorPass] = useState(false);
+    const [errorEmail, setErrorEmail] = useState(false);
     const [itemExist, setItemExist] = useState(false);
     const [errorDataUpload, setErrorDataUpload] = useState<ErrorDataForm[]>();
     const [showPassword, setShowPassword] = useState(false);
@@ -576,14 +576,17 @@ const MainFormHook = ({
               reference === "functionary"
             ? await addUser({
                   email: data.email,
-                  password: data.password,
+                  password: data.id,
                   accessTokenUser,
                   uid: documentRef.id,
               }).then(async () => {
                   await saveDataDocumentsQuery({
                       documentRef,
                       data: newData,
-                  }).then(confirmAlert);
+                  }).then(async () => {
+                      confirmAlert();
+                      await handleSendWelcomeEmail(data);
+                  });
               })
             : await saveDataDocumentsQuery({
                   documentRef,
@@ -618,6 +621,7 @@ const MainFormHook = ({
         data.lastName &&
         data.phone &&
         data.email &&
+        data.confirmEmail &&
         data.rol &&
         // data.password &&
         // data.confirmPassword &&
@@ -657,6 +661,7 @@ const MainFormHook = ({
         data.name &&
         data.lastName &&
         data.phone &&
+        data.confirmEmail &&
         data.email;
     // data.password &&
     // data.confirmPassword;
@@ -670,15 +675,20 @@ const MainFormHook = ({
         // data.birthDate &&
         // data.age &&
         data.phone &&
+        data.confirmEmail &&
         data.email;
     // data.password &&
     // data.confirmPassword;
 
-    const passValidation = handleShowMainFormEdit
-        ? data.confirmPassword === data.password
-        : data.confirmPassword === data.password &&
-          data.password &&
-          data.confirmPassword;
+    // const passValidation = handleShowMainFormEdit
+    //     ? data.confirmPassword === data.password
+    //     : data.confirmPassword === data.password &&
+    //       data.password &&
+    //       data.confirmPassword;
+
+    const emailValidation = handleShowMainFormEdit
+        ? data.confirmEmail === data.email
+        : data.confirmEmail === data.email && data.email && data.confirmEmail;
 
     // console.log("data", data);
     // console.log("editData", editData);
@@ -693,7 +703,7 @@ const MainFormHook = ({
             diagnosesVal ||
             agreementsVal ||
             ((functionaryVal || professionalsVal || patientVal) &&
-                passValidation)
+                emailValidation)
         ) {
             e.preventDefault();
             e.stopPropagation();
@@ -711,8 +721,8 @@ const MainFormHook = ({
             (reference === "functionary" ||
                 reference === "professionals" ||
                 reference === "patients") &&
-                !passValidation &&
-                setErrorPass(true);
+                !emailValidation &&
+                setErrorEmail(true);
             console.log("Falló");
             reference === "diagnostician" &&
                 itemExist &&
@@ -835,14 +845,14 @@ const MainFormHook = ({
         files,
         showPassword,
         isEdit,
-        errorPass,
+        errorEmail,
         campus,
         specialties,
         contracts,
         areas,
         roles: getRolesByReference(),
         theme: themeParsed?.dataThemeMode,
-        setErrorPass,
+        setErrorEmail,
         setErrorValid,
         changeHandler,
         handleSendForm,
