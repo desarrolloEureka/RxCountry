@@ -19,6 +19,7 @@ export interface DataMainFormObject {
     state: any;
     city: string;
     email: string;
+    confirmEmail: string;
     password: string;
     confirmPassword: string;
     // cardNumber: string;
@@ -44,13 +45,14 @@ export type DataFunctionaryObject = {
     lastName: string;
     phone: any;
     email: string;
+    confirmEmail: string;
     phone2: any;
     address: string;
     country: string;
     state: any;
     city: string;
-    password: string;
-    confirmPassword: string;
+    // password: string;
+    // confirmPassword: string;
     rol: string;
     campus: string;
     area: string;
@@ -75,8 +77,9 @@ export type DataPatientObject = {
     state: any;
     city: string;
     email: string;
-    password: string;
-    confirmPassword: string;
+    confirmEmail: string;
+    // password: string;
+    // confirmPassword: string;
     rol: string;
     urlPhoto: string;
     timestamp: Date;
@@ -97,8 +100,9 @@ export type DataProfessionalObject = {
     state: any;
     city: string;
     email: string;
-    password: string;
-    confirmPassword: string;
+    confirmEmail: string;
+    // password: string;
+    // confirmPassword: string;
     // cardNumber: string;
     // medicalRecord: string;
     specialty: string;
