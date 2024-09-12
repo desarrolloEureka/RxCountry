@@ -2,9 +2,6 @@
 
 import { DataProfessionalObject } from "@/types/mainForm";
 import { sendEmail } from "../brevoWithApiKey";
-// import { DataProfessionalObject } from "@/app/types/professionals";
-// import { sendEmail } from "@/lib/brevo/brevoWithApiKey";
-// import { sendEmailSMTP } from "../brevoWithSMTP";
 import { plantillaBienvenida } from "../plantillas/bienvenida";
 import { plantillaCierreOrden } from "../plantillas/cierreOrden";
 import { plantillaNuevaOrden } from "../plantillas/nuevaOrden";
