@@ -84,6 +84,7 @@ const DataTableComponent = ({
                     reference={reference}
                 />
                 <MainFormModal
+                    aria-hidden="false"
                     handleShowMainForm={handleShowMainForm}
                     setHandleShowMainForm={setHandleShowMainForm}
                     handleShowMainFormEdit={handleShowMainFormEdit}

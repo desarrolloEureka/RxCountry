@@ -92,7 +92,11 @@ const MainFormModal = ({
     onMainFormModal,
     campusIsEmpty,
 }: UploadDataButtonModalProps) => (
-    <Button disabled={campusIsEmpty} onClick={onMainFormModal}>
+    <Button
+        aria-hidden="false"
+        disabled={campusIsEmpty}
+        onClick={onMainFormModal}
+    >
         Nuevo
     </Button>
 );

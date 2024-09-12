@@ -65,11 +65,11 @@ const UploadDocumentHook = ({
                 currentDataObject.lastName = val[4];
                 currentDataObject.phone = val[5];
                 currentDataObject.email = val[6];
-                currentDataObject.password = val[7];
-                currentDataObject.confirmPassword = val[8];
+                // currentDataObject.password = val[7];
+                // currentDataObject.confirmPassword = val[8];
                 // currentDataObject.rol = val[0];
-                currentDataObject.campus = val[9];
-                currentDataObject.area = val[10];
+                currentDataObject.campus = val[7];
+                currentDataObject.area = val[8];
                 // currentDataObject.isActive = val[11];
                 // currentDataObject.urlPhoto = urlName;
 
@@ -93,10 +93,10 @@ const UploadDocumentHook = ({
                 currentDataObject.state = val[10];
                 currentDataObject.city = val[11];
                 currentDataObject.email = val[12];
-                currentDataObject.password = val[13];
-                currentDataObject.confirmPassword = val[14];
-                currentDataObject.isActive = val[15] === "true" ? true : false;;
-                currentDataObject.rol = val[16];
+                // currentDataObject.password = val[13];
+                // currentDataObject.confirmPassword = val[14];
+                currentDataObject.isActive = val[13] === "true" ? true : false;;
+                currentDataObject.rol = val[14];
 
                 newData = { ...currentDataObject };
             }
@@ -116,14 +116,14 @@ const UploadDocumentHook = ({
                 currentDataObject.state = val[8];
                 currentDataObject.city = val[9];
                 currentDataObject.email = val[10];
-                currentDataObject.password = val[11];
-                currentDataObject.confirmPassword = val[12];
+                // currentDataObject.password = val[11];
+                // currentDataObject.confirmPassword = val[12];
                 // currentDataObject.cardNumber = val[13];
                 // currentDataObject.medicalRecord = val[14];
-                currentDataObject.specialty = val[15];
-                currentDataObject.contract = val[16];
-                currentDataObject.isActive = val[17] === "true" ? true : false;
-                currentDataObject.rol = val[18];
+                currentDataObject.specialty = val[11];
+                currentDataObject.contract = val[12];
+                currentDataObject.isActive = val[13] === "true" ? true : false;
+                currentDataObject.rol = val[14];
 
                 newData = { ...currentDataObject };
             }
