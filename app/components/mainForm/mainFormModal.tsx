@@ -1002,7 +1002,7 @@ const MainFormModal = ({
                                             }
                                         />
                                     </Col>
-                                    <Col md={6} lg={4} className="mb-3">
+                                    {/* <Col md={6} lg={4} className="mb-3">
                                         <Form.Label className="">
                                             Convenio (Opcional)
                                         </Form.Label>
@@ -1035,7 +1035,7 @@ const MainFormModal = ({
                                                 selectChangeHandlerContract
                                             }
                                         />
-                                    </Col>
+                                    </Col> */}
                                 </>
                             )}
 
@@ -1808,7 +1808,7 @@ const MainFormModal = ({
                                             </div>
                                         </Col>
                                     )}
-                                    {data.contract && (
+                                    {/* {data.contract && (
                                         <Col md={6} lg={4} className="">
                                             <div className="tw-flex-1 tw-text-star tw-text-base">
                                                 <h6 className="fw-bold">
@@ -1819,7 +1819,7 @@ const MainFormModal = ({
                                                 </p>
                                             </div>
                                         </Col>
-                                    )}
+                                    )} */}
                                 </>
                             )}
 
