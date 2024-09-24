@@ -132,7 +132,8 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
                         reference="diagnostician"
                     />
                 </Tab.Pane>
-                <Tab.Pane
+                
+                {/* <Tab.Pane
                     className="tab-pane text-muted"
                     id="Agreements"
                     role="tabpanel"
@@ -150,7 +151,8 @@ const Header = ({ hamburger }: { hamburger?: boolean }) => {
                         tableTitle="Convenios"
                         reference="agreements"
                     />
-                </Tab.Pane>
+                </Tab.Pane> */}
+                
                 <Tab.Pane
                     className="tab-pane text-muted"
                     id="Areas"
