@@ -45,7 +45,7 @@ const SingIn = () => {
                             <Col
                                 lg={6}
                                 xl={5}
-                                className="d-none d-lg-block text-center bg-primary details custom-bg tw-flex tw-flex-col tw-justify-center tw-items-center"
+                                className="d-none d-lg-block text-center bg-primary details custom-bg lg:tw-flex tw-flex-col tw-justify-center tw-items-center tw-hidden"
                             >
                                 <div className="pt-4 p-2 position-absolute">
                                     <img
