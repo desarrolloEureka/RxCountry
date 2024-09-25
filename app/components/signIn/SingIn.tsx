@@ -186,8 +186,7 @@ const SingIn = () => {
                                                         contraseña ?
                                                     </Link>
                                                 </div>
-                                                <div>
-                                                    {/* {`Don't`} */}
+                                                {/* <div>                                                    
                                                     No tienes una cuenta
                                                     registrada?
                                                     <Link
@@ -196,7 +195,7 @@ const SingIn = () => {
                                                         {" "}
                                                         Regístrate aquí
                                                     </Link>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </Card.Body>
                                     </Row>
