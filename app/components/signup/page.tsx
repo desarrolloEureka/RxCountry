@@ -1,7 +1,7 @@
 import SignUp from './SignUp';
 
 const page = () => {
-  return <SignUp />;
+  // return <SignUp />;
 };
 
 export default page;
