@@ -288,6 +288,7 @@ export const ExportCSV = ({
                 // onRowClicked={handleRowEdit}
                 // onSelectedRowsChange={handleRowSelected}
                 // conditionalRowStyles={conditionalRowStyles}
+                keyField="uid"
                 noDataComponent={
                     <NoDataCard
                         emptyRef={isEmptyDataRef}

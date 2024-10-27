@@ -693,6 +693,59 @@ const MainFormHook = ({
     // console.log("data", data);
     // console.log("editData", editData);
 
+    const saveAlert = async (callbackFc: () => Promise<ErrorDataForm[]>) => {
+        const result: ErrorDataForm[] = [];
+        Swal.fire({
+            position: "center",
+            title: `Guardando...`,
+            text: "Por favor espera",
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+        });
+
+        try {
+            const dataUpload = await callbackFc();
+            dataUpload.forEach((item) => {
+                if (!item.success) {
+                    result.push(item);
+                }
+            });
+
+            Swal.fire({
+                icon: "success",
+                title: "Éxito",
+                text: "La información se guardó con éxito",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: `Ocurrió un error: ${error}`,
+            });
+        }
+        return result;
+    };
+
+    const confirmSaveAlert = () => {
+        Swal.fire({
+            title: "¿Confirma el envío de la información?",
+            text: "Verifique la información, que todo esté correcto",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#1f2937",
+            confirmButtonText: "¡Sí, enviar!",
+            cancelButtonText: "¡No, verificar!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await saveAlert(uploadHandle).then(handleClose);
+            }
+        });
+    };
+
     const handleSendForm = async (e?: any) => {
         // console.log(data);
         if (
@@ -709,11 +762,8 @@ const MainFormHook = ({
             e.stopPropagation();
             console.log("Entró");
             setIsLoading(true);
-            const dataUpload = await uploadHandle();
-            setErrorDataUpload(dataUpload);
+            confirmSaveAlert();
             setIsLoading(false);
-            const errorFound = dataUpload.find((value) => !value.success);
-            !errorFound && handleClose();
         } else {
             e.preventDefault();
             e.stopPropagation();
@@ -821,14 +871,30 @@ const MainFormHook = ({
     }, [handleShowMainForm]);
 
     useEffect(() => {
-        handleShowMainFormEdit && (setShow(true), setData(editData));
-    }, [editData, handleShowMainFormEdit]);
+        if (handleShowMainFormEdit) {
+            setShow(true);
+            if (
+                reference === "patients" ||
+                reference === "professionals" ||
+                reference === "functionary"
+            ) {
+                const newData = {
+                    ...editData,
+                    confirmEmail: editData.email,
+                };
+                setData(newData);
+                return;
+            }
+
+            setData(editData);
+        }
+    }, [editData, handleShowMainFormEdit, reference]);
 
     return {
         show,
         isLoading,
         errorForm,
-        errorDataUpload,
+        // errorDataUpload,
         errorValid,
         data,
         selectedIdType,

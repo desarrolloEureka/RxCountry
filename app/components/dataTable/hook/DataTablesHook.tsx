@@ -96,6 +96,7 @@ const DataTablesHook = (reference: string) => {
             // entries.forEach((val, key) => {
             entries.forEach((val) => {
                 const columnsData = {
+                    id: val,
                     name: columnNamesToDisplay[val],
                     selector: (row: any) =>
                         val === "isActive" ? (

@@ -14,14 +14,7 @@ import { ModalParamsMainForm } from "@/types/modals";
 // import "filepond/dist/filepond.min.css";
 import _ from "lodash";
 import dynamic from "next/dynamic";
-import {
-    Alert,
-    Button,
-    Col,
-    Form,
-    Modal,
-    Row
-} from "react-bootstrap";
+import { Alert, Button, Col, Form, Modal, Row } from "react-bootstrap";
 // import { FilePond } from "react-filepond";
 import { showPasswordParams } from "@/types/mainForm";
 import moment from "moment";
@@ -802,31 +795,34 @@ const MainFormModal = ({
                                                 onChange={changeHandler}
                                             />
                                         </Col>
-                                        <Col
-                                            md={6}
-                                            lg={reference !== "campus" && 4}
-                                            className="mb-3"
-                                        >
-                                            <Form.Label className="">
-                                                Confirmar Email
-                                                <span className="tw-text-red-500">
-                                                    *
-                                                </span>
-                                            </Form.Label>
-                                            <Form.Control
-                                                disabled={
-                                                    handleShowMainFormEdit
-                                                }
-                                                required
-                                                value={data.confirmEmail}
-                                                type="email"
-                                                name="confirmEmail"
-                                                className=""
-                                                placeholder="Email"
-                                                aria-label="confirmEmail"
-                                                onChange={changeHandler}
-                                            />
-                                        </Col>
+
+                                        {handleShowMainForm && (
+                                            <Col
+                                                md={6}
+                                                lg={reference !== "campus" && 4}
+                                                className="mb-3"
+                                            >
+                                                <Form.Label className="">
+                                                    Confirmar Email
+                                                    <span className="tw-text-red-500">
+                                                        *
+                                                    </span>
+                                                </Form.Label>
+                                                <Form.Control
+                                                    disabled={
+                                                        handleShowMainFormEdit
+                                                    }
+                                                    required
+                                                    value={data.confirmEmail}
+                                                    type="email"
+                                                    name="confirmEmail"
+                                                    className=""
+                                                    placeholder="Email"
+                                                    aria-label="confirmEmail"
+                                                    onChange={changeHandler}
+                                                />
+                                            </Col>
+                                        )}
                                     </>
                                 )}
 
@@ -1545,7 +1541,7 @@ const MainFormModal = ({
                                     </>
                                 )}
 
-                            {reference === "c" && (
+                            {reference === "patients" && (
                                 <>
                                     {data.birthDate && (
                                         <Col md={6} lg={4} className="">
