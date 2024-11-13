@@ -497,18 +497,21 @@ const MainFormModal = ({
                                     >
                                         <Form.Label className="">
                                             Celular
-                                            <span className="tw-text-red-500">
-                                                *
-                                            </span>
+                                            {reference !== "functionary" && (
+                                                <span className="tw-text-red-500">
+                                                    *
+                                                </span>
+                                            )}
                                         </Form.Label>
                                         <PhoneInput
                                             autoFormat={false}
                                             inputProps={{
                                                 name: "phone",
-                                                required: true,
-                                                pattern:
-                                                    "^(\\+?\\d{1,4})?\\s?\\d{10,15}$",
-                                                title: "Por favor, ingrese un número de teléfono válido",
+                                                // required:
+                                                //     true,
+                                                // pattern:
+                                                //     "^(\\+?\\d{1,4})?\\s?\\d{10,15}$",
+                                                // title: "Por favor, ingrese un número de teléfono válido",
                                             }}
                                             country={"co"}
                                             specialLabel=""
