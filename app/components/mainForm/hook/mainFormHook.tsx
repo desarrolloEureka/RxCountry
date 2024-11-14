@@ -619,7 +619,7 @@ const MainFormHook = ({
         data.id &&
         data.name &&
         data.lastName &&
-        data.phone &&
+        // data.phone &&
         data.email &&
         data.confirmEmail &&
         data.rol &&
